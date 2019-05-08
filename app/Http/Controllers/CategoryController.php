@@ -15,8 +15,9 @@ class CategoryController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        return view('pages.category');
+    {   
+        $category = Category::orderBy('created_at','desc')->get();
+        return view('pages.category')->with('category',$category);
     }
 
     /**

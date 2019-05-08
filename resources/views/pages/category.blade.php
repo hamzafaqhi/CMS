@@ -37,57 +37,40 @@
                 </div>
               <!-- /.box-header -->
               <div class="box-body table-responsive">
+              @if(count($category) > 0)
                 <table class="table table-bordered table-condesed">
                   <thead>
                       <tr>
-                        <th>Action</th>
+                        <th>S.no</th>
                         <th>Category</th>   
                         <th>Author</th>                                            
                         <th>Date</th>
+                        <th>Action</th>
                       </tr>
                   </thead>
                   <tbody>
                       <tr>
+                        @foreach($category as $i=>$categories)
+                        <td>{{$i+1}}</td>
+                        <td>{{$categories->name}}</td>
+                        <td>{{$categories->author}}</td>                        
+                        <td><abbr title="2016/12/04">{{$categories->created_at->format("Y/m/d")}}</abbr></td>
                         <td width="70">
-                            <a title="Edit" class="btn btn-xs btn-default edit-row" data-toggle="modal" data-target="#edit-modal">
+                          <span>
+                            <a categories-id="{{ $categories->id }}" title="Edit" class="btn btn-xs btn-default edit-row" data-toggle="modal" data-target="#edit-modal">
                                 <i class="fa fa-edit"></i>
                             </a>
-                            <a title="Delete" class="btn btn-xs btn-danger delete-row" href="#">
+                            <a categories-id="{{ $categories->id }}" title="Delete"  class="btn btn-xs btn-danger delete-row" data-toggle="modal" data-target="#remove-modal">
                                 <i class="fa fa-trash"></i>
                             </a>
+                            </span>
                         </td>
-                        <td>Programming</td>
-                        <td>John Doe</td>                        
-                        <td><abbr title="2016/12/04 6:32:00 PM">2016/12/04</abbr> | <span class="label label-info">Schedule</span></td>
                       </tr>
-                      <tr>
-                        <td width="70">
-                            <a title="Edit" class="btn btn-xs btn-default edit-row" href="#">
-                                <i class="fa fa-edit"></i>
-                            </a>
-                            <a title="Delete" class="btn btn-xs btn-danger delete-row" href="#">
-                                <i class="fa fa-trash"></i>
-                            </a>
-                        </td>
-                        <td>Programming</td>
-                        <td>John Doe</td>                        
-                        <td><abbr title="2016/12/04 6:32:00 PM">2016/12/04</abbr> | <span class="label label-info">Schedule</span></td>
-                      </tr>
-                      <tr>
-                        <td width="70">
-                            <a title="Edit" class="btn btn-xs btn-default edit-row" href="#">
-                                <i class="fa fa-edit"></i>
-                            </a>
-                            <a title="Delete" class="btn btn-xs btn-danger delete-row" href="#">
-                                <i class="fa fa-trash"></i>
-                            </a>
-                        </td>
-                        <td>Programming</td>
-                        <td>John Doe</td>                        
-                        <td><abbr title="2016/12/04 6:32:00 PM">2016/12/04</abbr> | <span class="label label-info">Schedule</span></td>
-                      </tr>
+                      @endforeach
                   </tbody>
                 </table>
+               
+                @endif
               </div>
               <!-- /.box-body -->
               <div class="box-footer clearfix">
@@ -108,16 +91,28 @@
     <!-- /.content -->
   </div>
   <!-- Category Modal -->
-  <div class="modal fade in" id="edit-modal" style="display: block; padding-right: 17px;" aria-hidden="true">
+  <div class="modal fade in" id="edit-modal" aria-hidden="true">
           <div class="modal-dialog">
             <div class="modal-content">
-              <div class="modal-header">
+              <div class="modal-header box-header with-border">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">×</span></button>
-                <h4 class="modal-title">Default Modal</h4>
+                <h4 class="modal-title">Edit Category</h4>
               </div>
               <div class="modal-body">
-                <p>One fine body…</p>
+                  <form method="post" >
+                     <!-- id -->
+              <div class="form-group">
+                <input type="hidden" name="id" class="form-control" id="id">
+              </div>
+              <!-- /id -->
+              <!-- name -->
+              <div class="form-group">
+                <label class="box-title">Category Name</label>
+                <input type="text" name="modal-input-name" class="form-control" id="modal-input-name" required autofocus>
+              </div>
+              <!-- /name -->
+                </form>
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
@@ -128,89 +123,44 @@
           </div>
           <!-- /.modal-dialog -->
         </div>
-<!-- <div class="modal fade" id="edit-modal" tabindex="-1" role="dialog" aria-labelledby="edit-modal-label" aria-hidden="true">
-  <div class="modal-dialog modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="edit-modal-label">Edit Category</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body" id="attachment-body-content">
-        <form id="edit-form" class="form-horizontal" method="POST" action="">
-          <div class="card text-white bg-dark mb-0">
-            <div class="card-header">
-              <h2 class="m-0">Edit</h2>
+        <!--/Edit Category-->
+
+        <!--Remove Category Modal -->
+  <div class="modal fade in" id="remove-modal" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header box-header with-border">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">×</span></button>
+                <h4 class="modal-title">Delete Category</h4>
+              </div>
+              <div class="modal-body">
+                Are You Sure?
+                  <form id="deleteForm" method="post">
+                     <!-- id -->
+                  </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="remove">Yes</button>
+              </div>
             </div>
-            <div class="card-body">
-              <!-- id -->
-              <div class="form-group">
-                <label class="col-form-label" for="modal-input-id">Id (just for reference not meant to be shown to the general public) </label>
-                <input type="text" name="modal-input-id" class="form-control" id="modal-input-id" required>
-              </div>
-              <!-- /id -->
-              <!-- name -->
-              <div class="form-group">
-                <label class="col-form-label" for="modal-input-name">Name</label>
-                <input type="text" name="modal-input-name" class="form-control" id="modal-input-name" required autofocus>
-              </div>
-              <!-- /name -->
-              <!-- description -->
-              <div class="form-group">
-                <label class="col-form-label" for="modal-input-description">Email</label>
-                <input type="text" name="modal-input-description" class="form-control" id="modal-input-description" required>
-              </div>
-              <!-- /description -->
-            </div>
+            <!-- /.modal-content -->
           </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary" data-dismiss="modal">Save Changes</button>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div> -->
-<!-- /Category Modal -->
+          <!-- /.modal-dialog -->
+        </div>
+
+
 <script>
 
 $(document).ready(function() {
   /**
    * for showing edit item popup
    */
+  $('#remove').click(function()
+  {
+    console.log('remove');
+  }
 
-  $(document).on('click', "#edit-item", function() {
-    $(this).addClass('edit-item-trigger-clicked'); //useful for identifying which trigger was clicked and consequently grab data from the correct row and not the wrong one.
-
-    var options = {
-      'backdrop': 'static'
-    };
-    $('#edit-modal').modal(options)
-  })
-
-  // on modal show
-  $('#edit-modal').on('show.bs.modal', function() {
-    var el = $(".edit-item-trigger-clicked"); // See how its usefull right here? 
-    var row = el.closest(".data-row");
-
-    // get the data
-    var id = el.data('item-id');
-    var name = row.children(".name").text();
-    var description = row.children(".description").text();
-
-    // fill the data in the input fields
-    $("#modal-input-id").val(id);
-    $("#modal-input-name").val(name);
-    $("#modal-input-description").val(description);
-
-  })
-
-  // on modal hide
-  $('#edit-modal').on('hide.bs.modal', function() {
-    $('.edit-item-trigger-clicked').removeClass('edit-item-trigger-clicked')
-    $("#edit-form").trigger("reset");
-  })
-})
+}
 </script>
 @endsection

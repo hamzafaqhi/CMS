@@ -9,4 +9,5 @@ class Category extends Model
     protected $fillable = [
         'name','author'
     ];
+    protected $dates= ['created_at'];
 }
