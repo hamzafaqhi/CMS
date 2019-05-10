@@ -14,10 +14,16 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {   
-        $category = Category::orderBy('created_at','desc')->get();
-        return view('pages.category')->with('category',$category);
+    public function index(Request $request)
+    {
+        $columns = array
+        (
+            0 => 'name',
+            1 => 'created_at',
+            2 => 'action'
+        );
+        //$category = Category::orderBy('created_at','desc')->get()->->with('category',$category);
+        return view('pages.category');
     }
 
     /**
@@ -40,14 +46,16 @@ class CategoryController extends Controller
     {
         $category = new Category();
         $validator = Validator::make($request->all(),[
-            'category_name' => 'required'
+            'category_name' => 'required',
+            'description' => 'required'
         ]);
         if ($validator->passes())
         {
             $category->name= $request->category_name;
+            $category->description= $request->description;
             $category->author="hamza";
             $category->save();
-            return back()->with('success','Item created successfully!');
+            return back()->with('success','Category created successfully');
         }
         return Redirect::back()->withErrors($validator);
     }
