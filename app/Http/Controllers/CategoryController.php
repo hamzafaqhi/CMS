@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Category;
 use Validator;
 use Redirect;
+use Datatables;
 
 class CategoryController extends Controller
 {
@@ -14,17 +15,25 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
-        $columns = array
-        (
-            0 => 'name',
-            1 => 'created_at',
-            2 => 'action'
-        );
+        if (request()->ajax())
+        {
+            return datatables()->of(Category::latest()->get())
+            ->addColumn('action',function($data){
+                $button = '<button type="button" name="edit" id="'.$data->id.'" class="edit btn btn-primary btn-sm">Edit</button>';
+                $button .= '&nbsp;&nbsp;';
+                $button .= '<button type="button" name="delete" id="'.$data->id.'" class="delete btn btn-danger btn-sm">Delete</button>';
+                return $button;
+            })
+            ->rawColumns(['action'])
+            ->make(true);            
+        }
         //$category = Category::orderBy('created_at','desc')->get()->->with('category',$category);
         return view('pages.category');
     }
+
+
 
     /**
      * Show the form for creating a new resource.

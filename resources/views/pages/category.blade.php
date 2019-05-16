@@ -128,7 +128,7 @@ $(document).ready(function()
     },
     columns:[
       {
-        data:'Category name',
+        data:'name',
         name:'name'
       },
       {
@@ -137,6 +137,12 @@ $(document).ready(function()
         orderable: false
       }
     ]
+  });
+  var user_id;
+  $(document).on('click','.delete',function()
+  {
+    user_id = $(this).attr('id');
+    $('#remove-modal').modal('show');    
   });
 });
 </script> 
