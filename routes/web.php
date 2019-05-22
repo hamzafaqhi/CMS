@@ -1,4 +1,5 @@
 <?php
+use App\Http\Controllers\CategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,4 +21,6 @@ Route::get('/Dashboard','DashboardController@index')->name('dashboard');
 Route::get('/category','CategoryController@index')->name('category.index');
     Route::post('/category/add','CategoryController@store');
     Route::get('/category/create','CategoryController@create')->name('category.create');
+    Route::get('/category/{id}','CategoryController@destroy');
+
  

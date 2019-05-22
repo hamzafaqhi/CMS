@@ -21,9 +21,9 @@ class CategoryController extends Controller
         {
             return datatables()->of(Category::latest()->get())
             ->addColumn('action',function($data){
-                $button = '<button type="button" name="edit" id="'.$data->id.'" class="edit btn btn-primary btn-sm">Edit</button>';
+                $button = '<button type="button" name="edit" id="'.$data->id.'" data-token="{{ csrf_token() }}" class="edit btn btn-primary btn-sm">Edit</button>';
                 $button .= '&nbsp;&nbsp;';
-                $button .= '<button type="button" name="delete" id="'.$data->id.'" class="delete btn btn-danger btn-sm">Delete</button>';
+                $button .= '<button type="button" name="delete" id="'.$data->id.'" data-token="{{ csrf_token() }}" class="delete btn btn-danger btn-sm">Delete</button>';
                 return $button;
             })
             ->rawColumns(['action'])
@@ -88,7 +88,11 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        //
+        if (request()->ajax())
+        {
+            $data = Category::findOrFail($id);
+            return response()->json(['data'=>$data]);
+        }
     }
 
     /**
@@ -111,6 +115,7 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $Category = Category::find($id);
+        $Category->delete();
     }
 }

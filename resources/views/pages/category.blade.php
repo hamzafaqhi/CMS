@@ -1,6 +1,22 @@
 @extends('layouts.backend')
 @section('title','SHF | Category')
+@section('stylesheets')
+<style>
+.modal-header-primary {
+	color:#fff;
+    padding:9px 15px;
+    border-bottom:1px solid #eee;
+    background-color: #428bca;
+    -webkit-border-top-left-radius: 5px;
+    -webkit-border-top-right-radius: 5px;
+    -moz-border-radius-topleft: 5px;
+    -moz-border-radius-topright: 5px;
+     border-top-left-radius: 5px;
+     border-top-right-radius: 5px;
+}
 
+</style>
+@stop
 @section('content')
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -53,63 +69,76 @@
     <!-- /.content -->
   </div>
   <!-- Category Modal -->
-  <div class="modal fade in" id="edit-modal" aria-hidden="true">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header box-header with-border">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">×</span></button>
-                <h4 class="modal-title">Edit Category</h4>
-              </div>
-              <div class="modal-body">
-                  <form method="post" >
-                     <!-- id -->
-              <div class="form-group">
-                <input type="hidden" name="id" class="form-control" id="id">
-              </div>
-              <!-- /id -->
-              <!-- name -->
-              <div class="form-group">
-                <label class="box-title">Category Name</label>
-                <input type="text" name="modal-input-name" class="form-control" id="modal-input-name" required autofocus>
-              </div>
-              <!-- /name -->
-                </form>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
-              </div>
-            </div>
-            <!-- /.modal-content -->
-          </div>
-          <!-- /.modal-dialog -->
-        </div>
-        <!--/Edit Category-->
 
-        <!--Remove Category Modal -->
-  <div class="modal fade in" id="remove-modal" aria-hidden="true">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header box-header with-border">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">×</span></button>
-                <h4 class="modal-title">Delete Category</h4>
-              </div>
-              <div class="modal-body">
-                Are You Sure?
-                  <form id="deleteForm" method="post">
-                     <!-- id -->
-                  </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" id="remove">Yes</button>
-              </div>
-            </div>
-            <!-- /.modal-content -->
+<!-- Central Modal Medium Info -->
+<!-- Button trigger modal-->
+
+<!-- Modal: modalCart -->
+<div class="modal fade" id="edit_modal" tabindex="-1" role="dialog" aria-labelledby="Edit Modal"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content" style="border-radius: 12px; ">
+      <!--Header-->
+      <div class="modal-header modal-header-primary" >
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+        <h4 class="modal-title font-weight-bold" style="font-color=white;" >Edit Category</h4>
+      </div>
+      <!--Body-->
+      <div class="modal-body">
+
+      <span id="form_result"></span>
+         <form method="post" id="sample_form" class="form-horizontal" enctype="multipart/form-data">
+          @csrf
+          <div class="md-form mb-5">
+          <label data-error="wrong" data-success="right" for="form34">Name:</label>
+          <input type="text" id="form34" class="form-control validate">
+          <br>
           </div>
-          <!-- /.modal-dialog -->
+          <hr>
+          <div class="md-form">
+          <label data-error="wrong" data-success="right" for="form8">Description:</label>
+          <div class="box-body pad">              
+            <textarea class="textarea" placeholder="Place some text here" id="description" name="description"
+                          style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>  
+              @if ($errors->has('description'))
+              <span class="help-block">
+              <strong style="color:red">{{ $errors->first('description') }}</strong>
+              </span> 
+              @endif  
+            </div>  
+          </div>
+           <br />
+         </form>
+      </div>
+      <!--Footer-->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-primary" data-dismiss="modal">Close</button>
+        <button class="btn btn-primary">Edit</button>
+      </div>
+    </div>
+  </div>
+</div>
+  <!--/Edit Category-->
+        <!--Remove Category Modal -->
+        <div id="remove_modal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content" style="border-radius: 12px;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h2 class="modal-title">Confirmation</h2>
+            </div>
+            <div class="modal-body">
+                <h4 align ="center" style="margin:0;">Are you sure you want to remove this data?</h4>
+            </div>
+            <div class="modal-footer">
+             <button type="button" name="ok_button" id="remove_button"  class="btn btn-danger">OK</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+            </div>
         </div>
+    </div>
+</div>
 
 
 <!-- page script -->
@@ -118,6 +147,7 @@
 @section('scripts')
 
 <script type="text/javascript">
+//loading datatable
 $(document).ready(function()
 {
   $('#cat_table').DataTable({
@@ -138,12 +168,59 @@ $(document).ready(function()
       }
     ]
   });
-  var user_id;
-  $(document).on('click','.delete',function()
-  {
-    user_id = $(this).attr('id');
-    $('#remove-modal').modal('show');    
-  });
-});
+//Datable reloading end
+
+//Delete table row
+ var id;
+ $(document).on('click', '.delete', function(){
+  id = $(this).attr('id');
+  $('#remove_modal').modal('show');
+ });
+
+ $('#remove_button').click(function(){
+  $.ajax({
+   url:"category/"+id,
+   beforeSend:function(){
+    $('#remove_button').text('Deleting...');
+   },
+   success:function(data)
+   {
+    setTimeout(function(){
+     $('#remove_modal').modal('hide');
+     $('#cat_table').DataTable().ajax.reload();
+    }, 2000);
+   }
+  })
+ });
+//Deleting end
+
+//Editing datatable
+var edit_id
+$(document).on('click', '.edit', function(){
+  edit_id = $(this).attr('id');
+  $('#edit_modal').modal('show');
+ });
+
+$(document).on('click', '.edit', function(){
+  var id = $(this).attr('id');
+  $('#form_result').html('');
+  $.ajax({
+   url:"/ajax-crud/"+id+"/edit",
+   dataType:"json",
+   success:function(html){
+    $('#first_name').val(html.data.first_name);
+    $('#last_name').val(html.data.last_name);
+    $('#store_image').html("<img src={{ URL::to('/') }}/images/" + html.data.image + " width='70' class='img-thumbnail' />");
+    $('#store_image').append("<input type='hidden' name='hidden_image' value='"+html.data.image+"' />");
+    $('#hidden_id').val(html.data.id);
+    $('.modal-title').text("Edit New Record");
+    $('#action_button').val("Edit");
+    $('#action').val("Edit");
+    $('#formModal').modal('show');
+   }
+  })
+ });
+//Editing end
+}); 
 </script> 
 @stop
