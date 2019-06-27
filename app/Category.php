@@ -10,4 +10,9 @@ class Category extends Model
         'name','author','description'
     ];
     protected $dates= ['created_at'];
+
+    public function products()
+    {
+        $this->hasMany('App\Product');
+    }
 }

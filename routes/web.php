@@ -17,11 +17,16 @@ Route::get('/', function () {
 });
 
 Route::get('/Dashboard','DashboardController@index')->name('dashboard');
-
+//Category
 Route::get('/category','CategoryController@index')->name('category.index');
     Route::post('/category/add','CategoryController@store');
     Route::get('/category/create','CategoryController@create')->name('category.create');
-    Route::get('/category/{id}','CategoryController@destroy');
+    Route::delete('/category/{id}/delete','CategoryController@destroy');
     Route::get('/category/{id}/edit','CategoryController@edit');
+    Route::post('category/update','CategoryController@update');
+
+//Product
+Route::get('/product','ProductController@index')->name('product.index');
+Route::get('/product/create','ProductController@create')->name('product.create');
 
  

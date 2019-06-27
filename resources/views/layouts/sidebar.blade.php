@@ -52,8 +52,8 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li class="active"><a href="{{route('category.index')}}"><i class="fa fa-circle-o"></i>All Products</a></li>
-            <li><a href="{{route('category.create')}}"><i class="fa fa-circle-o"></i>Add New Product</a></li>
+            <li class="active"><a href="{{route('product.index')}}"><i class="fa fa-circle-o"></i>All Products</a></li>
+            <li><a href="{{route('product.create')}}"><i class="fa fa-circle-o"></i>Add New Product</a></li>
           </ul>
         </li>
         <li class="treeview">

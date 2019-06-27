@@ -18,6 +18,7 @@
 </style>
 @stop
 @section('content')
+
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
@@ -89,14 +90,19 @@
       <div class="modal-body">
 
       <span id="form_result"></span>
-         <form  id="sample_form" class="form-horizontal">
-          @csrf
+         <form  id="edit_form" class="form-horizontal" method="post">
           <div class="md-form mb-5">
           <label data-error="wrong" data-success="right" for="name">Name:</label>
           <input type="text" id="name" name="name" class="form-control validate">
           <br>
           </div>
+          @if ($errors->has('name'))
+              <span class="help-block">
+              <strong style="color:red">{{ $errors->first('name') }}</strong>
+              </span> 
+              @endif  
           <hr>
+          <input type="hidden" name="id" id="hidden_id" />
           <div class="md-form">
           <label data-error="wrong" data-success="right" for="description">Description:</label>
           <div class="box-body pad">              
@@ -115,14 +121,14 @@
       <!--Footer-->
       <div class="modal-footer">
         <button type="button" class="btn btn-outline-primary" data-dismiss="modal">Close</button>
-        <button class="btn btn-primary">Edit</button>
+        <button class="btn btn-primary" id="editBtn">Edit</button>
       </div>
     </div>
   </div>
 </div>
   <!--/Edit Category-->
         <!--Remove Category Modal -->
-        <div id="remove_modal" class="modal fade" role="dialog">
+    <div id="remove_modal" class="modal fade" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content" style="border-radius: 12px;">
             <div class="modal-header">
@@ -177,9 +183,17 @@ $(document).ready(function()
   $('#remove_modal').modal('show');
  });
 
+ $.ajaxSetup
+ ({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+    }
+  });
+
  $('#remove_button').click(function(){
   $.ajax({
-   url:"category/"+id,
+   type: "DELETE",
+   url:"category/"+id+"/delete",
    beforeSend:function(){
     $('#remove_button').text('Deleting...');
    },
@@ -203,7 +217,6 @@ $(document).on('click', '.edit', function(){
 
 $(document).on('click', '.edit', function(){
   var id = $(this).attr('id');
-  console.log(id);
   $('#form_result').html('');
   $.ajax({
    url:"category/"+id+"/edit",
@@ -211,12 +224,46 @@ $(document).on('click', '.edit', function(){
    success:function(html){
     $('#name').val(html.data.name);
     $('#description').val(html.data.description);
-    console.log(html.data.description);
+    $('#hidden_id').val(html.data.id);
     $('#formModal').modal('show');
    }
   })
  });
 //Editing end
+
+$('#editBtn').click(function (e) {
+$.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+        }
+  });
+
+console.log(jQuery('#name').val());
+alert(jQuery('#hidden_id').val());
+e.preventDefault();
+$.ajax({
+  url: "category/update",
+  type: "POST",
+  data:{
+    name: jQuery('#name').val(),
+    description: jQuery('#description').val(),
+    id: jQuery('#hidden_id').val(),
+    },
+  dataType: 'json',
+  success: function (data)
+  {
+      $('#edit_form').trigger("reset");
+      $('#edit_modal').modal('hide');
+      toastr.success('Category Updated Successfully.', 'Success Alert', {timeOut: 5000});
+      $('#cat_table').DataTable().ajax.reload();
+  },
+  error: function (data)
+  {
+      console.log('Error:', data);
+      alert('Unable to edit');
+  }
+  });
+});
 }); 
 </script> 
 @stop
