@@ -89,16 +89,16 @@
       <div class="modal-body">
 
       <span id="form_result"></span>
-         <form method="post" id="sample_form" class="form-horizontal" enctype="multipart/form-data">
+         <form  id="sample_form" class="form-horizontal">
           @csrf
           <div class="md-form mb-5">
-          <label data-error="wrong" data-success="right" for="form34">Name:</label>
-          <input type="text" id="form34" class="form-control validate">
+          <label data-error="wrong" data-success="right" for="name">Name:</label>
+          <input type="text" id="name" name="name" class="form-control validate">
           <br>
           </div>
           <hr>
           <div class="md-form">
-          <label data-error="wrong" data-success="right" for="form8">Description:</label>
+          <label data-error="wrong" data-success="right" for="description">Description:</label>
           <div class="box-body pad">              
             <textarea class="textarea" placeholder="Place some text here" id="description" name="description"
                           style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>  
@@ -203,19 +203,15 @@ $(document).on('click', '.edit', function(){
 
 $(document).on('click', '.edit', function(){
   var id = $(this).attr('id');
+  console.log(id);
   $('#form_result').html('');
   $.ajax({
-   url:"/ajax-crud/"+id+"/edit",
+   url:"category/"+id+"/edit",
    dataType:"json",
    success:function(html){
-    $('#first_name').val(html.data.first_name);
-    $('#last_name').val(html.data.last_name);
-    $('#store_image').html("<img src={{ URL::to('/') }}/images/" + html.data.image + " width='70' class='img-thumbnail' />");
-    $('#store_image').append("<input type='hidden' name='hidden_image' value='"+html.data.image+"' />");
-    $('#hidden_id').val(html.data.id);
-    $('.modal-title').text("Edit New Record");
-    $('#action_button').val("Edit");
-    $('#action').val("Edit");
+    $('#name').val(html.data.name);
+    $('#description').val(html.data.description);
+    console.log(html.data.description);
     $('#formModal').modal('show');
    }
   })
