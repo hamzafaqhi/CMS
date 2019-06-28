@@ -14,7 +14,7 @@ class AddDescriptionColumnToCategories extends Migration
     public function up()
     {
         Schema::table('categories', function (Blueprint $table) {
-            $table->longText('description')->after('name');
+            $table->longText('description')->nullable()->after('name');
         });
     }
 
