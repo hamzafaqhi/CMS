@@ -8,7 +8,7 @@ class Product extends Model
 {
     protected $fillable = [
         'name','description','price','quantity',
-        'meta_title','image','stock_status',
+        'meta_title','stock_status',
         'manufacture_id','length','width',
         'height','weight','sortorder'
     ];
@@ -17,4 +17,10 @@ class Product extends Model
     {
         $this->belongsTo('App\Category');
     }
+    
+    public function manufactures()
+    {
+        $this->hasMany('App\Manufacture');
+    }
+    
 }

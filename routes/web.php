@@ -28,5 +28,7 @@ Route::get('/category','CategoryController@index')->name('category.index');
 //Product
 Route::get('/product','ProductController@index')->name('product.index');
 Route::get('/product/create','ProductController@create')->name('product.create');
+Route::post('/product/add','ProductController@store');
+Route::delete('/product/{id}/delete','ProductController@destroy');
 
  

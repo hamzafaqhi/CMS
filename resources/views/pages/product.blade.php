@@ -84,7 +84,7 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">×</span>
         </button>
-        <h4 class="modal-title font-weight-bold" style="font-color=white;" >Edit Category</h4>
+        <h4 class="modal-title font-weight-bold" style="font-color=white;" >Edit Product</h4>
       </div>
       <!--Body-->
       <div class="modal-body">
@@ -160,7 +160,7 @@ $(document).ready(function()
     processing: true,
     serverSide: true,
     ajax:{
-        url: "{{ route('category.index')}}",
+        url: "{{ route('product.index')}}",
     },
     columns:[
       {
@@ -193,7 +193,7 @@ $(document).ready(function()
  $('#remove_button').click(function(){
   $.ajax({
    type: "DELETE",
-   url:"category/"+id+"/delete",
+   url:"product/"+id+"/delete",
    beforeSend:function(){
     $('#remove_button').text('Deleting...');
    },

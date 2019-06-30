@@ -3,6 +3,113 @@
 @section('stylesheets')
 <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
 <style>
+/*start of radio button style*/
+.container {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 18px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Hide the browser's default radio button */
+.container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+/* Create a custom radio button */
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: #eee;
+  border-radius: 50%;
+}
+.radioLeft input{
+    text-align: left;
+    display:inline;
+}
+
+/* On mouse-over, add a grey background color */
+.container:hover input ~ .checkmark {
+  background-color: #ccc;
+}
+
+/* When the radio button is checked, add a blue background */
+.container input:checked ~ .checkmark {
+  background-color: #2196F3;
+}
+
+/* Create the indicator (the dot/circle - hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the indicator (dot/circle) when checked */
+.container input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the indicator (dot/circle) */
+.container .checkmark:after {
+ 	top: 9px;
+	left: 9px;
+	width: 8px;
+	height: 8px;
+	border-radius: 50%;
+	background: white;
+}
+
+/*end of radio button style*/
+
+.autocomplete {
+  position: relative;
+  display: inline-block;
+}
+
+.autocomplete-items {
+  position: absolute;
+  border: 1px solid #d4d4d4;
+  border-bottom: none;
+  border-top: none;
+  z-index: 99;
+  /*position the autocomplete items to be the same width as the container:*/
+  top: 100%;
+  left: 0;
+  right: 0;
+}
+
+.autocomplete-items div {
+  padding: 10px;
+  cursor: pointer;
+  background-color: #fff; 
+  border-bottom: 1px solid #d4d4d4; 
+}
+
+/*when hovering an item:*/
+.autocomplete-items div:hover {
+  background-color: #e9e9e9; 
+}
+
+/*when navigating through the items using the arrow keys:*/
+.autocomplete-active {
+  background-color: DodgerBlue !important; 
+  color: #ffffff; 
+}
+
+/*autocomplete */
+
 * {
   box-sizing: border-box;
 }
@@ -86,7 +193,7 @@ button:hover {
           <li>
               <a href="{{route('dashboard')}}"><i class="fa fa-dashboard"></i> Dashboard</a>
           </li>
-          <li><a href="{{ route('category.index') }}">Products</a></li>
+          <li><a href="{{ route('product.index') }}">Products</a></li>
           <li class="active">Add Product</li>
         </ol>
       </section>
@@ -98,7 +205,8 @@ button:hover {
           </div>
       @endif
       <div class="box">     
-      <form id="regForm" action="">
+      <form method="POST" id="regForm" autocomplete="off"  action="{{ action ('ProductController@store') }}">
+      @csrf
   <!-- One "tab" for each step in the form: -->
   <div class="tab">
   <div class="box-header">
@@ -159,57 +267,82 @@ button:hover {
             <h3 class="box-title">Status:</h3>
             </div>
             <div class="box-body pad">
-                  <select class="form-control">
-                    <option value="0"></option>
-                    <option value="1">In Stock</option>
-                    <option value="0">Out of Stock</option>
+                  <select name="stock_status" id="stock_status" class="form-control">
+                    <option name="stock_status" id="stock_status" value="0"></option>
+                    <option name="stock_status" id="stock_status" value="1">In Stock</option>
+                    <option id="stock_status" name="stock_status" value="0">Out of Stock</option>
                   </select>      
             </div>
 
             <div class="box-header">
-            <h3 class="box-title">Manufacture:</h3>
+            <h3 class="box-title">Weight:</h3>
             </div>
             <div class="box-body pad">
-                  <select class="form-control">
-                    <option value="0"></option>
-                    <option value="1">In Stock</option>
-                    <option value="0">Out of Stock</option>
-                  </select>      
-            </div>
+            <input type="text" class="form-control" name="weight" id="weight" oninput="this.className = ''" style="line-height: 18px; border: 1px solid #dddddd; padding: 10px;"/>
+              @if ($errors->has('weight'))
+              <span class="help-block">
+              <strong style="color:red">{{ $errors->first('weight') }}</strong>
+              </span> 
+            
+              @endif
+              </div>
             
             <div class="box-header">
-            <h3 class="box-title">Image:</h3>
+            <h3 class="box-title">Sort Order:</h3>
             </div>
-            <div class="box-body pad">         
-                  <input type="file" id="exampleInputFile">
-                </div>
-                <div class="box-header">
-            <h3 class="box-title">Image:</h3>
+            <label class="container radioLeft ">Top
+            <input type="radio"  name="sort_order" onclick="test(this)" id="radioBtn" value ="1">
+            <span class="checkmark"></span>
+            </label>
+  </div>
+  <div class="tab">
+  <div class="box-header">
+            <h3 class="box-title">Width:</h3>
             </div>
-            <div class="box-body pad"> 
-                <label>
-                  <input type="radio" name="top" value="1" class="minimal" >
-                </label>
+            <div class="box-body pad">
+            <input type="text" class="form-control" name="width" id="width" oninput="this.className = ''" style="line-height: 18px; border: 1px solid #dddddd; padding: 10px;"/>
+              @if ($errors->has('width'))
+              <span class="help-block">
+              <strong style="color:red">{{ $errors->first('width') }}</strong>
+              </span> 
+            
+              @endif
               </div>
-  </div>
-  <div class="tab">Birthday:
-    <p><input placeholder="dd" oninput="this.className = ''" name="dd"></p>
-    <p><input placeholder="mm" oninput="this.className = ''" name="nn"></p>
-    <p><input placeholder="yyyy" oninput="this.className = ''" name="yyyy"></p>
-  </div>
-  <div class="tab">Login Info:
-    <p><input placeholder="Username..." oninput="this.className = ''" name="uname"></p>
-    <p><input placeholder="Password..." oninput="this.className = ''" name="pword" type="password"></p>
+
+              <div class="box-header">
+            <h3 class="box-title">Height:</h3>
+            </div>
+            <div class="box-body pad">
+            <input type="text" class="form-control" name="height" id="height" oninput="this.className = ''" style="line-height: 18px; border: 1px solid #dddddd; padding: 10px;"/>
+              @if ($errors->has('height'))
+              <span class="help-block">
+              <strong style="color:red">{{ $errors->first('height') }}</strong>
+              </span> 
+            
+              @endif
+              </div>
+
+              <div class="box-header">
+            <h3 class="box-title">Length:</h3>
+            </div>
+            <div class="box-body pad">
+            <input type="text" class="form-control" name="length" id="length" oninput="this.className = ''" style="line-height: 18px; border: 1px solid #dddddd; padding: 10px;"/>
+              @if ($errors->has('length'))
+              <span class="help-block">
+              <strong style="color:red">{{ $errors->first('length') }}</strong>
+              </span> 
+            
+              @endif
+              </div>
   </div>
   <div style="overflow:auto;">
     <div style="float:right;">
-      <button type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
-      <button type="button" id="nextBtn" onclick="nextPrev(1)">Next</button>
+      <button type="button" id="prevBtn" class="btn btn-default" onclick="nextPrev(-1)">Previous</button>
+      <button type="button" id="nextBtn" class="btn btn-block btn-primary" onclick="nextPrev(1)">Next</button>
     </div>
   </div>
   <!-- Circles which indicates the steps of the form: -->
   <div style="text-align:center;margin-top:40px;">
-    <span class="step"></span>
     <span class="step"></span>
     <span class="step"></span>
     <span class="step"></span>
@@ -297,6 +430,23 @@ function fixStepIndicator(n) {
   //... and adds the "active" class on the current step:
   x[n].className += " active";
 }
+
+var radioState = false;
+    function test(element){
+        if(radioState == false) {
+            check();
+            radioState = true;
+        }else{
+            uncheck();
+            radioState = false;
+        }
+    }
+    function check() {
+        document.getElementById("radioBtn").checked = true;
+    }
+    function uncheck() {
+        document.getElementById("radioBtn").checked = false;
+    }
 </script>
 
 @endsection
