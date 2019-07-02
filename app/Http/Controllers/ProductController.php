@@ -20,7 +20,8 @@ class ProductController extends Controller
         {
             return datatables()->of(Product::latest()->get())
             ->addColumn('action',function($data){
-                $button = '<button type="button" name="edit" id="'.$data->id.'" data-token="{{ csrf_token() }}" class="edit btn btn-primary btn-sm">Edit</button>';
+                $button = '<a href="'. route('products.edit', $data->id) .'" class="btn btn-sm btn-primary" data-toggle="tooltip" data-placement="top" title="Edit">Edit</a>';
+                // '<button type="submit" name="edit" id="'.$data->id.'" data-token="{{ csrf_token() }}" class="edit btn btn-primary btn-sm">Edit</button>';
                 $button .= '&nbsp;&nbsp;';
                 $button .= '<button type="button" name="delete" id="'.$data->id.'" data-token="{{ csrf_token() }}" class="delete btn btn-danger btn-sm">Delete</button>';
                 return $button;
@@ -101,11 +102,9 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        if (request()->ajax())
-        {
             $data = Product::findOrFail($id);
-            return response()->json(['data'=>$data]);
-        }
+            return view('pages.edit')->with(compact('data'));
+        
     }
 
     /**
@@ -115,9 +114,27 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(),[
+            'product_name' => 'required',
+            'price' => 'required|regex:/^[0-9]+$/',
+            'quantity' => 'required|regex:/^[0-9]+$/',
+            'stock_status' => 'required',
+            'length' => 'regex:/^[0-9]+$/',
+            'width' => 'regex:/^[0-9]+$/',
+            'height' => 'regex:/^[0-9]+$/',
+            'weight' => 'regex:/^[0-9]+$/',
+
+        ]);
+        if ($validator->passes())
+        {
+        $record = Product::whereId($request->id)->update(['name'=>$request->product_name, 'description' =>$request->description , 'price' =>$request->price ,'quantity' =>$request->quantity,
+        'stock_status' =>$request->stock_status,'length' =>$request->length,'width' =>$request->width,'height' =>$request->height,'weight' =>$request->weight,
+        'sortorder' =>$request->sortorder,'meta_title' =>$request->meta_title]);        
+        return back()->with('success','Category edited successfully');
+        }
+        return Redirect::back()->withErrors($validator);
     }
 
     /**

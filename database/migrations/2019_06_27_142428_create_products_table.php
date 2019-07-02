@@ -26,7 +26,7 @@ class CreateProductsTable extends Migration
             $table->double('width')->nullable();
             $table->double('height')->nullable();
             $table->double('weight')->nullable();
-            $table->boolean('sortorder')->default(0);
+            $table->boolean('sortorder')->nullable()->default(0);
             $table->timestamps();
         });
     }
