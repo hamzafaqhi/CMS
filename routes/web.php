@@ -29,4 +29,7 @@ Route::get('/category','CategoryController@index')->name('category.index');
 Route::get('/product','ProductController@index')->name('product.index');
 Route::get('/product/create','ProductController@create')->name('product.create');
 
+//Frontend
+Route::get('/home','Frontend\HomepageController@index');
+
  
