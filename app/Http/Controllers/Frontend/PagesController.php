@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Frontend;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class HomePageController extends Controller
+class PagesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,6 +17,25 @@ class HomePageController extends Controller
         return view('Frontend.pages.homepage');
     }
 
+    public function shop()
+    {
+        return view('Frontend.pages.shop');
+    }
+
+    public function cart()
+    {
+        return view('Frontend.pages.cart');
+    }
+
+    public function checkout()
+    {
+        return view('Frontend.pages.checkout');
+    }
+
+    public function wishlist()
+    {
+        return view('Frontend.pages.wishlist');
+    }
     /**
      * Show the form for creating a new resource.
      *

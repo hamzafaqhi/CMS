@@ -30,6 +30,9 @@ Route::get('/product','ProductController@index')->name('product.index');
 Route::get('/product/create','ProductController@create')->name('product.create');
 
 //Frontend
-Route::get('/home','Frontend\HomepageController@index');
-
+Route::get('/home','Frontend\PagesController@index')->name('homepage');
+Route::get('/shop','Frontend\PagesController@shop')->name('shoppage');
+Route::get('/cart','Frontend\PagesController@cart')->name('cartpage');
+Route::get('/checkout','Frontend\PagesController@checkout')->name('checkoutpage');
+Route::get('/wishlist','Frontend\PagesController@wishlist')->name('wishlistpage');
  
