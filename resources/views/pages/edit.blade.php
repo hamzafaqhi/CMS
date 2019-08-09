@@ -1,5 +1,5 @@
 @extends('layouts.backend')
-@section('title','SHF | Add new Product')
+@section('title','SHF | Edit Product')
 @section('stylesheets')
 <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
 <style>
@@ -187,14 +187,14 @@ button:hover {
       <section class="content-header">
         <h1>
           Products
-          <small>Add Product</small>
+          <small>Edit Product</small>
         </h1>
         <ol class="breadcrumb">
           <li>
               <a href="{{route('dashboard')}}"><i class="fa fa-dashboard"></i> Dashboard</a>
           </li>
           <li><a href="{{ route('product.index') }}">Products</a></li>
-          <li class="active">Add Product</li>
+          <li class="active">Edit Product</li>
         </ol>
       </section>
       <!-- Main content -->
@@ -205,15 +205,17 @@ button:hover {
           </div>
       @endif
       <div class="box">     
-      <form method="POST" id="regForm" autocomplete="off"  action="{{ action ('ProductController@store') }}">
+      <form method="POST" id="regForm" autocomplete="off"  action="{{ action ('ProductController@update') }}">
       @csrf
+
+      <input type="hidden" name="id" id="hidden_id" value="{{$data->id}}" />
   <!-- One "tab" for each step in the form: -->
   <div class="tab">
   <div class="box-header">
             <h3 class="box-title">Name: </h3>
             </div>
   <div class="box-body pad">
-              <input type="text" class="form-control" name="product_name" id="product_name" oninput="this.className = ''" style="line-height: 18px; border: 1px solid #dddddd; padding: 10px;"/>
+              <input type="text" class="form-control" name="product_name" id="product_name" oninput="this.className = ''" style="line-height: 18px; border: 1px solid #dddddd; padding: 10px;"  value="{{$data->name}}"/>
               @if ($errors->has('product_name'))
               <span class="help-block">
               <strong style="color:red">{{ $errors->first('product_name') }}</strong>
@@ -239,7 +241,7 @@ button:hover {
             <h3 class="box-title">Price: </h3>
             </div>
             <div class="box-body pad">
-            <input type="text" class="form-control" name="price" id="price" oninput="this.className = ''" style="line-height: 18px; border: 1px solid #dddddd; padding: 10px;"/>
+            <input type="text" class="form-control" name="price" id="price" oninput="this.className = ''" style="line-height: 18px; border: 1px solid #dddddd; padding: 10px;"  value="{{$data->price}}"/>
               @if ($errors->has('price'))
               <span class="help-block">
               <strong style="color:red">{{ $errors->first('price') }}</strong>
@@ -252,7 +254,7 @@ button:hover {
             <h3 class="box-title">Quantity</h3>
             </div>
             <div class="box-body pad">
-              <input type="text" class="form-control" name="quantity" id="quantity" oninput="this.className = ''" style="line-height: 18px; border: 1px solid #dddddd; padding: 10px;"/>
+              <input type="text" class="form-control" name="quantity" id="quantity" oninput="this.className = ''" style="line-height: 18px; border: 1px solid #dddddd; padding: 10px;"  value="{{$data->quantity}}"/>
               @if ($errors->has('quantity'))
               <span class="help-block">
               <strong style="color:red">{{ $errors->first('quantity') }}</strong>
@@ -269,8 +271,10 @@ button:hover {
             <div class="box-body pad">
                   <select name="stock_status" id="stock_status" class="form-control">
                     <option name="stock_status" id="stock_status" value="0"></option>
-                    <option name="stock_status" id="stock_status" value="1">In Stock</option>
+                    
+                    <option name="stock_status" id="stock_status" value="">In Stock</option>
                     <option id="stock_status" name="stock_status" value="0">Out of Stock</option>
+                
                   </select>      
             </div>
 
@@ -278,7 +282,7 @@ button:hover {
             <h3 class="box-title">Weight:</h3>
             </div>
             <div class="box-body pad">
-            <input type="text" class="form-control" name="weight" id="weight" oninput="this.className = ''" style="line-height: 18px; border: 1px solid #dddddd; padding: 10px;"/>
+            <input type="text" class="form-control" name="weight" id="weight" oninput="this.className = ''" style="line-height: 18px; border: 1px solid #dddddd; padding: 10px;"  value="{{$data->weight}}"/>
               @if ($errors->has('weight'))
               <span class="help-block">
               <strong style="color:red">{{ $errors->first('weight') }}</strong>
@@ -300,7 +304,7 @@ button:hover {
             <h3 class="box-title">Width:</h3>
             </div>
             <div class="box-body pad">
-            <input type="text" class="form-control" name="width" id="width" oninput="this.className = ''" style="line-height: 18px; border: 1px solid #dddddd; padding: 10px;"/>
+            <input type="text" class="form-control" name="width" id="width" oninput="this.className = ''" style="line-height: 18px; border: 1px solid #dddddd; padding: 10px;"  value="{{$data->weight}}"/>
               @if ($errors->has('width'))
               <span class="help-block">
               <strong style="color:red">{{ $errors->first('width') }}</strong>
@@ -313,7 +317,7 @@ button:hover {
             <h3 class="box-title">Height:</h3>
             </div>
             <div class="box-body pad">
-            <input type="text" class="form-control" name="height" id="height" oninput="this.className = ''" style="line-height: 18px; border: 1px solid #dddddd; padding: 10px;"/>
+            <input type="text" class="form-control" name="height" id="height" oninput="this.className = ''" style="line-height: 18px; border: 1px solid #dddddd; padding: 10px;"  value="{{$data->height}}"/>
               @if ($errors->has('height'))
               <span class="help-block">
               <strong style="color:red">{{ $errors->first('height') }}</strong>
@@ -326,10 +330,23 @@ button:hover {
             <h3 class="box-title">Length:</h3>
             </div>
             <div class="box-body pad">
-            <input type="text" class="form-control" name="length" id="length" oninput="this.className = ''" style="line-height: 18px; border: 1px solid #dddddd; padding: 10px;"/>
+            <input type="text" class="form-control" name="length" id="length" oninput="this.className = ''" style="line-height: 18px; border: 1px solid #dddddd; padding: 10px;"  value="{{$data->length}}"/>
               @if ($errors->has('length'))
               <span class="help-block">
               <strong style="color:red">{{ $errors->first('length') }}</strong>
+              </span> 
+            
+              @endif
+              </div>
+
+              <div class="box-header">
+            <h3 class="box-title">Meta Title:</h3>
+            </div>
+            <div class="box-body pad">
+            <input type="text" class="form-control" name="meta_title" id="meta_title" oninput="this.className = ''" style="line-height: 18px; border: 1px solid #dddddd; padding: 10px;"  value="{{$data->meta_title}}"/>
+              @if ($errors->has('meta_title'))
+              <span class="help-block">
+              <strong style="color:red">{{ $errors->first('meta_title') }}</strong>
               </span> 
             
               @endif

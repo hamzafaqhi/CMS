@@ -8,7 +8,7 @@ class Product extends Model
 {
     protected $fillable = [
         'name','description','price','quantity',
-        'meta_title','image','stock_status',
+        'meta_title','stock_status',
         'manufacture_id','length','width',
         'height','weight','sortorder'
     ];
@@ -17,16 +17,10 @@ class Product extends Model
     {
         $this->belongsTo('App\Category');
     }
-
-    public static function getProduct()
+    
+    public function manufactures()
     {
-        $product = Product::all();
-        return $product;
+        $this->hasMany('App\Manufacture');
     }
-    public static function getLatestProduct()
-    {
-        $latest = Product::latest()->get();
-        return $latest;
-    }
-
+    
 }

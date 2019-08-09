@@ -1,6 +1,4 @@
 <?php
-use App\Http\Controllers\CategoryController;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,10 +11,11 @@ use App\Http\Controllers\CategoryController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('pages.dashboard');
 });
 
-Route::get('/Dashboard','DashboardController@index')->name('dashboard');
+Route::get('/dashboard','DashboardController@index')->name('dashboard');
+Route::get('/invoice','DashboardController@invoice')->name('invoice');
 //Category
 Route::get('/category','CategoryController@index')->name('category.index');
     Route::post('/category/add','CategoryController@store');
@@ -28,6 +27,19 @@ Route::get('/category','CategoryController@index')->name('category.index');
 //Product
 Route::get('/product','ProductController@index')->name('product.index');
 Route::get('/product/create','ProductController@create')->name('product.create');
+Route::post('/product/add','ProductController@store');
+Route::delete('/product/{id}/delete','ProductController@destroy');
+Route::post('product/update','ProductController@update');
+Route::get('/product/{id}/edit','ProductController@edit')->name('products.edit');
+
+//Manufacture
+Route::get('/manufacture','ManufactureController@index')->name('manu.index');
+Route::get('/manufacture/create','ManufactureController@create')->name('manu.create');
+Route::post('/manu/add','ManufactureController@store');
+Route::delete('/manu/{id}/delete','ManufactureController@destroy');
+Route::get('/manu/{id}/edit','ManufactureController@edit')->name('manu.edit');
+Route::post('manu/update','ManufactureController@update');
+
 
 //Frontend
 Route::get('/home','Frontend\PagesController@index')->name('homepage');

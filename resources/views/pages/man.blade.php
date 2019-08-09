@@ -1,5 +1,5 @@
 @extends('layouts.backend')
-@section('title','SHF | Product')
+@section('title','SHF | Manufacturer')
 @section('stylesheets')
 <style>
 .modal-header-primary {
@@ -24,11 +24,11 @@
     <section class="content-header">
       <h1>
         Category
-        <small>All Products</small>
+        <small>All Manufacturer</small>
       </h1>
       <ol class="breadcrumb">
         <li><i class="fa fa-dashboard"></i> <a href="{{route('dashboard')}}">Dashboard</a></li>
-        <li class="active">Product</li>
+        <li class="active">Manufacturer</li>
       </ol>
     </section>
 
@@ -38,14 +38,15 @@
           <div class="col-xs-12">
             <div class="box">
             <div class="box-header">
-              <h3 class="box-title">Products</h3>
+              <h3 class="box-title">Manufacturer</h3>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
               <table id="cat_table" class="table table-bordered table-striped">
                 <thead>
                 <tr>
-                  <th>Product Name</th>
+                  <th>Manufacturer Name</th>
+                  <th>Image</th>
                   <th>Actions</th>
                 </tr>
                 </thead>
@@ -54,7 +55,8 @@
                 </tbody>
                 <tfoot>
                 <tr>
-                  <th>Product Name</th>
+                  <th>Manufacturer Name</th>
+                  <th>Image</th>
                   <th>Action</th>
                 </tr>
                 </tfoot>
@@ -84,13 +86,13 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">×</span>
         </button>
-        <h4 class="modal-title font-weight-bold" style="font-color=white;" >Edit Product</h4>
+        <h4 class="modal-title font-weight-bold" style="font-color=white;" >Edit Manufacturer</h4>
       </div>
       <!--Body-->
       <div class="modal-body">
 
       <span id="form_result"></span>
-         <form  id="edit_form" class="form-horizontal" method="post">
+         <form  id="edit_form" class="form-horizontal" method="post" enctype="multipart/form-data">
           <div class="md-form mb-5">
           <label data-error="wrong" data-success="right" for="name">Name:</label>
           <input type="text" id="name" name="name" class="form-control validate">
@@ -103,18 +105,17 @@
               @endif  
           <hr>
           <input type="hidden" name="id" id="hidden_id" />
-          <div class="md-form">
-          <label data-error="wrong" data-success="right" for="description">Description:</label>
-          <div class="box-body pad">              
-            <textarea class="textarea" placeholder="Place some text here" id="description" name="description"
-                          style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>  
-              @if ($errors->has('description'))
+          <div class="md-form mb-5">
+          <label data-error="wrong" data-success="right" for="Image">Image:</label>
+          <input type="file" id="image" name="image" class="form-control validate">
+          <span id="store_image"></span>
+          <br>
+          </div>
+          @if ($errors->has('image'))
               <span class="help-block">
-              <strong style="color:red">{{ $errors->first('description') }}</strong>
+              <strong style="color:red">{{ $errors->first('image') }}</strong>
               </span> 
               @endif  
-            </div>  
-          </div>
            <br />
          </form>
       </div>
@@ -160,19 +161,27 @@ $(document).ready(function()
     processing: true,
     serverSide: true,
     ajax:{
-        url: "{{ route('product.index')}}",
+        url: "{{ route('manu.index')}}",
     },
     columns:[
-      {
-        data:'name',
-        name:'name'
-      },
-      {
-        data:'action',
-        name:'action',
-        orderable: false
-      }
-    ]
+   {
+    data: 'name',
+    name: 'name'
+   },
+   {
+    data: 'image',
+    name: 'image',
+    render: function(data, type, full, meta){
+     return "<img src={{ URL::to('/') }}/images/" + data + " width='70' class='img-thumbnail' />";
+    },
+    orderable: false
+   },
+   {
+    data: 'action',
+    name: 'action',
+    orderable: false
+   }
+  ]
   });
 //Datable reloading end
 
@@ -193,7 +202,7 @@ $(document).ready(function()
  $('#remove_button').click(function(){
   $.ajax({
    type: "DELETE",
-   url:"product/"+id+"/delete",
+   url:"manu/"+id+"/delete",
    beforeSend:function(){
     $('#remove_button').text('Deleting...');
    },
@@ -209,51 +218,65 @@ $(document).ready(function()
 //Deleting end
 
 //Editing datatable
+var edit_id
+$(document).on('click', '.edit', function(){
+  edit_id = $(this).attr('id');
+  $('#edit_modal').modal('show');
+ });
 
-// $(document).on('click', '.edit', function(){
-//   var id = $(this).attr('id');
+$(document).on('click', '.edit', function(){
+  var id = $(this).attr('id');
+  $('#form_result').html('');
+  $.ajax({
+   url:"manu/"+id+"/edit",
+   dataType:"json",
+   success:function(html){
+    $('#name').val(html.data.name);
+    $('#store_image').html("<img src={{ URL::to('/') }}/images/" + html.data.image + " width='70' class='img-thumbnail' />");
+    $('#store_image').append("<input type='hidden' name='hidden_image' value='"+html.data.image+"' />");
+    $('#hidden_id').val(html.data.id);
+    $('#formModal').modal('show');
+   }
+  })
+ });
+//Editing end
 
-//   $.ajax({
-//    url:"products/"+id+"/edit",
-//    dataType:"json",
-//    success:function(html){}
-//   })
-//  });
-// //Editing end
+$('#editBtn').click(function (e) {
+$.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+        }
+  });
 
-// $('#editBtn').click(function (e) {
-// $.ajaxSetup({
-//     headers: {
-//         'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
-//         }
-//   });
-
-// console.log(jQuery('#name').val());
-// alert(jQuery('#hidden_id').val());
-// e.preventDefault();
-// $.ajax({
-//   url: "category/update",
-//   type: "POST",
-//   data:{
-//     name: jQuery('#name').val(),
-//     description: jQuery('#description').val(),
-//     id: jQuery('#hidden_id').val(),
-//     },
-//   dataType: 'json',
-//   success: function (data)
-//   {
-//       $('#edit_form').trigger("reset");
-//       $('#edit_modal').modal('hide');
-//       toastr.success('Category Updated Successfully.', 'Success Alert', {timeOut: 5000});
-//       $('#cat_table').DataTable().ajax.reload();
-//   },
-//   error: function (data)
-//   {
-//       console.log('Error:', data);
-//       alert('Unable to edit');
-//   }
-//   });
-// });
+console.log(jQuery('#image').val());
+alert(jQuery('#hidden_id').val());
+e.preventDefault();
+$.ajax({
+    url:"manu/update",
+    method:"POST",
+    data:{
+      name: jQuery('#name').val(),
+    image: jQuery('#image').val(),
+    id: jQuery('#hidden_id').val()
+  },
+    contentType: false,
+    cache: false,
+    processData: false,
+    dataType:"json",
+    success:function(data)
+  {
+      $('#edit_form').trigger("reset");
+      $('#edit_modal').modal('hide');
+      toastr.success('Manufacturer Updated Successfully.', 'Success Alert', {timeOut: 5000});
+      $('#cat_table').DataTable().ajax.reload();
+  },
+  error: function (data)
+  {
+      console.log('Error:', data);
+      alert('Unable to edit');
+  }
+  });
+});
 }); 
 </script> 
 @stop

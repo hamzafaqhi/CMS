@@ -19,15 +19,14 @@ class CreateProductsTable extends Migration
             $table->string('description')->nullable();
             $table->double('price');
             $table->integer('quantity');
-            $table->string('meta_title');
-            $table->string('image');
+            $table->string('meta_title')->nullable();
             $table->boolean('stock_status')->default(0);
             $table->integer('manufacture_id')->nullable();
             $table->double('length')->nullable();
             $table->double('width')->nullable();
             $table->double('height')->nullable();
             $table->double('weight')->nullable();
-            $table->boolean('sortorder')->default(0);
+            $table->boolean('sortorder')->nullable()->default(0);
             $table->timestamps();
         });
     }
