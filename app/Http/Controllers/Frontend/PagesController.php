@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Frontend;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Product;
 
 class PagesController extends Controller
 {
@@ -14,7 +15,9 @@ class PagesController extends Controller
      */
     public function index()
     {
-        return view('Frontend.pages.homepage');
+        $latest = Product::getLatestProduct();
+        $products = Product::getProduct();
+        return view('Frontend.pages.homepage',compact('latest','products'));
     }
 
     public function shop()
@@ -35,6 +38,21 @@ class PagesController extends Controller
     public function wishlist()
     {
         return view('Frontend.pages.wishlist');
+    }
+
+    public function contact()
+    {
+        return view('Frontend.pages.contact');
+    }
+
+    public function about()
+    {
+        return view('Frontend.pages.about');
+    }
+
+    public function account()
+    {
+        return view('Frontend.pages.myaccount');
     }
     /**
      * Show the form for creating a new resource.

@@ -17,4 +17,16 @@ class Product extends Model
     {
         $this->belongsTo('App\Category');
     }
+
+    public static function getProduct()
+    {
+        $product = Product::all();
+        return $product;
+    }
+    public static function getLatestProduct()
+    {
+        $latest = Product::latest()->get();
+        return $latest;
+    }
+
 }
