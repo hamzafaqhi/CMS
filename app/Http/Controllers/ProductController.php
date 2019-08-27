@@ -6,6 +6,8 @@ use Validator;
 use Redirect;
 use Datatables;
 use Illuminate\Http\Request;
+use App\Manufacture;
+use App\Tag;
 
 class ProductController extends Controller
 {
@@ -40,7 +42,9 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('pages.create_product');
+        $man = Manufacture::all();
+        $tag = Tag::all();
+        return view('pages.create_product')->with(compact('man','tag'));
     }
 
     /**
@@ -77,6 +81,7 @@ class ProductController extends Controller
             $product->sortorder=$request->sort_order;
             $product->meta_title=$request->meta_title;
             $product->manufacture_id=$request->manufacture_id;
+            $product->tag_id=$request->tag_id;
             $product->save();
             return back()->with('success','Product created successfully');
         }

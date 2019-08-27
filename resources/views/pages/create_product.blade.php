@@ -268,7 +268,7 @@ button:hover {
             </div>
             <div class="box-body pad">
                   <select name="stock_status" id="stock_status" class="form-control">
-                    <option name="stock_status" id="stock_status" value="0"></option>
+                  <option selected>Choose...</option>
                     <option name="stock_status" id="stock_status" value="1">In Stock</option>
                     <option id="stock_status" name="stock_status" value="0">Out of Stock</option>
                   </select>      
@@ -290,10 +290,23 @@ button:hover {
             <div class="box-header">
             <h3 class="box-title">Sort Order:</h3>
             </div>
-            <label class="container radioLeft ">Top
+            <label  style="margin-left:15px;" class="container radioLeft ">Top
             <input type="radio"  name="sort_order" onclick="test(this)" id="radioBtn" value ="1">
             <span class="checkmark"></span>
             </label>
+
+            <div class="box-header">
+            <h3 class="box-title">Manufacturer:</h3>
+            </div>
+            <div class="box-body pad">
+                  <select name="manufacture_id" id="manufacture_id" class="form-control">                          
+                                        <option  value = "0" selected>Choose...</option>
+                                        @foreach($man as $t)
+                                        <option  value="{{ ($t->id) }}">{{ ($t->name) }}</option>
+                                        @endforeach
+                                    </select>
+
+  </div>
   </div>
   <div class="tab">
   <div class="box-header">
@@ -307,6 +320,13 @@ button:hover {
               </span> 
             
               @endif
+              </div>
+
+              <div class="box-header">
+            <h3 class="box-title">Meta Title:</h3>
+            </div>
+            <div class="box-body pad">
+            <input type="text" class="form-control" name="meta_title" id="meta_title" oninput="this.className = ''" style="line-height: 18px; border: 1px solid #dddddd; padding: 10px;"/>
               </div>
 
               <div class="box-header">
@@ -334,11 +354,28 @@ button:hover {
             
               @endif
               </div>
+
+              
+            <div class="box-header">
+            <h3 class="box-title">Tag:</h3>
+            </div>
+            <div class="box-body pad">
+                  <select name="tag_id" id="tag_id" class="form-control">                          
+                                        <option selected>Choose...</option>
+                                        @foreach($tag as $t)
+                                        <option  value="{{ ($t->id) }}">{{ ($t->name) }}</option>
+                                        @endforeach
+                                    </select>
+                                  </div>
   </div>
   <div style="overflow:auto;">
     <div style="float:right;">
-      <button type="button" id="prevBtn" class="btn btn-default" onclick="nextPrev(-1)">Previous</button>
-      <button type="button" id="nextBtn" class="btn btn-block btn-primary" onclick="nextPrev(1)">Next</button>
+      
+      <button type="button" id="prevBtn" class="btn btn-default" onclick="nextPrev(-1)" style="/* margin-right: 0px; *//* display: inline; */">Previous</button>
+      <button type="button" id="nextBtn" class="btn btn-block btn-primary" onclick="nextPrev(1)" style="
+    margin-right:10px;
+    width: 80px;
+">Next</button>
     </div>
   </div>
   <!-- Circles which indicates the steps of the form: -->

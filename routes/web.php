@@ -10,8 +10,14 @@
 |
 */
 
+
+
+
+ 
+
+Auth::routes();
 Route::get('/', function () {
-    return view('pages.dashboard');
+    return view('auth.login');
 });
 
 Route::get('/dashboard','DashboardController@index')->name('dashboard');
@@ -40,5 +46,22 @@ Route::delete('/manu/{id}/delete','ManufactureController@destroy');
 Route::get('/manu/{id}/edit','ManufactureController@edit')->name('manu.edit');
 Route::post('manu/update','ManufactureController@update');
 
+//Voucher
+Route::get('/voucher','VoucherController@index')->name('vouchers');
+Route::get('/voucher/create','VoucherController@create')->name('voucher.create');
+Route::post('/voucher/add','VoucherController@store');
+Route::delete('/voucher/{id}/delete','VoucherController@destroy');
+Route::get('/voucher/{id}/edit','VoucherController@edit')->name('voucher.edit');
+Route::post('voucher/update','VoucherController@update');
 
- 
+//Tags
+Route::get('/tags','TagController@index')->name('tags');
+Route::get('/tags/create','TagController@create')->name('tags.create');
+Route::post('/tags/add','TagController@store');
+Route::delete('/tags/{id}/delete','TagController@destroy');
+Route::get('/tags/{id}/edit','TagController@edit')->name('tags.edit');
+Route::post('tags/update','TagController@update');
+
+Route::get('/logout','Auth\LoginController@logout')->name('logout');
+
+Route::get('/home', 'HomeController@index')->name('home');

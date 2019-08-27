@@ -1,17 +1,12 @@
 <?php
 
 namespace App\Http\Controllers;
-use Validator;
-use Redirect;
-use Illuminate\Http\Request;
-use App\Manufacture;
 
-class ManufactureController extends Controller
+use Illuminate\Http\Request;
+use App\Tag;
+use Validator;
+class TagController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
     /**
      * Display a listing of the resource.
      *
@@ -19,12 +14,11 @@ class ManufactureController extends Controller
      */
     public function index()
     {
-        
         if (request()->ajax())
         {
-            return datatables()->of(Manufacture::latest()->get())
+            return datatables()->of(Tag::latest()->get())
             ->addColumn('action',function($data){
-                $button = '<button type="submit" name="edit" id="'.$data->id.'" data-token="{{ csrf_token() }}" class="edit btn btn-primary btn-sm">Edit</button>';
+                $button ='<button type="submit" name="edit" id="'.$data->id.'" data-token="{{ csrf_token() }}" class="edit btn btn-primary btn-sm">Edit</button>';
                 $button .= '&nbsp;&nbsp;';
                 $button .= '<button type="button" name="delete" id="'.$data->id.'" data-token="{{ csrf_token() }}" class="delete btn btn-danger btn-sm">Delete</button>';
                 return $button;
@@ -32,7 +26,7 @@ class ManufactureController extends Controller
             ->rawColumns(['action'])
             ->make(true);            
         }
-        return view('pages.man');
+        return view('pages.tags');
     }
 
     /**
@@ -42,7 +36,7 @@ class ManufactureController extends Controller
      */
     public function create()
     {
-        return view('pages.manu_create');
+        return view('pages.create_tag');
     }
 
     /**
@@ -53,27 +47,19 @@ class ManufactureController extends Controller
      */
     public function store(Request $request)
     {
-        $manu = new Manufacture();
+        $tag = new Tag();
         //'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         $validator = Validator::make($request->all(),[
             'name' => 'required',
-            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
           if ($validator->passes())
           {
-            //save the data to the database    
-            if($request->hasFile('image')){
-              $image = $request->file('image');
-              $filename = time() . '.' . $image->getClientOriginalExtension();
-              $image->move(public_path("images"),$filename);              
-              $manu->image = $filename;
-            };
-            $manu->name = $request->name;
-            $manu->save();
-            return back()->with('success','Manufacturer created successfully');
+            $tag->name = $request->name;
+            $tag->save();
+            return back()->with('success','Tag created successfully');
         }
         return Redirect::back()->withErrors($validator);
-        }
+    }
 
     /**
      * Display the specified resource.
@@ -96,7 +82,7 @@ class ManufactureController extends Controller
     {
         if (request()->ajax())
         {
-            $data = Manufacture::findOrFail($id);
+            $data = Tag::findOrFail($id);
             return response()->json(['data'=>$data]);
         }
     }
@@ -110,16 +96,15 @@ class ManufactureController extends Controller
      */
     public function update(Request $request)
     {
+
         $validator = Validator::make($request->all(),[
             'name' => 'required',
-            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
           if ($validator->passes())
           {
-              $record = Manufacture::whereId($request->id)->update(['name' => $request->name , 'image' => $request->image]);
-              return back()->with('success','Manufacturer edited successfully');
+            $record = Tag::whereId($request->id)->update(['name'=>$request->name]);
           }
-          return Redirect::back()->withErrors($validator);
+        return back()->with('success','Tag edited successfully');
     }
 
     /**
@@ -130,7 +115,7 @@ class ManufactureController extends Controller
      */
     public function destroy($id)
     {
-        $Man = Manufacture::find($id);
+        $Man = Tag::find($id);
         $Man->delete();
     }
 }

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddDescriptionColumnToCategories extends Migration
+class CreateCartsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,12 @@ class AddDescriptionColumnToCategories extends Migration
      */
     public function up()
     {
-        Schema::table('categories', function (Blueprint $table) {
-            $table->longText('description')->nullable()->after('name');
+        Schema::create('carts', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->double('total_price');
+            $table->integer('coupon_id')->nullable();
+            $table->boolean('status')->default(0);
+            $table->timestamps();
         });
     }
 
@@ -25,8 +29,6 @@ class AddDescriptionColumnToCategories extends Migration
      */
     public function down()
     {
-        Schema::table('categories', function (Blueprint $table) {
-            $table->dropColumn('description');
-        });
+        Schema::dropIfExists('carts');
     }
 }

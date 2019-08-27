@@ -4,14 +4,14 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Manufacture extends Model
+class Tag extends Model
 {
     protected $fillable = [
-        'name','image','description'
+        'name'
     ];
-    
+
     public function products()
     {
-        $this->belongsTo('App\Product');
+        $this->hasMany('App\Product');
     }
 }

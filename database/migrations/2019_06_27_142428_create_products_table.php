@@ -27,6 +27,8 @@ class CreateProductsTable extends Migration
             $table->double('height')->nullable();
             $table->double('weight')->nullable();
             $table->boolean('sortorder')->nullable()->default(0);
+            $table->integer('tag_id')->nullable();
+            $table->integer('category_id')->nullable();
             $table->timestamps();
         });
     }
