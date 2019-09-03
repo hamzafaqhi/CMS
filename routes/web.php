@@ -64,4 +64,13 @@ Route::post('tags/update','TagController@update');
 
 Route::get('/logout','Auth\LoginController@logout')->name('logout');
 
-Route::get('/home', 'HomeController@index')->name('home');
+// Route::get('/home', 'HomeController@index')->name('home');
+//Frontend
+Route::get('/home','Frontend\PagesController@index')->name('homepage');
+Route::get('/shop','Frontend\PagesController@shop')->name('shoppage');
+Route::get('/cart','Frontend\PagesController@cart')->name('cartpage');
+Route::get('/checkout','Frontend\PagesController@checkout')->name('checkoutpage');
+Route::get('/wishlist','Frontend\PagesController@wishlist')->name('wishlistpage');
+Route::get('/contact','Frontend\PagesController@contact')->name('contactuspage');
+Route::get('/about','Frontend\PagesController@about')->name('aboutuspage'); 
+Route::get('/my-account','Frontend\PagesController@account')->name('myaccountpage'); 
