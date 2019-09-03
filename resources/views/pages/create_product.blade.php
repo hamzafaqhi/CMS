@@ -204,67 +204,65 @@ button:hover {
 	        <button type="button" class="close" data-dismiss="alert">×</button>	
           </div>
       @endif
-      <div class="box">     
+<div class="box">     
       <form method="POST" id="regForm" autocomplete="off"  action="{{ action ('ProductController@store') }}">
       @csrf
   <!-- One "tab" for each step in the form: -->
   <div class="tab">
-  <div class="box-header">
-            <h3 class="box-title">Name: </h3>
+            <div class="box-header">
+              <h3 class="box-title">Name: </h3>
             </div>
-  <div class="box-body pad">
-              <input type="text" class="form-control" name="product_name" id="product_name" oninput="this.className = ''" style="line-height: 18px; border: 1px solid #dddddd; padding: 10px;"/>
-              @if ($errors->has('product_name'))
-              <span class="help-block">
-              <strong style="color:red">{{ $errors->first('product_name') }}</strong>
-              </span> 
-              @endif           
+              <div class="box-body pad">
+                <input type="text" class="form-control" name="product_name" id="product_name" oninput="this.className = ''" style="line-height: 18px; border: 1px solid #dddddd; padding: 10px;"/>
+                @if ($errors->has('product_name'))
+                <span class="help-block">
+                <strong style="color:red">{{ $errors->first('product_name') }}</strong>
+                </span> 
+                @endif           
             </div>
            <!-- /.box -->
            
-           <div class="box-header">
-            <h3 class="box-title">Description: </h3>
+            <div class="box-header">
+               <h3 class="box-title">Description: </h3>
             </div>
             <div class="box-body pad">              
-            <p><textarea class="textarea"  id="description" name="description" oninput="this.className = ''" 
-                          style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea></p>
-              @if ($errors->has('description'))
-              <span class="help-block">
-              <strong style="color:red">{{ $errors->first('description') }}</strong>
-              </span> 
-              @endif       
+              <p><textarea class="textarea"  id="description" name="description" oninput="this.className = ''" 
+                            style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea></p>
+                @if ($errors->has('description'))
+                <span class="help-block">
+                <strong style="color:red">{{ $errors->first('description') }}</strong>
+                </span> 
+                @endif       
             </div>    
             
             <div class="box-header">
-            <h3 class="box-title">Price: </h3>
+              <h3 class="box-title">Price: </h3>
             </div>
             <div class="box-body pad">
-            <input type="text" class="form-control" name="price" id="price" oninput="this.className = ''" style="line-height: 18px; border: 1px solid #dddddd; padding: 10px;"/>
-              @if ($errors->has('price'))
-              <span class="help-block">
-              <strong style="color:red">{{ $errors->first('price') }}</strong>
-              </span> 
-            
-              @endif
-              </div>
-
-              <div class="box-header">
-            <h3 class="box-title">Quantity</h3>
-            </div>
-            <div class="box-body pad">
-              <input type="text" class="form-control" name="quantity" id="quantity" oninput="this.className = ''" style="line-height: 18px; border: 1px solid #dddddd; padding: 10px;"/>
-              @if ($errors->has('quantity'))
-              <span class="help-block">
-              <strong style="color:red">{{ $errors->first('quantity') }}</strong>
-              </span> 
+              <input type="text" class="form-control" name="price" id="price" oninput="this.className = ''" style="line-height: 18px; border: 1px solid #dddddd; padding: 10px;"/>
+                @if ($errors->has('price'))
+                <span class="help-block">
+                <strong style="color:red">{{ $errors->first('price') }}</strong>
+                </span> 
               
-              @endif           
-              </div>
-                 
-  </div>
-  <div class="tab">
-              <div class="box-header">
-            <h3 class="box-title">Status:</h3>
+                @endif
+            </div>
+
+            <div class="box-header">
+              <h3 class="box-title">Quantity</h3>
+            </div>
+            <div class="box-body pad">
+                <input type="text" class="form-control" name="quantity" id="quantity" oninput="this.className = ''" style="line-height: 18px; border: 1px solid #dddddd; padding: 10px;"/>
+                @if ($errors->has('quantity'))
+                <span class="help-block">
+                <strong style="color:red">{{ $errors->first('quantity') }}</strong>
+                </span> 
+                
+                @endif           
+            </div>
+
+            <div class="box-header">
+              <h3 class="box-title">Status:</h3>
             </div>
             <div class="box-body pad">
                   <select name="stock_status" id="stock_status" class="form-control">
@@ -275,29 +273,28 @@ button:hover {
             </div>
 
             <div class="box-header">
-            <h3 class="box-title">Weight:</h3>
+              <h3 class="box-title">Weight:</h3>
             </div>
             <div class="box-body pad">
-            <input type="text" class="form-control" name="weight" id="weight" oninput="this.className = ''" style="line-height: 18px; border: 1px solid #dddddd; padding: 10px;"/>
-              @if ($errors->has('weight'))
-              <span class="help-block">
-              <strong style="color:red">{{ $errors->first('weight') }}</strong>
-              </span> 
-            
+              <input type="text" class="form-control" name="weight" id="weight" oninput="this.className = ''" style="line-height: 18px; border: 1px solid #dddddd; padding: 10px;"/>
+                @if ($errors->has('weight'))
+                <span class="help-block">
+                  <strong style="color:red">{{ $errors->first('weight') }}</strong>
+                </span> 
               @endif
-              </div>
-            
-            <div class="box-header">
-            <h3 class="box-title">Sort Order:</h3>
             </div>
-            <label class="container radioLeft ">Top
-            <input type="radio"  name="sort_order" onclick="test(this)" id="radioBtn" value ="1">
-            <span class="checkmark"></span>
-            </label>
-  </div>
+
+          <div class="box-header form-group">
+              <h3 class="box-title">Sort Order:</h3>
+          </div>
+            <label class="container radioLeft">Top
+              <input type="radio"  name="sort_order" onclick="test(this)" id="radioBtn" value ="1">
+              <span class="checkmark"></span>
+            </label>          
+  </div>   
   <div class="tab">
-  <div class="box-header">
-            <h3 class="box-title">Width:</h3>
+            <div class="box-header">
+              <h3 class="box-title">Width:</h3>
             </div>
             <div class="box-body pad">
             <input type="text" class="form-control" name="width" id="width" oninput="this.className = ''" style="line-height: 18px; border: 1px solid #dddddd; padding: 10px;"/>
@@ -307,10 +304,10 @@ button:hover {
               </span> 
             
               @endif
-              </div>
+            </div>
 
-              <div class="box-header">
-            <h3 class="box-title">Height:</h3>
+            <div class="box-header">
+              <h3 class="box-title">Height:</h3>
             </div>
             <div class="box-body pad">
             <input type="text" class="form-control" name="height" id="height" oninput="this.className = ''" style="line-height: 18px; border: 1px solid #dddddd; padding: 10px;"/>
@@ -320,10 +317,10 @@ button:hover {
               </span> 
             
               @endif
-              </div>
+            </div>
 
-              <div class="box-header">
-            <h3 class="box-title">Length:</h3>
+            <div class="box-header">
+               <h3 class="box-title">Length:</h3>
             </div>
             <div class="box-body pad">
             <input type="text" class="form-control" name="length" id="length" oninput="this.className = ''" style="line-height: 18px; border: 1px solid #dddddd; padding: 10px;"/>
@@ -333,26 +330,39 @@ button:hover {
               </span> 
             
               @endif
-              </div>
+            </div>
+
+            
+            <div class="box-header">
+               <h3 class="box-title">Meta Title:</h3>
+            </div>
+            <div class="box-body pad">
+            <input type="text" class="form-control" name="length" id="length" oninput="this.className = ''" style="line-height: 18px; border: 1px solid #dddddd; padding: 10px;"/>
+              @if ($errors->has('meta_title'))
+              <span class="help-block">
+              <strong style="color:red">{{ $errors->first('meta_title') }}</strong>
+              </span> 
+            
+              @endif
+            </div>
   </div>
-  <div style="overflow:auto;">
-    <div style="float:right;">
-      <button type="button" id="prevBtn" class="btn btn-default" onclick="nextPrev(-1)">Previous</button>
-      <button type="button" id="nextBtn" class="btn btn-block btn-primary" onclick="nextPrev(1)">Next</button>
+    <div style="overflow:auto;">
+      <div style="float:right;">
+        <button type="button" id="prevBtn" class="btn btn-default" onclick="nextPrev(-1)">Previous</button>
+        <button type="button" id="nextBtn" class="btn btn-block btn-primary" onclick="nextPrev(1)">Next</button>
+      </div>
     </div>
-  </div>
-  <!-- Circles which indicates the steps of the form: -->
-  <div style="text-align:center;margin-top:40px;">
-    <span class="step"></span>
-    <span class="step"></span>
-    <span class="step"></span>
-  </div>
-</form>
+    <!-- Circles which indicates the steps of the form: -->
+    <div style="text-align:center;margin-top:40px;">
+      <span class="step"></span>
+      <span class="step"></span>
+    </div>
+  </form>
 </div>      
             <!-- /.content -->
-            </section>
+</section>
             
-          </div>
+</div>
 
 @endsection
 
