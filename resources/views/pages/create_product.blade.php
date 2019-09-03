@@ -2,6 +2,11 @@
 @section('title','SHF | Add new Product')
 @section('stylesheets')
 <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+<!-- bootstrap 4.x is supported. You can also use the bootstrap css 3.3.x versions -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.4.0/min/dropzone.min.css">
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.4.0/dropzone.js"></script>
 <style>
 /*start of radio button style*/
 .container {
@@ -205,7 +210,7 @@ button:hover {
           </div>
       @endif
 <div class="box">     
-      <form method="POST" id="regForm" autocomplete="off"  action="{{ action ('ProductController@store') }}">
+      <form method="POST" id="regForm" autocomplete="off"  action="{{ action ('ProductController@store') }}" enctype="multipart/form-data"  >
       @csrf
   <!-- One "tab" for each step in the form: -->
   <div class="tab">
@@ -283,6 +288,9 @@ button:hover {
                 </span> 
               @endif
             </div>
+            <div class="box-header">
+              <h3 class="box-title">Sort Order:</h3>
+            </div>
             <label  style="margin-left:15px;" class="container radioLeft ">Top
             <input type="radio"  name="sort_order" onclick="test(this)" id="radioBtn" value ="1">
             <span class="checkmark"></span>
@@ -353,13 +361,14 @@ button:hover {
             <h3 class="box-title">Tag:</h3>
             </div>
             <div class="box-body pad">
-                  <select name="tag_id" id="tag_id" class="form-control">                          
-                                        <option selected>Choose...</option>
-                                        @foreach($tag as $t)
-                                        <option  value="{{ ($t->id) }}">{{ ($t->name) }}</option>
-                                        @endforeach
-                                    </select>
-                                  </div>
+              <select name="tag_id" id="tag_id" class="form-control">                          
+                  <option selected>Choose...</option>
+                  @foreach($tag as $t)
+                  <option  value="{{ ($t->id) }}">{{ ($t->name) }}</option>
+                  @endforeach
+              </select>
+            </div>
+
   </div>
   <div style="overflow:auto;">
     <div style="float:right;">
@@ -386,6 +395,7 @@ button:hover {
 
 @section('scripts')
 <script>
+
 var currentTab = 0; // Current tab is set to be the first tab (0)
 showTab(currentTab); // Display the current tab
 
@@ -475,6 +485,14 @@ var radioState = false;
     function uncheck() {
         document.getElementById("radioBtn").checked = false;
     }
+
+    $(document).on('ready', function() {
+        $("#input-42").fileinput({
+            maxFileCount: 10,
+            allowedFileExtensions: ["jpg", "gif", "png", "txt"]
+        });
+    });
+
 </script>
 
 @endsection
