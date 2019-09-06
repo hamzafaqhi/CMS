@@ -3,12 +3,21 @@
 @section('stylesheets')
 <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
 <!-- bootstrap 4.x is supported. You can also use the bootstrap css 3.3.x versions -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.4.0/min/dropzone.min.css">
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.4.0/dropzone.js"></script>
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.7/css/fileinput.css" rel="stylesheet" media="all" type="text/css" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" media="all" type="text/css" />
+
+
+
 <style>
 /*start of radio button style*/
+.dropzone {
+        border-radius: 5px;
+        max-width: 1200px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
 .container {
   display: block;
   position: relative;
@@ -211,7 +220,7 @@ button:hover {
       @endif
 <div class="box">     
       <form method="POST" id="regForm" autocomplete="off"  action="{{ action ('ProductController@store') }}" enctype="multipart/form-data"  >
-      @csrf
+      <input type="hidden" name="_token" value="{{csrf_token()}}" >  
   <!-- One "tab" for each step in the form: -->
   <div class="tab">
             <div class="box-header">
@@ -276,7 +285,40 @@ button:hover {
                     <option id="stock_status" name="stock_status" value="0">Out of Stock</option>
                   </select>      
             </div>
+            
+            <div class="box-header">
+              <h3 class="box-title">Manufacturer:</h3>
+            </div>
+            <div class="box-body pad">
+                  <select name="manufacture_id" id="manufacture_id" class="form-control">                          
+                      <option  value = "0" selected>Choose...</option>
+                      @foreach($man as $t)
+                      <option  value="{{ ($t->id) }}">{{ ($t->name) }}</option>
+                      @endforeach
+                  </select>
+            </div>
 
+            <div class="box-header">
+            <h3 class="box-title">Tag:</h3>
+            </div>
+            <div class="box-body pad">
+              <select name="tag_id" id="tag_id" class="form-control">                          
+                  <option selected>Choose...</option>
+                  @foreach($tag as $t)
+                  <option  value="{{ ($t->id) }}">{{ ($t->name) }}</option>
+                  @endforeach
+              </select>
+            </div>
+
+            <div class="box-header">
+              <h3 class="box-title">Sort Order:</h3>
+            </div>
+            <label  style="margin-left:15px;" class="container radioLeft ">Top
+            <input type="radio"  name="sort_order" onclick="test(this)" id="radioBtn" value ="1">
+            <span class="checkmark"></span>
+            </label>
+  </div>
+  <div class="tab">
             <div class="box-header">
               <h3 class="box-title">Weight:</h3>
             </div>
@@ -288,28 +330,7 @@ button:hover {
                 </span> 
               @endif
             </div>
-            <div class="box-header">
-              <h3 class="box-title">Sort Order:</h3>
-            </div>
-            <label  style="margin-left:15px;" class="container radioLeft ">Top
-            <input type="radio"  name="sort_order" onclick="test(this)" id="radioBtn" value ="1">
-            <span class="checkmark"></span>
-            </label>
 
-            <div class="box-header">
-            <h3 class="box-title">Manufacturer:</h3>
-            </div>
-            <div class="box-body pad">
-                  <select name="manufacture_id" id="manufacture_id" class="form-control">                          
-                                        <option  value = "0" selected>Choose...</option>
-                                        @foreach($man as $t)
-                                        <option  value="{{ ($t->id) }}">{{ ($t->name) }}</option>
-                                        @endforeach
-                                    </select>
-
-  </div>
-  </div>
-  <div class="tab">
             <div class="box-header">
               <h3 class="box-title">Width:</h3>
             </div>
@@ -323,62 +344,54 @@ button:hover {
               @endif
             </div>
 
-              <div class="box-header">
-            <h3 class="box-title">Meta Title:</h3>
+            <div class="box-header">
+              <h3 class="box-title">Height:</h3>
             </div>
             <div class="box-body pad">
-            <input type="text" class="form-control" name="meta_title" id="meta_title" oninput="this.className = ''" style="line-height: 18px; border: 1px solid #dddddd; padding: 10px;"/>
-              </div>
-
-              <div class="box-header">
-            <h3 class="box-title">Height:</h3>
-            </div>
-            <div class="box-body pad">
-            <input type="text" class="form-control" name="height" id="height" oninput="this.className = ''" style="line-height: 18px; border: 1px solid #dddddd; padding: 10px;"/>
-              @if ($errors->has('height'))
-              <span class="help-block">
-              <strong style="color:red">{{ $errors->first('height') }}</strong>
-              </span> 
-            
-              @endif
+              <input type="text" class="form-control" name="height" id="height" oninput="this.className = ''" style="line-height: 18px; border: 1px solid #dddddd; padding: 10px;"/>
+                @if ($errors->has('height'))
+                <span class="help-block">
+                <strong style="color:red">{{ $errors->first('height') }}</strong>
+                </span> 
+              
+                @endif
             </div>
 
             <div class="box-header">
                <h3 class="box-title">Length:</h3>
             </div>
             <div class="box-body pad">
-            <input type="text" class="form-control" name="length" id="length" oninput="this.className = ''" style="line-height: 18px; border: 1px solid #dddddd; padding: 10px;"/>
-              @if ($errors->has('length'))
-              <span class="help-block">
-              <strong style="color:red">{{ $errors->first('length') }}</strong>
-              </span> 
-            
-              @endif
-              </div>
-
+              <input type="text" class="form-control" name="length" id="length" oninput="this.className = ''" style="line-height: 18px; border: 1px solid #dddddd; padding: 10px;"/>
+                @if ($errors->has('length'))
+                <span class="help-block">
+                <strong style="color:red">{{ $errors->first('length') }}</strong>
+                </span> 
               
+                @endif
+            </div>
             <div class="box-header">
-            <h3 class="box-title">Tag:</h3>
+            <h3 class="box-title">Meta Title:</h3>
             </div>
             <div class="box-body pad">
-              <select name="tag_id" id="tag_id" class="form-control">                          
-                  <option selected>Choose...</option>
-                  @foreach($tag as $t)
-                  <option  value="{{ ($t->id) }}">{{ ($t->name) }}</option>
-                  @endforeach
-              </select>
+            <input type="text" class="form-control" name="meta_title" id="meta_title" oninput="this.className = ''" style="line-height: 18px; border: 1px solid #dddddd; padding: 10px;"/>
             </div>
-
+            <div class="box-header">
+              <h3 class="box-title">Product Image:</h3>
+            </div>
+            <div class="form-group dropzone">
+              <input type="file" id="file-1" name="file"  multiple class="file" data-overwrite-initial="false" data-min-file-count="2" >
+            </div>
+            
+            <input type="hidden" name="img1" id="input1" value="">
+            <input type="hidden" name="img2" id="input2" value="">
+            <input type="hidden" name="img3" id="input3" value="">
   </div>
   <div style="overflow:auto;">
     <div style="float:right;">
-      
       <button type="button" id="prevBtn" class="btn btn-default" onclick="nextPrev(-1)" style="/* margin-right: 0px; *//* display: inline; */">Previous</button>
-      <button type="button" id="nextBtn" class="btn btn-block btn-primary" onclick="nextPrev(1)" style="
-    margin-right:10px;
-    width: 80px;
-">Next</button>
+      <button type="button" id="nextBtn" class="btn btn-block btn-primary" onclick="nextPrev(1)" style="margin-right:10px;width: 80px;">Next</button>
     </div>
+  </div>
     <!-- Circles which indicates the steps of the form: -->
     <div style="text-align:center;margin-top:40px;">
       <span class="step"></span>
@@ -394,7 +407,45 @@ button:hover {
 @endsection
 
 @section('scripts')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.7/js/fileinput.js" type="text/javascript"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.7/themes/fa/theme.js" type="text/javascript"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/esm/popper.min.js" type="text/javascript"></script>
+
 <script>
+//file input
+
+$('#file-1').fileinput({
+  theme:'fa',
+  uploadUrl:"/product/image-upload",
+  uploadExtraData:function () {
+    return{
+      _token:$("input[name='_token']").val()
+    };
+  },
+  allowedFileExtensions:['jpg','png','gif'],
+  overwriteInitial:false,
+  maxFileSize:2000,
+  maxFileNum:3,
+   slugCallback:function (filename) {
+    return filename.replace('(','_').replace(']','_');
+  }
+});
+
+$('#file-1').on('fileuploaded', function(event, data, previewId, index) {
+    var input1 = $("#input1").val(),
+        input2 = $("#input2").val(),
+        input3 = $("#input3").val();
+
+    if(!input1) {
+      input1 = data.response;
+    } 
+    else if (!input2){
+      input2 = data.response;
+    }
+    else if(!input3){
+      input3 = data.response;
+    }
+});
 
 var currentTab = 0; // Current tab is set to be the first tab (0)
 showTab(currentTab); // Display the current tab
@@ -485,14 +536,6 @@ var radioState = false;
     function uncheck() {
         document.getElementById("radioBtn").checked = false;
     }
-
-    $(document).on('ready', function() {
-        $("#input-42").fileinput({
-            maxFileCount: 10,
-            allowedFileExtensions: ["jpg", "gif", "png", "txt"]
-        });
-    });
-
 </script>
 
 @endsection

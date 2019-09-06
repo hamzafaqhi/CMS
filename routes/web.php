@@ -33,7 +33,8 @@ Route::get('/category','CategoryController@index')->name('category.index');
 //Product
 Route::get('/product','ProductController@index')->name('product.index');
 Route::get('/product/create','ProductController@create')->name('product.create');
-Route::post('/product/add','ProductController@store');
+Route::post('/product/add','ProductController@store')->name('productsave');
+Route::post('/product/image-upload','ProductController@saveProductImage');
 Route::delete('/product/{id}/delete','ProductController@destroy');
 Route::post('product/update','ProductController@update');
 Route::get('/product/{id}/edit','ProductController@edit')->name('products.edit');

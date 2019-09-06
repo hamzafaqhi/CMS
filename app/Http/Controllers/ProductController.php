@@ -5,7 +5,6 @@ use App\Product;
 use Validator;
 use Redirect;
 use Datatables;
-use Illuminate\Http\Request;
 use App\Manufacture;
 use App\Tag;
 
@@ -53,7 +52,7 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store()
     {
         $product = new Product();
         $validator = Validator::make($request->all(),[
@@ -99,6 +98,14 @@ class ProductController extends Controller
         //
     }
 
+    public function saveProductImage()
+    {
+        $imgName = time() . request()->file->getClientOriginalName();
+
+        request()->file->move(public_path('upload/products'), $imgName);
+
+        return response()->json($imgName);
+    }
     /**
      * Show the form for editing the specified resource.
      *
@@ -137,7 +144,7 @@ class ProductController extends Controller
         $record = Product::whereId($request->id)->update(['name'=>$request->product_name, 'description' =>$request->description , 'price' =>$request->price ,'quantity' =>$request->quantity,
         'stock_status' =>$request->stock_status,'length' =>$request->length,'width' =>$request->width,'height' =>$request->height,'weight' =>$request->weight,
         'sortorder' =>$request->sortorder,'meta_title' =>$request->meta_title]);        
-        return back()->with('success','Category edited successfully');
+        return back()->with('success','Product edited successfully');
         }
         return Redirect::back()->withErrors($validator);
     }
