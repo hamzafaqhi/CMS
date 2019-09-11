@@ -2,22 +2,16 @@
 @section('title','SHF | Add new Product')
 @section('stylesheets')
 <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
-<!-- bootstrap 4.x is supported. You can also use the bootstrap css 3.3.x versions -->
-
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.7/css/fileinput.css" rel="stylesheet" media="all" type="text/css" />
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" media="all" type="text/css" />
-
-
-
 <style>
-/*start of radio button style*/
 .dropzone {
-        border-radius: 5px;
-        max-width: 1200px;
-        margin-left: auto;
-        margin-right: auto;
-    }
-
+  border-radius: 5px;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+/*start of radio button style*/
 .container {
   display: block;
   position: relative;
@@ -219,8 +213,8 @@ button:hover {
           </div>
       @endif
 <div class="box">     
-      <form method="POST" id="regForm" autocomplete="off"  action="{{ action ('ProductController@store') }}" enctype="multipart/form-data"  >
-      <input type="hidden" name="_token" value="{{csrf_token()}}" >  
+      <form method="POST" id="regForm" autocomplete="off"  action="{{ action ('ProductController@store') }}">
+      @csrf
   <!-- One "tab" for each step in the form: -->
   <div class="tab">
             <div class="box-header">
@@ -253,7 +247,7 @@ button:hover {
               <h3 class="box-title">Price: </h3>
             </div>
             <div class="box-body pad">
-              <input type="text" class="form-control" name="price" id="price" oninput="this.className = ''" style="line-height: 18px; border: 1px solid #dddddd; padding: 10px;"/>
+              <input type="number" class="form-control" name="price" id="price" oninput="this.className = ''" style="line-height: 18px; border: 1px solid #dddddd; padding: 10px;"/>
                 @if ($errors->has('price'))
                 <span class="help-block">
                 <strong style="color:red">{{ $errors->first('price') }}</strong>
@@ -266,7 +260,7 @@ button:hover {
               <h3 class="box-title">Quantity</h3>
             </div>
             <div class="box-body pad">
-                <input type="text" class="form-control" name="quantity" id="quantity" oninput="this.className = ''" style="line-height: 18px; border: 1px solid #dddddd; padding: 10px;"/>
+                <input type="number" class="form-control" name="quantity" id="quantity" oninput="this.className = ''" style="line-height: 18px; border: 1px solid #dddddd; padding: 10px;" min="0"/>
                 @if ($errors->has('quantity'))
                 <span class="help-block">
                 <strong style="color:red">{{ $errors->first('quantity') }}</strong>
@@ -280,12 +274,12 @@ button:hover {
             </div>
             <div class="box-body pad">
                   <select name="stock_status" id="stock_status" class="form-control">
-                  <option selected>Choose...</option>
+                    <option name="stock_status" id="stock_status" value="0">Choose...</option>
                     <option name="stock_status" id="stock_status" value="1">In Stock</option>
                     <option id="stock_status" name="stock_status" value="0">Out of Stock</option>
                   </select>      
             </div>
-            
+
             <div class="box-header">
               <h3 class="box-title">Manufacturer:</h3>
             </div>
@@ -309,7 +303,6 @@ button:hover {
                   @endforeach
               </select>
             </div>
-
             <div class="box-header">
               <h3 class="box-title">Sort Order:</h3>
             </div>
@@ -317,25 +310,13 @@ button:hover {
             <input type="radio"  name="sort_order" onclick="test(this)" id="radioBtn" value ="1">
             <span class="checkmark"></span>
             </label>
-  </div>
+  </div>   
   <div class="tab">
-            <div class="box-header">
-              <h3 class="box-title">Weight:</h3>
-            </div>
-            <div class="box-body pad">
-              <input type="text" class="form-control" name="weight" id="weight" oninput="this.className = ''" style="line-height: 18px; border: 1px solid #dddddd; padding: 10px;"/>
-                @if ($errors->has('weight'))
-                <span class="help-block">
-                  <strong style="color:red">{{ $errors->first('weight') }}</strong>
-                </span> 
-              @endif
-            </div>
-
             <div class="box-header">
               <h3 class="box-title">Width:</h3>
             </div>
             <div class="box-body pad">
-            <input type="text" class="form-control" name="width" id="width" oninput="this.className = ''" style="line-height: 18px; border: 1px solid #dddddd; padding: 10px;"/>
+            <input type="number" class="form-control" name="width" id="width" oninput="this.className = ''" style="line-height: 18px; border: 1px solid #dddddd; padding: 10px;"/>
               @if ($errors->has('width'))
               <span class="help-block">
               <strong style="color:red">{{ $errors->first('width') }}</strong>
@@ -348,50 +329,69 @@ button:hover {
               <h3 class="box-title">Height:</h3>
             </div>
             <div class="box-body pad">
-              <input type="text" class="form-control" name="height" id="height" oninput="this.className = ''" style="line-height: 18px; border: 1px solid #dddddd; padding: 10px;"/>
-                @if ($errors->has('height'))
+            <input type="number" class="form-control" name="height" id="height" oninput="this.className = ''" style="line-height: 18px; border: 1px solid #dddddd; padding: 10px;"/>
+              @if ($errors->has('height'))
+              <span class="help-block">
+              <strong style="color:red">{{ $errors->first('height') }}</strong>
+              </span> 
+            
+              @endif
+            </div>
+            <div class="box-header">
+              <h3 class="box-title">Weight:</h3>
+            </div>
+            <div class="box-body pad">
+              <input type="number" class="form-control" name="weight" id="weight" oninput="this.className = ''" style="line-height: 18px; border: 1px solid #dddddd; padding: 10px;"/>
+                @if ($errors->has('weight'))
                 <span class="help-block">
-                <strong style="color:red">{{ $errors->first('height') }}</strong>
+                  <strong style="color:red">{{ $errors->first('weight') }}</strong>
                 </span> 
-              
-                @endif
+              @endif
             </div>
 
             <div class="box-header">
                <h3 class="box-title">Length:</h3>
             </div>
             <div class="box-body pad">
-              <input type="text" class="form-control" name="length" id="length" oninput="this.className = ''" style="line-height: 18px; border: 1px solid #dddddd; padding: 10px;"/>
-                @if ($errors->has('length'))
-                <span class="help-block">
-                <strong style="color:red">{{ $errors->first('length') }}</strong>
-                </span> 
-              
-                @endif
+            <input type="number" class="form-control" name="length" id="length" oninput="this.className = ''" style="line-height: 18px; border: 1px solid #dddddd; padding: 10px;"/>
+              @if ($errors->has('length'))
+              <span class="help-block">
+              <strong style="color:red">{{ $errors->first('length') }}</strong>
+              </span> 
+            
+              @endif
             </div>
+
+            
             <div class="box-header">
-            <h3 class="box-title">Meta Title:</h3>
+               <h3 class="box-title">Meta Title:</h3>
             </div>
             <div class="box-body pad">
             <input type="text" class="form-control" name="meta_title" id="meta_title" oninput="this.className = ''" style="line-height: 18px; border: 1px solid #dddddd; padding: 10px;"/>
+              @if ($errors->has('meta_title'))
+              <span class="help-block">
+              <strong style="color:red">{{ $errors->first('meta_title') }}</strong>
+              </span> 
+            
+              @endif
             </div>
+
             <div class="box-header">
               <h3 class="box-title">Product Image:</h3>
             </div>
             <div class="form-group dropzone">
               <input type="file" id="file-1" name="file"  multiple class="file" data-overwrite-initial="false" data-min-file-count="2" >
             </div>
-            
-            <input type="hidden" name="img1" id="input1" value="">
+  </div>
+    <div style="overflow:auto;">
+      <div style="float:right;">
+        <button type="button" id="prevBtn" class="btn btn-default" onclick="nextPrev(-1)" style="/* margin-right: 0px; *//* display: inline; */">Previous</button>
+        <button type="button" id="nextBtn" class="btn btn-block btn-primary" onclick="nextPrev(1)" style="margin-right:10px;width: 80px;">Next</button>
+      </div>
+    </div>
+    <input type="hidden" name="img1" id="input1" value="">
             <input type="hidden" name="img2" id="input2" value="">
             <input type="hidden" name="img3" id="input3" value="">
-  </div>
-  <div style="overflow:auto;">
-    <div style="float:right;">
-      <button type="button" id="prevBtn" class="btn btn-default" onclick="nextPrev(-1)" style="/* margin-right: 0px; *//* display: inline; */">Previous</button>
-      <button type="button" id="nextBtn" class="btn btn-block btn-primary" onclick="nextPrev(1)" style="margin-right:10px;width: 80px;">Next</button>
-    </div>
-  </div>
     <!-- Circles which indicates the steps of the form: -->
     <div style="text-align:center;margin-top:40px;">
       <span class="step"></span>
@@ -410,13 +410,12 @@ button:hover {
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.7/js/fileinput.js" type="text/javascript"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.7/themes/fa/theme.js" type="text/javascript"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/esm/popper.min.js" type="text/javascript"></script>
-
 <script>
-//file input
 
 $('#file-1').fileinput({
   theme:'fa',
   uploadUrl:"/product/image-upload",
+  deleteUrl:"/product/image-delete",
   uploadExtraData:function () {
     return{
       _token:$("input[name='_token']").val()
@@ -437,13 +436,13 @@ $('#file-1').on('fileuploaded', function(event, data, previewId, index) {
         input3 = $("#input3").val();
 
     if(!input1) {
-      input1 = data.response;
+     $("#input1").val(data.response);
     } 
     else if (!input2){
-      input2 = data.response;
+      $("#input2").val(data.response);
     }
     else if(!input3){
-      input3 = data.response;
+      $("#input3").val(data.response);
     }
 });
 
@@ -494,15 +493,15 @@ function validateForm() {
   x = document.getElementsByClassName("tab");
   y = x[currentTab].getElementsByTagName("input");
   // A loop that checks every input field in the current tab:
-  for (i = 0; i < y.length; i++) {
-    // If a field is empty...
-    if (y[i].value == "") {
-      // add an "invalid" class to the field:
-      y[i].className += " invalid";
-      // and set the current valid status to false
-      valid = false;
-    }
-  }
+  // for (i = 0; i < y.length; i++) {
+  //   // If a field is empty...
+  //   if (y[i].value == "") {
+  //     // add an "invalid" class to the field:
+  //     y[i].className += " invalid";
+  //     // and set the current valid status to false
+  //     valid = false;
+  //   }
+  // }
   // If the valid status is true, mark the step as finished and valid:
   if (valid) {
     document.getElementsByClassName("step")[currentTab].className += " finish";
