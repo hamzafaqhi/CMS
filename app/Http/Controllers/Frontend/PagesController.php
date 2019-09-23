@@ -15,8 +15,8 @@ class PagesController extends Controller
      */
     public function index()
     {
-        $latest = Product::getLatestProduct();
-        $products = Product::getProduct();
+        // $latest = Product::getLatestProduct();
+        // $products = Product::getProduct();
         return view('Frontend.pages.homepage',compact('latest','products'));
     }
 
