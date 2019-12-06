@@ -253,10 +253,11 @@
 		</section>
 		<!-- Start BEst Seller Area -->
 		<!-- Start NEwsletter Area -->
-		<section class="bg--gray">
-			<div class="container">
-				<div class="row">
-					<div class="col-lg-7 offset-lg-5 col-md-12 col-12 ptb--150">
+		<section >
+			<div class="container"  >
+				<div class="row" >
+
+					<div class="col-lg-7 offset-lg-2 col-md-12 col-12 ptb--150" margin-left: 20%>
 						<div class="section__title text-center">
 							<h2>Stay With Us</h2>
 						</div>
@@ -2333,7 +2334,7 @@
 		<!-- Start BEst Seller Area -->
 		<!-- Start Recent Post Area -->
 		<section class="best-seel-area pt--80 pb--60">
-			<div class="container">
+			<div class="container" >
 				<div class="row">
 					<div class="col-lg-12">
 						<div class="section__title text-center pb--50">

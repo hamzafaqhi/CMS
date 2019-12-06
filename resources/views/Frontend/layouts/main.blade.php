@@ -19,9 +19,18 @@
 	<!-- Stylesheets -->
 	<link rel="stylesheet" href="{{ asset('boighor/css/bootstrap.min.css') }}">
 	<link rel="stylesheet" href="{{ asset('boighor/css/plugins.css') }}">
-	<link rel="stylesheet" href="{{ asset('boighor/style.css') }}">
+	<!-- themes Stylesheets -->
 
-	<!-- Cusom css -->
+	<!-- <link rel="stylesheet" href="{{ asset('boighor/1.css') }}"> -->
+	 <!-- <link rel="stylesheet" href="{{ asset('boighor/2.css') }}">   -->
+	<!-- <link rel="stylesheet" href="{{ asset('boighor/3.css') }}"> -->
+	 <!-- <link rel="stylesheet" href="{{ asset('boighor/4.css') }}">    -->
+	<!-- <link rel="stylesheet" href="{{ asset('boighor/5.css') }}">  -->
+	<!-- <link rel="stylesheet" href="{{ asset('boighor/6.css') }}">  -->
+	<link rel="stylesheet" href="{{ asset('boighor/7.css') }}">
+
+
+	<!-- Cusom css 
    <link rel="stylesheet" href="{{ asset('boighor/css/custom.css') }}">
 
 	<!-- Modernizer js -->
@@ -54,14 +63,20 @@
 		</div>
 		<!-- End Search Popup -->
         <!-- Start Slider area -->
-        <div class="slider-area brown__nav slider--15 slide__activation slide__arrow01 owl-carousel owl-theme">
+        <div class="banner slider-area brown__nav slider--15 slide__activation slide__arrow01 owl-carousel owl-theme">
         	<!-- Start Single Slide -->
-	        <div class="slide animation__style10 bg-image--1 fullscreen align__center--left">
+	      
+	            
+           
+            <div class="slide animation__style10 bg-image--ts1 fullscreen align__center--left">
 	            
             </div>
             <!-- End Single Slide -->
         	<!-- Start Single Slide -->
-	        <div class="slide animation__style10 bg-image--7 fullscreen align__center--left">
+	        <div class="slide animation__style10 bg-image--ts2 fullscreen align__center--left">
+            </div>
+
+             <div class="slide animation__style10 bg-image--ts3 fullscreen align__center--left">
             </div>
             <!-- End Single Slide -->
         </div>
@@ -73,17 +88,17 @@
 		
 		<!-- Best Sale Area Area -->
 		<!-- Footer Area -->
-		<footer id="wn__footer" class="footer__area bg__cat--8 brown--color">
-			<div class="footer-static-top">
+		<footer id="wn__footer" class="footer__area bg__cat--8 brown--color ">
+			<div class="footer-static-top  ">
 				<div class="container">
 					<div class="row">
 						<div class="col-lg-12">
 							<div class="footer__widget footer__menu">
 								<div class="ft__logo">
 									<a href="index.html">
-										<img src="images/logo/3.png" alt="logo">
+										<img src="http://localhost:8000/boighor/images/logo/3.png" alt="logo">
 									</a>
-									<p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered duskam alteration variations of passages</p>
+									<p class="foot_for_home">There are many variations of passages of Lorem Ipsum available, but the majority have suffered duskam alteration variations of passages</p>
 								</div>
 								<div class="footer__content">
 									<ul class="social__net social__net--2 d-flex justify-content-center">
