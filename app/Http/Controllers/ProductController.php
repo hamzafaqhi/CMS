@@ -1,12 +1,17 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use App\Image_Product;
 use App\Product;
 use Validator;
 use Redirect;
 use Datatables;
 use App\Manufacture;
 use App\Tag;
+use App\Category;
+use App\Product_Related;
+use Image;
 
 class ProductController extends Controller
 {
@@ -43,7 +48,21 @@ class ProductController extends Controller
     {
         $man = Manufacture::all();
         $tag = Tag::all();
-        return view('pages.create_product')->with(compact('man','tag'));
+        $cat = Category::where(['parent_id'=> 0])->get();
+        $products = Product::get();
+        $categories_d = "<option value=''></option>";
+            foreach($cat as $c)
+            {
+                $categories_d .= "<option  value='".$c->id."'>".$c->name."</option>";
+                // $cats = Category::where('parent_id', 0)->pluck('id');
+                $category = Category::where(['parent_id'=>$c->id])->get();
+                foreach($category as $sub_c)
+                {
+                    $categories_d .= "<option  value='".$sub_c->id."'>&nbsp;--&nbsp;".$sub_c->name."</option>";
+                }
+            }
+        
+        return view('pages.create_product')->with(compact('man','tag','cat','category','categories_d','products'));
     }
 
     /**
@@ -53,9 +72,10 @@ class ProductController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store()
-    {
+    { 
         $product = new Product();
-        $validator = Validator::make($request->all(),[
+        $product_image = new Image_Product();
+        $validator = Validator::make(request()->all(),[
             'product_name' => 'required',
             'price' => 'required|regex:/^[0-9]+$/',
             'quantity' => 'required|regex:/^[0-9]+$/',
@@ -68,22 +88,62 @@ class ProductController extends Controller
         ]);
         if ($validator->passes())
         {
-            $product->name= $request->product_name;
-            $product->description= $request->description;
-            $product->price=$request->price;
-            $product->quantity=$request->quantity;
-            $product->stock_status=$request->stock_status;
-            $product->length=$request->length;
-            $product->width=$request->width;
-            $product->height=$request->height;
-            $product->weight=$request->weight;
-            $product->sortorder=$request->sort_order;
-            $product->meta_title=$request->meta_title;
-            $product->manufacture_id=$request->manufacture_id;
-            $product->tag_id=$request->tag_id;
+            $product->name= request()->product_name;
+            $product->description= request()->description;
+            $product->price=request()->price;
+            $product->quantity=request()->quantity;
+            $product->stock_status=request()->stock_status;
+            $product->length=request()->length;
+            $product->width=request()->width;
+            $product->height=request()->height;
+            $product->weight=request()->weight;
+            $product->sortorder=request()->sort_order;
+            $product->meta_title=request()->meta_title;
+            $product->manufacture_id=request()->manufacture_id;
+            $product->tag_id=request()->tag_id;
+            $product->category_id=request()->category_id;
             $product->save();
-            return back()->with('success','Product created successfully');
         }
+            if(request()->exists('related_product'))
+            {   
+                $related_product = new Product_Related();
+                $related_product->product_id = $product->id;
+                for ($i = 1; $i < count(request()->related_product); $i++) {
+                    $answers[] = [
+                        'product_id' => $product->id,
+                        'related_product_id' => request()->related_product[$i],
+                    ];
+                }
+                $related_product->insert($answers);
+            }
+            if(request()->exists('image') )
+            {
+                $messages = [
+                    "attachments.max" => "You can't upload more than 3 images."
+                 ];
+                $validator = Validator::make(request()->all(),[
+                    'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                    'image' => 'max:3',
+                    ],$messages);
+               
+                if($validator->passes())
+                {
+                    $image =  request()->file('image');
+                    foreach ($image as $files) 
+                    {
+                        
+                        $name = $files->getClientOriginalName().'_'.time().'.'.$files->extension();
+                        $files->move(storage_path().'/app/public/products/', $name);  
+                        $data[] = $name;
+                        print_r($data);
+                    }
+                    $product_image->product_id = $product->id;
+                    $product_image->image_path = implode(',',$data);
+                    $product_image->save();                    
+                }
+            }
+            return back()->with('success','Product created successfully');
+        
         return Redirect::back()->withErrors($validator);
     }
 
@@ -114,8 +174,23 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
+        $man = Manufacture::all();
+        $tag = Tag::all();
+        $products = Product::get();
+        $cat = Category::where(['parent_id'=> 0])->get();
+        $categories_d = "<option value=''></option>";
+            foreach($cat as $c)
+            {
+                $categories_d .= "<option  value='".$c->id."'>".$c->name."</option>";
+                // $cats = Category::where('parent_id', 0)->pluck('id');
+                $category = Category::where(['parent_id'=>$c->id])->get();
+                foreach($category as $sub_c)
+                {
+                    $categories_d .= "<option  value='".$sub_c->id."'>&nbsp;--&nbsp;".$sub_c->name."</option>";
+                }
+            }
             $data = Product::findOrFail($id);
-            return view('pages.edit')->with(compact('data'));
+            return view('pages.edit')->with(compact('data','man','tag','cat','category','categories_d','products'));
         
     }
 
@@ -126,9 +201,10 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update()
     {
-        $validator = Validator::make($request->all(),[
+        $product = Product::find(request()->id);
+        $validator = Validator::make(request()->all(),[
             'product_name' => 'required',
             'price' => 'required|regex:/^[0-9]+$/',
             'quantity' => 'required|regex:/^[0-9]+$/',
@@ -141,11 +217,59 @@ class ProductController extends Controller
         ]);
         if ($validator->passes())
         {
-        $record = Product::whereId($request->id)->update(['name'=>$request->product_name, 'description' =>$request->description , 'price' =>$request->price ,'quantity' =>$request->quantity,
-        'stock_status' =>$request->stock_status,'length' =>$request->length,'width' =>$request->width,'height' =>$request->height,'weight' =>$request->weight,
-        'sortorder' =>$request->sortorder,'meta_title' =>$request->meta_title]);        
-        return back()->with('success','Product edited successfully');
+            $product->name= request()->product_name;
+            $product->description= request()->description;
+            $product->price=request()->price;
+            $product->quantity=request()->quantity;
+            $product->stock_status=request()->stock_status;
+            $product->length=request()->length;
+            $product->width=request()->width;
+            $product->height=request()->height;
+            $product->weight=request()->weight;
+            $product->sortorder=request()->sort_order;
+            $product->meta_title=request()->meta_title;
+            $product->manufacture_id=request()->manufacture_id;
+            $product->tag_id=request()->tag_id;
+            $product->category_id=request()->category_id;
+            $product->save();
         }
+        if(request()->exists('related_product'))
+            {   
+                $related_product = Product_Related::where('product_id',request()->id)->first();
+                for ($i = 1; $i < count(request()->related_product); $i++) {
+                    $answers[] = [
+                        'product_id' => $product->id,
+                        'related_product_id' => request()->related_product[$i],
+                    ];
+                }
+                $related_product->insert($answers);
+            }
+            if(request()->exists('image') )
+            {
+                $messages = [
+                    "attachments.max" => "You can't upload more than 3 images."
+                 ];
+                $validator = Validator::make(request()->all(),[
+                    'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                    'image' => 'max:3',
+                    ],$messages);
+               
+                if($validator->passes())
+                {
+                    $image =  request()->file('image');
+                    foreach ($image as $files) 
+                    {
+                        
+                        $name = $files->getClientOriginalName().'_'.time().'.'.$files->extension();
+                        $files->move(storage_path().'/app/public/products/', $name);  
+                        $data[] = $name;
+                        print_r($data);
+                    }
+                    $product_image = Image_Product::where('product_id',request()->id)->update(['image_path' => implode(',',$data)]);         
+                }
+            }
+            return back()->with('success','Product updated successfully');
+        
         return Redirect::back()->withErrors($validator);
     }
 

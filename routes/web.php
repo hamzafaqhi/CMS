@@ -21,9 +21,19 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard','DashboardController@index')->name('dashboard');
-Route::get('/invoice','DashboardController@invoice')->name('invoice');
+
+Route::get('/setting','DashboardController@setting')->name('setting');
+
+
+Route::get('/order','OrderController@index')->name('order');
+Route::get('/returns','OrderController@returns')->name('returns');
+Route::get('/cancel','OrderController@cancel')->name('cancel');
+Route::get('/order/{id}/invoice','OrderController@invoice')->name('order.invoice');
+Route::get('/redirect/view/{status}','OrderController@redirectView')->name('view-redirect');
+
+
 //Category
-Route::get('/category','CategoryController@index')->name('category.index');
+    Route::get('/category','CategoryController@index')->name('category.index');
     Route::post('/category/add','CategoryController@store');
     Route::get('/category/create','CategoryController@create')->name('category.create');
     Route::delete('/category/{id}/delete','CategoryController@destroy');
@@ -63,15 +73,58 @@ Route::delete('/tags/{id}/delete','TagController@destroy');
 Route::get('/tags/{id}/edit','TagController@edit')->name('tags.edit');
 Route::post('tags/update','TagController@update');
 
+Route::get('/banner','BannerController@index')->name('banner');
+Route::get('/banner/create','BannerController@create')->name('banner.create');
+Route::post('/banner/add','BannerController@store');
+Route::get('/ban/{id}/edit','BannerController@edit')->name('ban.edit');
+Route::delete('/ban/{id}/delete','BannerController@destroy');
+Route::post('ban/update','BannerController@update');
+// Route::get('ban/get','BannerController@getBanners');
+
 Route::get('/logout','Auth\LoginController@logout')->name('logout');
 
 // Route::get('/home', 'HomeController@index')->name('home');
 //Frontend
 Route::get('/home','Frontend\PagesController@index')->name('homepage');
-Route::get('/shop','Frontend\PagesController@shop')->name('shoppage');
-Route::get('/cart','Frontend\PagesController@cart')->name('cartpage');
-Route::get('/checkout','Frontend\PagesController@checkout')->name('checkoutpage');
-Route::get('/wishlist','Frontend\PagesController@wishlist')->name('wishlistpage');
+Route::match(['GET', 'POST'],'/shop','Frontend\ShopController@index')->name('shoppage');
 Route::get('/contact','Frontend\PagesController@contact')->name('contactuspage');
 Route::get('/about','Frontend\PagesController@about')->name('aboutuspage'); 
-Route::get('/my-account','Frontend\PagesController@account')->name('myaccountpage'); 
+Route::get('/search/{id}/{tag}','Frontend\ShopController@index')->name('search_cat');
+Route::any('/search/products','Frontend\ShopController@index')->name('search_products');
+// Route::get('/tag-search/{tag}','Frontend\ShopController@index')->name('search_tag');
+Route::get('single/product/{id}','Frontend\ShopController@singleProduct')->name('single_product');
+
+Route::get('/cart','Frontend\CartController@index')->name('cartpage');
+Route::get('/add/{id}/cart/','Frontend\CartController@store')->name('addcart');
+Route::get('/show/{id}/product/','Frontend\CartController@showProduct')->name('showproduct');
+Route::get('/update/cart','Frontend\CartController@updateCart')->name('updateproduct');
+Route::get('/delete/{id}/cart','Frontend\CartController@destroyCart')->name('destroycart');
+Route::get('/user-account','Frontend\Auth\UserController@userAccount')->name('useraccount');
+Route::post('/vouch/add','Frontend\CartController@addVoucher')->name('voucheradd');
+
+
+
+//Route::match(['get', 'post'], '/add/cart/', ['uses' => 'Frontend\CartController@store', 'as' => 'addcart']);
+Route::group(['middleware' => 'FrontLogin'], function () {
+    Route::get('/my-account','Frontend\Auth\UserController@index')->name('myaccountpage');
+    Route::post('/login-user','Frontend\Auth\UserController@login')->name('login_user'); 
+    Route::post('/reg-user','Frontend\Auth\UserController@register')->name('reg_user');
+         
+});
+Route::post('/password-reset','Frontend\Auth\UserController@resetPassword')->name('password-reset');
+Route::post('/update-details','Frontend\Auth\UserController@updateUserDetails')->name('update_user');
+Route::get('/logout-user','Frontend\Auth\UserController@logout')->name('logout_user');
+
+Route::post('/review','Frontend\PagesController@review')->name('review');
+
+
+Route::group(['middleware' => 'user'], function () {
+    Route::get('/wishlist','Frontend\WishListController@index')->name('wishlistpage');
+    Route::get('/add/{id}/wish/','Frontend\WishListController@store')->name('addwish');
+    Route::get('/delete/{id}/wish','Frontend\WishListController@destroyWish')->name('destroywish');
+    Route::get('/checkout','Frontend\CheckoutController@index')->name('checkoutpage');
+    Route::post('/create-order','Frontend\CheckoutController@store')->name('create-order'); 
+    Route::get('/order/{id}/cancel','Frontend\CheckoutController@cancelOrder')->name('cancel-order');
+    Route::get('/order/{id}/return','Frontend\CheckoutController@returnOrder')->name('return-order');
+
+});

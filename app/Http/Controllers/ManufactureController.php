@@ -5,13 +5,17 @@ use Validator;
 use Redirect;
 use Illuminate\Http\Request;
 use App\Manufacture;
+use Illuminate\Support\Facades\Storage;
+use Image;
+use File;
+
 
 class ManufactureController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
+    // public function __construct()
+    // {
+    //     $this->middleware('auth');
+    // }
     /**
      * Display a listing of the resource.
      *
@@ -63,10 +67,18 @@ class ManufactureController extends Controller
           {
             //save the data to the database    
             if($request->hasFile('image')){
-              $image = $request->file('image');
-              $filename = time() . '.' . $image->getClientOriginalExtension();
-              $image->move(public_path("images"),$filename);              
-              $manu->image = $filename;
+                $image = $request->image;
+                $image_name = $request->image->getClientOriginalName();  
+                $file_name = pathinfo($image_name, PATHINFO_FILENAME);
+                $extension = $request->image->getClientOriginalExtension();
+                $imageNameToStore = $file_name.'_'.time().'.'.$extension;
+                // $request->file('image')->storeAs('public/images', $imageNameToStore);
+                $image_path =  storage_path('app/public/manufacturers/'.$imageNameToStore);
+                $img = Image::make($image)
+                ->resize(304,384)
+                ->save($image_path);
+                $manu->image = $imageNameToStore;
+    
             };
             $manu->name = $request->name;
             $manu->save();
@@ -110,16 +122,33 @@ class ManufactureController extends Controller
      */
     public function update(Request $request)
     {
-        $validator = Validator::make($request->all(),[
-            'name' => 'required',
-            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-        ]);
-          if ($validator->passes())
-          {
-              $record = Manufacture::whereId($request->id)->update(['name' => $request->name , 'image' => $request->image]);
-              return back()->with('success','Manufacturer edited successfully');
-          }
-          return Redirect::back()->withErrors($validator);
+        $validation_rules = [
+           'name' => 'required',
+        ];
+        if(!$request->hidden_image){
+            $validation_rules['image'] = 'image|mimes:jpeg,png,jpg,gif,svg|max:2048';
+        }
+       $validator = Validator::make($request->all(), $validation_rules)->validate(); 
+            
+        $man = Manufacture::find($request->id);
+        $man->name = $request->name;
+        if($request->hasFile('image'))
+        {
+                $image = $request->image;
+                $image_name = $request->image->getClientOriginalName();  
+                $file_name = pathinfo($image_name, PATHINFO_FILENAME);
+                $extension = $request->image->getClientOriginalExtension();
+                $imageNameToStore = $file_name.'_'.time().'.'.$extension;
+                // $request->file('image')->storeAs('public/images', $imageNameToStore);
+                $image_path =  storage_path('app/public/manufacturers/'.$imageNameToStore);
+                $img = Image::make($image)
+                ->resize(304,384)
+                ->save($image_path);
+                $man->image = $imageNameToStore;
+        }
+        $man->save();
+        return back()->with('success','Manufacturer updated successfully');
+        return Redirect::back()->withErrors($validator);
     }
 
     /**
@@ -131,6 +160,11 @@ class ManufactureController extends Controller
     public function destroy($id)
     {
         $Man = Manufacture::find($id);
+        $image_path = storage_path('app/public/manufacturers/'.$Man->image);  // Value is not URL but directory file path
+        if(File::exists($image_path)) {
+            File::delete($image_path);
+
+        }
         $Man->delete();
     }
 }

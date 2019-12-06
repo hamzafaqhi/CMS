@@ -3,7 +3,7 @@
 				<div class="row">
 					<div class="col-md-6 col-sm-6 col-6 col-lg-2">
 						<div class="logo">
-							<a href="index.html">
+							<a href="{{route('homepage')}}">
 								<img src="{{ asset('boighor/images/logo/logo.png')}}" alt="logo images">
 							</a>
 						</div>
@@ -15,65 +15,18 @@
 								<li class="drop"><a href="{{route('shoppage')}}">Shop</a>
 							
 								</li>
-								<li class="drop"><a href="">Products</a>
-									<div class="megamenu mega03">
-										<ul class="item item03">
-											<li class="title">Categories</li>
-											<li><a href="shop-grid.html">Biography </a></li>
-											<li><a href="shop-grid.html">Business </a></li>
-											<li><a href="shop-grid.html">Cookbooks </a></li>
-											<li><a href="shop-grid.html">Health & Fitness </a></li>
-											<li><a href="shop-grid.html">History </a></li>
-										</ul>
-										<ul class="item item03">				
-										<li class="title"  style="height:32px"> </li>
-											<li><a href="shop-grid.html">Mystery</a></li>
-											<li><a href="shop-grid.html">Religion & Inspiration</a></li>
-											<li><a href="shop-grid.html">Romance</a></li>
-											<li><a href="shop-grid.html">Fiction/Fantasy</a></li>
-											<li><a href="shop-grid.html">Sleeveless</a></li>
-										</ul>
-										<ul class="item item03">
-										<li class="title" style="height:32px"></li>
-											<li><a href="shop-grid.html">Science </a></li>
-											<li><a href="shop-grid.html">Fiction/Fantasy</a></li>
-											<li><a href="shop-grid.html">Self-Improvemen</a></li>
-											<li><a href="shop-grid.html">Home & Garden</a></li>
-											<li><a href="shop-grid.html">Humor Books</a></li>
-										</ul>
-									</div>
-								</li>
-							
-								<li class="drop"><a href="#">Pages</a>
-									<div class="megamenu dropdown">
-										<ul class="item item01">
-											<li><a href="about.html">About Page</a></li>
-											<li class="label2"><a href="portfolio.html">Portfolio</a>
-												<ul>
-													<li><a href="portfolio.html">Portfolio</a></li>
-													<li><a href="portfolio-details.html">Portfolio Details</a></li>
-												</ul>
-											</li>
-											<li><a href="">My Account</a></li>
-											<li><a href="cart.html">Cart Page</a></li>
-											<li><a href="checkout.html">Checkout Page</a></li>
-											<li><a href="wishlist.html">Wishlist Page</a></li>
-											<li><a href="error404.html">404 Page</a></li>
-											<li><a href="faq.html">Faq Page</a></li>
-											<li><a href="team.html">Team Page</a></li>
-										</ul>
-									</div>
-								</li>
+								
 								<li class="drop"><a href="{{route('aboutuspage')}}">About us</a>
 								</li>
 								<li><a href="{{route('contactuspage')}}">Contact</a></li>
 							</ul>
 						</nav>
 					</div>
-					<div class="col-md-6 col-sm-6 col-6 col-lg-2">
+					<div class="col-md-6 col-sm-6 col-6 col-lg-2" id="nav">
 						<ul class="header__sidebar__right d-flex justify-content-end align-items-center">
-							<li class="shop_search" style="padding:15px;"><a class="search__active" href="#"></a></li>
-							<li class="shopcart"><a class="cartbox_active" href="#"><span class="product_qun">3</span></a>
+							<li id="search" class="shop_search" style="padding:15px; display:none"><a class="search__active" href="#"></a></li>
+							<li class="shopcart"><a class="cartbox_active" href="#"></a>
+							<!-- <span class="product_qun">3</span> -->
 								<!-- Start Shopping Cart -->
 								<div class="block-minicart minicart__active">
 									<div class="minicart-content-wrapper">
@@ -81,16 +34,16 @@
 											<span>close</span>
 										</div>
 										<div class="items-total d-flex justify-content-between">
-											<span>3 items</span>
+											<span>{{ Session::get('cart_items')}}</span>
 											<span>Cart Subtotal</span>
 										</div>
 										<div class="total_amount text-right">
-											<span>$66.00</span>
+											<span>${{ Session::get('total_price')}}</span>
 										</div>
 										<div class="mini_action checkout">
 											<a class="checkout__btn" href="{{route('checkoutpage')}}">Go to Checkout</a>
 										</div>
-										<div class="single__items">
+										<!-- <div class="single__items">
 											<div class="miniproduct">
 												<div class="item01 d-flex">
 													<div class="thumb">
@@ -141,7 +94,7 @@
 													</div>
 												</div>
 											</div>
-										</div>
+										</div> -->
 										<div class="mini_action cart">
 											<a class="cart__btn" href="{{route('cartpage')}}">View and edit cart</a>
 										</div>
@@ -169,13 +122,18 @@
 											<div class="switcher-options">
 												<div class="switcher-currency-trigger">
 													<div class="setting__menu">
-														<span><a href="{{route('myaccountpage')}}">My Account</a></span>
 														<span><a href="{{route('wishlistpage')}}">My Wishlist</a></span>
-														<span><a href="#">Sign In</a></span>
-														<span><a href="#">Create An Account</a></span>
+														@if(empty(\Auth::check()))
+														<span><a href="{{route('myaccountpage')}}">Sign In</a></span>
+														<span><a href="{{route('myaccountpage')}}">Create An Account</a></span>
+														@else
+														<span><a href="{{route('useraccount')}}">Account</a></span>
+														<span><a href="{{route('logout_user')}}">Logout</a></span>
+														@endif
 													</div>
+				
 												</div>
-											</div>
+										</div>
 										</div>
 									</div>
 								</div>
@@ -229,5 +187,14 @@
 	            </div>
 	            <!-- Mobile Menu -->	
 			</div>		
-        </header>
+		</header>
+<script>
+	var url      = window.location.href;
+	var uri = url.split('/');
+	var path = uri[3];
+	if(path == "search" || path == "shop")
+	{
+		document.getElementById("search").style.display="block"
+	}
+</script>
         

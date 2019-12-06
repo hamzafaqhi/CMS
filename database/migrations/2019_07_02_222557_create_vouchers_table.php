@@ -16,10 +16,10 @@ class CreateVouchersTable extends Migration
         Schema::create('vouchers', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
-            $table->double('price_in_value')->nullable();
-            $table->double('price_in_percentage')->nullable();
-            $table->timestamp('valid_from');
-            $table->timestamp('valid_till');
+            $table->double('amount');
+            $table->string('amount_type');
+            $table->timestamp('expiry_date');
+            $table->tinyInteger('status');
             $table->timestamps();
         });
     }

@@ -59,7 +59,7 @@
                   </a>
                   <ul class="treeview-menu">
                   <li class="active"><a href="{{route('product.index')}}"><i class="fa fa-circle-o"></i>All Products</a></li>
-            <li><a href="{{route('product.create')}}"><i class="fa fa-circle-o"></i>Add New Product</a></li>
+                  <li><a href="{{route('product.create')}}"><i class="fa fa-circle-o"></i>Add New Product</a></li>
                   </ul>
                 </li>
 
@@ -75,7 +75,7 @@
                   </ul>
                 </li>
               </ul>
-            </li>
+        </li>
 
         <li class="treeview">
           <a href="#">
@@ -99,9 +99,34 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="{{route('invoice')}}"><i class="fa fa-circle-o"></i> Orders</a></li>
+               
+                <li class="treeview">
+                  <a href="#"><i class="fa fa-circle-o"></i> Orders
+                    <span class="pull-right-container">
+                      <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                  </a>
+                  <ul class="treeview-menu">
+                  <li class="active"><a href="{{route('order')}}"><i class="fa fa-circle-o"></i>All Orders</a></li>
+                  <li><a href="{{route('returns')}}"><i class="fa fa-circle-o"></i>Returns</a></li>
+                  <li><a href="{{route('cancel')}}"><i class="fa fa-circle-o"></i>Cancelled Order</a></li>
+                  </ul>
+                </li>
+                <li class="treeview">
+                  <a href="#"><i class="fa fa-circle-o"></i> Vouchers
+                    <span class="pull-right-container">
+                      <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                  </a>
+                  <ul class="treeview-menu">
+                  <li class="active"><a href="{{route('vouchers')}}"><i class="fa fa-circle-o"></i>All Vouchers</a></li>
+                  <li><a href="{{route('voucher.create')}}"><i class="fa fa-circle-o"></i>Add New Voucher</a></li>
+                  </ul>
+                </li>
+
+<!--           
             <li><a href=""><i class="fa fa-circle-o"></i> Returns</a></li>
-            <li><a href="{{route('vouchers')}}"><i class="fa fa-circle-o"></i> Vouchers</a></li>
+            <li><a href="{{route('vouchers')}}"><i class="fa fa-circle-o"></i> Vouchers</a></li> --> 
 
           </ul>
         </li>
@@ -110,14 +135,14 @@
         <li class="treeview">
           <a href="#">
             <i class="fa fa-files-o"></i>
-            <span>Customers </span>
+            <span>Banners </span>
             <span class="pull-right-container">
             <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href=""><i class="fa fa-circle-o"></i> Groups</a></li>
-            <li><a href=""><i class="fa fa-circle-o"></i> Approvals</a></li>
+            <li><a href="{{route('banner')}}"><i class="fa fa-circle-o"></i> All Banner</a></li>
+            <li><a href="{{route('banner.create')}}"><i class="fa fa-circle-o"></i> Add Banner</a></li>
 
           </ul>
         </li>
@@ -165,7 +190,7 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href=""><i class="fa fa-circle-o"></i> Settings</a></li>
+            <li><a href="{{route('setting')}}"><i class="fa fa-circle-o"></i> Settings</a></li>
             <li><a href=""><i class="fa fa-circle-o"></i> Maintenance</a></li>
 
 </ul>

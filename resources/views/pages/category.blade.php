@@ -237,9 +237,6 @@ $.ajaxSetup({
         'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
         }
   });
-
-console.log(jQuery('#name').val());
-alert(jQuery('#hidden_id').val());
 e.preventDefault();
 $.ajax({
   url: "category/update",

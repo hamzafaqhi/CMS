@@ -8,6 +8,6 @@ class Address extends Model
 {
     public function users()
     {
-        $this->belongsTo('App\User');
+        return $this->belongsTo('App\User');
     }
 }

@@ -17,5 +17,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/Dashboard','DashboardController@index');
+Route::get('/sale','DashboardController@index');
 Route::get('/category','CategoryController@index')->name('category.index ');

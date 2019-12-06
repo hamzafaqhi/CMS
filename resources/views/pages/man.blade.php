@@ -1,6 +1,7 @@
 @extends('layouts.backend')
 @section('title','SHF | Manufacturer')
 @section('stylesheets')
+<link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet">
 <style>
 .modal-header-primary {
 	color:#fff;
@@ -107,7 +108,8 @@
           <input type="hidden" name="id" id="hidden_id" />
           <div class="md-form mb-5">
           <label data-error="wrong" data-success="right" for="Image">Image:</label>
-          <input type="file" id="image" name="image" class="form-control validate">
+          
+          <input type="file" id="imagepath" name="image" class="form-control validate">
           <span id="store_image"></span>
           <br>
           </div>
@@ -152,7 +154,7 @@
 
 @endsection
 @section('scripts')
-
+<script scr="http://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.2/js/toastr.min.js"></script>
 <script type="text/javascript">
 //loading datatable
 $(document).ready(function()
@@ -172,7 +174,7 @@ $(document).ready(function()
     data: 'image',
     name: 'image',
     render: function(data, type, full, meta){
-     return "<img src={{ URL::to('/') }}/images/" + data + " width='70' class='img-thumbnail' />";
+     return "<img src={{ URL::to('/') }}/storage/manufacturers/" + data + " width='70' class='img-thumbnail' />";
     },
     orderable: false
    },
@@ -232,8 +234,8 @@ $(document).on('click', '.edit', function(){
    dataType:"json",
    success:function(html){
     $('#name').val(html.data.name);
-    $('#store_image').html("<img src={{ URL::to('/') }}/images/" + html.data.image + " width='70' class='img-thumbnail' />");
-    $('#store_image').append("<input type='hidden' name='hidden_image' value='"+html.data.image+"' />");
+    $('#store_image').html("<img src={{ URL::to('/') }}/storage/manufacturers/" + html.data.image + " width='70' class='img-thumbnail' />");
+    $('#store_image').append("<input type='hidden' id='hidden_image' name='hidden_image' value='"+html.data.image+"' />");
     $('#hidden_id').val(html.data.id);
     $('#formModal').modal('show');
    }
@@ -247,18 +249,15 @@ $.ajaxSetup({
         'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
         }
   });
-
-console.log(jQuery('#image').val());
-alert(jQuery('#hidden_id').val());
 e.preventDefault();
+var forms = document.forms.namedItem("edit_form");
+var formdata = new FormData(forms);
+  console.log(formdata.values());
+  debugger
 $.ajax({
     url:"manu/update",
     method:"POST",
-    data:{
-      name: jQuery('#name').val(),
-    image: jQuery('#image').val(),
-    id: jQuery('#hidden_id').val()
-  },
+    data: formdata,
     contentType: false,
     cache: false,
     processData: false,
@@ -267,8 +266,10 @@ $.ajax({
   {
       $('#edit_form').trigger("reset");
       $('#edit_modal').modal('hide');
-      toastr.success('Manufacturer Updated Successfully.', 'Success Alert', {timeOut: 5000});
       $('#cat_table').DataTable().ajax.reload();
+      toastr.success("Manufacturer Updated Successfully");
+      // toastr.success('Manufacturer Updated Successfully.', 'Success Alert', {timeOut: 5000});
+      
   },
   error: function (data)
   {
@@ -277,6 +278,11 @@ $.ajax({
   }
   });
 });
+  $('#imagepath').on('change', function(){
+     $("#hidden_image").val('');
+     $("#store_image").remove();
+     
+  });
 }); 
 </script> 
 @stop
