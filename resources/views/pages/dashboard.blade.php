@@ -6,7 +6,7 @@
     <section class="content-header">
       <h1>
         Dashboard
-        <small>Control ir panel</small>
+        <small>Control panel</small>
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -234,6 +234,10 @@
                 </button>
                 <button type="button" class="btn btn-success btn-sm" data-widget="remove"><i class="fa fa-times"></i>
                 </button>
+
+
+
+
               </div>
               <!-- /. tools -->
             </div>
@@ -242,6 +246,9 @@
               <!--The calendar -->
               <div id="calendar" style="width: 100%"></div>
             </div>
+
+     
+
             <!-- /.box-body -->
             <div class="box-footer text-black">
               <div class="row">
@@ -291,7 +298,8 @@
         </section>
         <!-- right col -->
       </div>
-      <!-- /.row (main row) -->
+  
+    
 
     </section>
     <!-- /.content -->

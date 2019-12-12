@@ -88,7 +88,7 @@ summary {
   section{
     border-radius: 20px;
     border-style: dotted; 
-    background-color: pink;
+        background-color: teal;
    margin: 10px;
   }
 
@@ -456,7 +456,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6, address, p, pre, blockquot
    }
 .foot_for_home{ margin: 0;
     margin: 0;
-    color: #f8f9fa;
+    color: black;
     text-shadow: 4px 5px 8px #363636b3;
     background-color: rgba(0, 0, 0, 0);
 font-size: 24px;
@@ -559,7 +559,7 @@ ul {
   list-style: none; }
 
 a#scrollUp {
-  background: #e59285;
+  background: black;
   color: #fff;
   bottom: 40px;
   right: 40px;
@@ -573,7 +573,7 @@ a#scrollUp {
   transition: 0.3s; }
   a#scrollUp:hover {
     background: #fff;
-    color: #e59285; }
+    color: black; }
 
 img {
   max-width: 100%; }
@@ -608,7 +608,7 @@ a {
 
 /* Define Colors */
 .color--theme {
-  color: #e59285; }
+  color: black; }
 .color--light {
   color: #999999; }
 .color--dark {
@@ -630,7 +630,7 @@ a {
 .bg--black {
   background: #000000; }
 .bg--white {
-  background: pink; }
+  background: teal ; }
 .bg__cat--1 {
   background: #f9f9f9; }
 .bg__cat--2 {
@@ -803,6 +803,7 @@ a {
 .pb--55 {
   padding-bottom: 55px; }
 .pb--60 {
+
   padding-bottom: 60px; }
 .pb--70 {
   padding-bottom: 70px; }
@@ -823,6 +824,7 @@ a {
 .pb--140 {
   padding-bottom: 140px; }
 .pb--150 {
+
   padding-bottom: 150px; }
 
 /* spacing */
@@ -851,6 +853,7 @@ a {
 .ptb--140 {
   padding: 140px 0; }
 .ptb--150 {
+  
   padding: 10px 0px; }
 .ptb--200 {
   padding: 200px 0; } 
@@ -1553,6 +1556,7 @@ Elements Styles
     opacity: 1;
     visibility: visible; }
 .minicart-content-wrapper {
+      background: teal;
   width: 390px;
   padding: 25px 20px;
   box-shadow: 0 3px 3px rgba(0, 0, 0, 0.15);
@@ -1735,7 +1739,7 @@ Elements Styles
   overflow-x: hidden;
   overflow-y: auto; }
   .searchbar__content .content-inner {
-    background: #fff none repeat scroll 0 0;
+    background: teal;
     max-width: 230px;
     min-width: 230px;
     overflow: hidden;
@@ -1944,7 +1948,7 @@ Header Styles
 	  text-transform: uppercase;
 	  transition: all 0.4s ease 0s;
 	}
-		.mainmenu__nav .meninmenu li a:hover{color: white; background-color: pink}
+		.mainmenu__nav .meninmenu li a:hover{color: white; background-color: teal;}
 		.is-sticky .mainmenu__nav .meninmenu li a {
 		  color: #fff;
 		}
@@ -2402,7 +2406,7 @@ nav.menu {
   overflow: hidden;
   border-radius: 20px;
     border-style: dotted; 
-    background-color: hotpink;
+    background-color:white;
    margin: 10px; }
 .shop-grid .product {
   margin-bottom: 15px;
@@ -2661,7 +2665,7 @@ nav.menu {
       background-position: 100% 0;
       transition: all 300ms ease-in 0s; }
 .product.product__style--3 .product__content {
-  background: transparent none repeat scroll 0 0;
+  background: white;
   display: inline-block;
   padding: 20px 15px;
   text-align: left; }
@@ -2778,7 +2782,8 @@ nav.menu {
   text-align: center; }
 .content--center .rating,
 .product.product__style--3 .product__content.content--center .prize {
-  justify-content: center; }
+  justify-content: center; 
+background: wheat;}
 
 /*------------------------------
   06. Quickview Area
@@ -3012,8 +3017,8 @@ h3.widget-title-modal {
     width: 100%;
 }
    .newsletter__block .newsletter__box button {
-  background-color: hotpink; 
-    color: white;
+  background-color:wheat; 
+    color: black;
     border-style: dotted;
     border-radius: 20px;
     font-size: 14px;
@@ -5047,7 +5052,7 @@ h3.widget-title-modal {
   text-transform: uppercase;
 }
 .contact-form-wrap p {
-  color: #333;
+  color: wheat;
   margin-bottom: 35px;
 }
 .contact-form-wrap .single-contact-form {
@@ -5100,11 +5105,11 @@ h3.widget-title-modal {
   text-transform: uppercase;
   transition: all 0.4s ease 0s; }
   .contact-form-wrap .contact-btn button:hover {
-    background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
-    border-color: #e59285;
-    color: #e59285; }
+    background: wheat;
+    border-color: white;
+    color: white; }
 .wn__address p {
-  color: #333;
+  color: wheat;
   margin-bottom: 35px;
 }
 .wn__address .single__address {
@@ -5120,7 +5125,7 @@ h3.widget-title-modal {
     font-weight: 600;
     text-transform: uppercase; }
   .wn__address .single__address .content p {
-    color: #333;
+    color: wheat;
     font-size: 12px;
     margin-bottom: 15px; }
 #googleMap {
@@ -5807,7 +5812,7 @@ a.checkout__title {
    
  border-radius: 20px;
     border-style: dotted; 
-    background-color: hotpink;
+    background-color: wheat;
    margin: 10px;
 
     border-bottom: 1px dashed #e1e1e1;
@@ -5847,7 +5852,7 @@ a.checkout__title {
     .wedget__categories.poroduct--tag ul li a {
       border-radius: 20px;
     border-style: dotted; 
-    background-color: hotpink;
+    background-color: wheat;
    margin: 10px;
 
       
@@ -6121,7 +6126,7 @@ a.checkout__title {
 .copyright__wrapper {
   border-radius: 20px;
     border-style: dotted; 
-    background-color: pink;
+    background-color: teal;
    margin: 10px;
  
 }
@@ -6140,7 +6145,7 @@ a.checkout__title {
 }
     .footer__menu .footer__content .mainmenu li a:hover {
 
-      color: #28a745; }
+      color: white; }
 .page-footer {
   margin-left: 80px;
   margin-right: 00px;
@@ -6150,7 +6155,7 @@ a.checkout__title {
   /*background: transparent none repeat scroll 0 0;*/
  border-radius: 25px;
  border-style: dashed;
-  background-image: url(images/bg/images.jpg);
+  background-color: white;
  
    }
 

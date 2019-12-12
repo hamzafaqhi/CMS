@@ -21,13 +21,48 @@
 	<link rel="stylesheet" href="{{ asset('boighor/css/plugins.css') }}">
 	<!-- themes Stylesheets -->
 
-	<!-- <link rel="stylesheet" href="{{ asset('boighor/1.css') }}"> -->
-	 <!-- <link rel="stylesheet" href="{{ asset('boighor/2.css') }}">   -->
+
+<<?php // $contents = File::get(storage_path('app/file.txt'));
+       
+$stylesheet = File::get(storage_path('app/file.txt'));
+
+
+switch($stylesheet) {
+    case '1':
+        $style = './boighor/1.css';
+        break;
+    case '2':
+        $style = './boighor/2.css';
+        break;
+         case '3':
+        $style = './boighor/3.css';
+        break;
+         case '4':
+        $style = './boighor/4.css';
+        break;
+         case '5':
+        $style = './boighor/5.css';
+        break;
+         case '6':
+        $style = './boighor/6.css';
+        break; 
+         case '7':
+        $style = './boighor/7.css';
+        break; 
+    default:
+          $style = './boighor/1.css';
+        break;
+}
+echo '<link rel="stylesheet" type="text/css" href="'.$style.'">';  
+
+ ?>
+	
+	
 	<!-- <link rel="stylesheet" href="{{ asset('boighor/3.css') }}"> -->
 	 <!-- <link rel="stylesheet" href="{{ asset('boighor/4.css') }}">    -->
 	<!-- <link rel="stylesheet" href="{{ asset('boighor/5.css') }}">  -->
 	<!-- <link rel="stylesheet" href="{{ asset('boighor/6.css') }}">  -->
-	<link rel="stylesheet" href="{{ asset('boighor/7.css') }}">
+	<!-- <link rel="stylesheet" href="{{ asset('boighor/7.css') }}"> -->
 
 
 	<!-- Cusom css 

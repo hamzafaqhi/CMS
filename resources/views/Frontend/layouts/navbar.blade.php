@@ -9,7 +9,7 @@
 					</div>
 					<div class="col-lg-8 d-none d-lg-block" >
 						<nav class="mainmenu__nav" >
-							<ul class="meninmenu d-flex justify-content-start">
+							<ul class="meninmenu  d-flex justify-content-start">
 
 							</a>
 								<li class="drop with--one--item"><a href="{{route('homepage')}}">Home</a></li>

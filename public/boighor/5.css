@@ -1845,12 +1845,12 @@ Header Styles
     align-self: stretch;
     display: flex; }
     .header__area .header__sidebar__right > li.shop_search > a {
-      background: rgba(0, 0, 0, 0) url("images/icons/sch.jpg") no-repeat scroll 0 center;
+      background:  url("images/icons/sch.jpg") no-repeat scroll 0 center;
       height: 100%;
       line-height: 35px;
       width: 24px; }
     .header__area .header__sidebar__right > li.shopcart > a {
-      background: transparent url("images/icons/s.jpg") no-repeat scroll 0 center;
+      background:  url("images/icons/s.jpg") no-repeat scroll 0 center;
       height: 100%;0
       line-height: 35px;
       width: 24px; }
@@ -1898,7 +1898,7 @@ Header Styles
 	  position: relative;
 	}
       .header__area .header__sidebar__right > li.setting__bar__icon > a {
-        background: transparent url("images/icons/b.jpg") no-repeat scroll 0 center;
+        background:  url("images/icons/b.jpg") no-repeat scroll 0 center;
         cursor: pointer;
         font-size: 0;
         height: 35px;

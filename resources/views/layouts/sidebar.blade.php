@@ -1,11 +1,3 @@
-<script type="text/javascript">
-  
-function setopt(val){
-//alert(val)
-alert("theme "+val+" selected ");
-}
-</script>
-
 
 <aside class="main-sidebar">
     <!-- sidebar: style can be found in sidebar.less -->
@@ -102,22 +94,16 @@ alert("theme "+val+" selected ");
         </li>
 
   <li class="treeview">
-          <a href="#">
+          <a href="{{route('theme.index')}}">
         <span class="fa fa-files-o" >  Themes</span>
             <span class="pull-right-container">
             <i class="fa fa-angle-left pull-right"></i>
             </span>
 <ul class="treeview-menu">
-           
-            <li><a href=""onclick="setopt(1)" ><i class="fa fa-circle-o"></i> THEME 1</a></li>
-            <li><a href=""onclick="setopt(2)" ><i class="fa fa-circle-o"></i> THEME 2</a></li>
-            <li><a href=""onclick="setopt(3) "><i class="fa fa-circle-o"></i> THEME 3</a></li>
-            <li><a href=""onclick="setopt(4) "><i class="fa fa-circle-o"></i> THEME 4</a></li>
-            <li><a href=""onclick="setopt(5) "><i class="fa fa-circle-o"></i> THEME 5</a></li>
-            <li><a href=""onclick="setopt(6)"><i class="fa fa-circle-o"></i> THEME 6</a></li>
-            <li><a href=""onclick="setopt(7)"><i class="fa fa-circle-o"></i> THEME 7</a></li>
-
-              </ul>
+            <li class="active"><a href="{{route('theme.index')}}"><i class="fa fa-circle-o"></i>All themes</a></li>
+      
+         
+        </ul>
               </li>
         <li class="treeview">
           <a href="#">

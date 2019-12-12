@@ -298,6 +298,7 @@ section{
 img {
   -ms-interpolation-mode: bicubic;
   border: 0;
+  margin-left: 900px;
   vertical-align: middle; }
 
 svg:not(:root) {
@@ -802,6 +803,8 @@ a {
 .ptb--140 {
   padding: 140px 0; }
 .ptb--150 {
+  padding: 150px 0;
+    background:yellow;
   padding: 150px 0; }
 .ptb--200 {
   padding: 200px 0; } 
@@ -1809,23 +1812,31 @@ Header Styles
   height: 90px;
   line-height: 90px; }
 .header__area .header__sidebar__right {
-  height: 29px;
+  /*height: 29px;
   list-style: outside none none;
   position: absolute;
   right: 900px;
-  z-index: 9; }
+  z-index: 9; 
+*/
+
+height: 90px;
+  list-style: outside none none;
+  position: fixed;
+  z-index: 9;
+  right: 900px;
+  background: transparent;}
   .header__area .header__sidebar__right > li {
     align-items: center;
      background: linear-gradient(45deg, #f1e4e4, #d6606000);
     align-self: stretch;
     display: flex; }
     .header__area .header__sidebar__right > li.shop_search > a {
-      background: rgba(0, 0, 0, 0) url("images/icons/search.png") no-repeat scroll 0 center;
+      background: rgba(0, 0, 0, 0) url("images/icons/search_white.png") no-repeat scroll 0 center;
       height: 100%;
       line-height: 35px;
       width: 24px; }
     .header__area .header__sidebar__right > li.shopcart > a {
-      background: rgba(0, 0, 0, 0) url("images/icons/cart3.png") no-repeat scroll 0 center;
+      background: rgba(0, 0, 0, 0) url("images/icons/cart_white.png") no-repeat scroll 0 center;
       height: 100%;
       line-height: 35px;
       width: 24px; }
@@ -1873,7 +1884,7 @@ Header Styles
 	  position: relative;
 	}
       .header__area .header__sidebar__right > li.setting__bar__icon > a {
-        background: transparent url("images/icons/icon_setting.png") no-repeat scroll left center;
+        background: transparent url("images/icons/icon_setting_white.png") no-repeat scroll left center;
         cursor: pointer;
         font-size: 0;
         height: 35px;
@@ -1902,19 +1913,18 @@ Header Styles
       align-self: stretch;
       display: flex; }
     .mainmenu__nav .meninmenu li a {
-	  align-items: center;
-	  
-	      align-self: start;
-    margin-right: 50px;
-	  
-	  color: white;
-	      background: linear-gradient(45deg, #f1e4e4, #d6606000);
-	  display: flex;
-	  font-size: 14px;
-	  font-weight: 600;
-	  padding: 0 25px;
-	  text-transform: uppercase;
-	  transition: all 0.4s ease 0s;
+	 align-items: center;
+    margin-right: 0px align-self: start;
+    margin-right: 0px;
+    color: white;
+    background: linear-gradient(45deg, #f1e4e4, #d6606000);
+    display: flex;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 0 25px;
+    text-transform: uppercase;
+    transition: all 0.4s ease 0s;
+
 	}
 		.mainmenu__nav .meninmenu li a:hover{color: black;}
 		.is-sticky .mainmenu__nav .meninmenu li a {
@@ -2677,7 +2687,7 @@ nav.menu {
   cursor: pointer;
   display: inline-block;
   font-family: "Roboto",sans-serif bold;
-  font-size: 35px;
+  font-size: 25px;
   font-weight: 500;
   letter-spacing: 1px;
   line-height: 18px;
@@ -2690,7 +2700,8 @@ nav.menu {
     border-left: 0 none; }
   .product__nav a:hover, .product__nav a.active {
     color:  #9e8484;
-    transition: all 300ms ease-in 0s; }
+    transition: all 300ms ease-in 0s; 
+font-size: 35px;}
 
 .product__nav a.item__before {
   position: relative; }
@@ -2987,7 +2998,7 @@ h3.widget-title-modal {
   width: 100%;
 }
    .newsletter__block .newsletter__box button {
-  background: transparent none repeat scroll 0 0;
+  background: repeating-linear-gradient(45deg, white, transparent 100px);
   border: medium none;
   color: #333;
   display: inline-block;
@@ -3006,7 +3017,8 @@ h3.widget-title-modal {
   transition: all 300ms ease-in 0s;
 }
       .newsletter__block .newsletter__box button:hover {
-        color: #e59285; }
+        color: white;
+        font-size: 25px; }
 .newsletter__yellow .newsletter__block .newsletter__box button {
   background: #2e2e2e none repeat scroll 0 0;
   border: 1px solid #2e2e2e; }
@@ -5830,6 +5842,7 @@ a.checkout__title {
       .wedget__categories.poroduct--tag ul li a:hover {
         background: #464646 none repeat scroll 0 0;
         color: #fff; }
+
 .wedget__categories.sidebar--banner {
   display: inline-block;
   position: relative; }
