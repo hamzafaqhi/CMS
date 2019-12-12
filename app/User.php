@@ -16,8 +16,8 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password','city_id',
-        'country_id','address_id','province_id'
+        'name', 'email', 'password','city',
+        'country','address','province','phone'
     ];
 
     /**
@@ -38,9 +38,18 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function getFullNameAttribute()
+    {
+        return $this->first_name. ' '. $this->last_name;
+    }
     public function orders()
     {
-        $this->hasMany('App\Order');
+        return $this->hasMany('App\Order');
+    }
+
+    public function reviews()
+    {
+        return $this->hasMany('App\Review');
     }
     
 }

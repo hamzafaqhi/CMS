@@ -12,6 +12,12 @@ class Manufacture extends Model
     
     public function products()
     {
-        $this->belongsTo('App\Product');
+        return $this->belongsTo('App\Product');
+    }
+
+    public static function getManufacturers()
+    {
+        $man = Manufacture::take(10)->get();
+        return $man;
     }
 }

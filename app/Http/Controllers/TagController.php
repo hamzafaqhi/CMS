@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Tag;
 use Validator;
+use Redirect;
+
 class TagController extends Controller
 {
     /**

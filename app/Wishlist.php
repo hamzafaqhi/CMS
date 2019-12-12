@@ -4,9 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Rating extends Model
+class Wishlist extends Model
 {
     protected $fillable = [
-        'product_id','rating','reviews'
+        'product_id','product_name','price','email'
     ];
 }

@@ -2387,6 +2387,7 @@ nav.menu {
         right: 0;
         top: 13px; }
     .product .product__thumb .hot__box {
+      
 	  background: #cb7a59 none repeat scroll 0 0;
 	  color: #fff;
 	  display: inline-block;
@@ -5479,7 +5480,7 @@ h3.widget-title-modal {
     color: #e59285;
     font-size: 12px; }
 .wn__checkout__form {
-  background: #fff none repeat scroll 0 0;
+  background: #ebebeb  none repeat scroll 0 0;
   border: 1px solid #e1e1e1;
   border-radius: 0;
   margin: 0 0 20px;

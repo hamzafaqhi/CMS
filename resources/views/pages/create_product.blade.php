@@ -4,12 +4,28 @@
 <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.7/css/fileinput.css" rel="stylesheet" media="all" type="text/css" />
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" media="all" type="text/css" />
+<<<<<<< HEAD
 <style>
 .dropzone {
   border-radius: 5px;
   max-width: 1200px;
   margin-left: auto;
   margin-right: auto;
+=======
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css">
+<style>
+
+#preview_img {
+  /* border: 1px solid black; */
+  padding: 10px;
+  margin-right:35px;
+  margin-left:35px;
+}
+
+#preview_img img {
+  width: 100px;
+  padding: 5px;
+>>>>>>> 9cb4c75140d727c3c7eeea6bbdc2c2eae7b8858f
 }
 /*start of radio button style*/
 .container {
@@ -213,7 +229,11 @@ button:hover {
           </div>
       @endif
 <div class="box">     
+<<<<<<< HEAD
       <form method="POST" id="regForm" autocomplete="off"  action="{{ action ('ProductController@store') }}">
+=======
+      <form method="POST" id="regForm" autocomplete="off"  action="{{ action ('ProductController@store') }}"  enctype="multipart/form-data">
+>>>>>>> 9cb4c75140d727c3c7eeea6bbdc2c2eae7b8858f
       @csrf
   <!-- One "tab" for each step in the form: -->
   <div class="tab">
@@ -260,7 +280,11 @@ button:hover {
               <h3 class="box-title">Quantity</h3>
             </div>
             <div class="box-body pad">
+<<<<<<< HEAD
                 <input type="number" class="form-control" name="quantity" id="quantity" oninput="this.className = ''" style="line-height: 18px; border: 1px solid #dddddd; padding: 10px;" min="0"/>
+=======
+                <input type="number" class="form-control" name="quantity" id="quantity" oninput="this.className = ''" style="line-height: 18px; border: 1px solid #dddddd; padding: 10px;"/>
+>>>>>>> 9cb4c75140d727c3c7eeea6bbdc2c2eae7b8858f
                 @if ($errors->has('quantity'))
                 <span class="help-block">
                 <strong style="color:red">{{ $errors->first('quantity') }}</strong>
@@ -274,7 +298,10 @@ button:hover {
             </div>
             <div class="box-body pad">
                   <select name="stock_status" id="stock_status" class="form-control">
+<<<<<<< HEAD
                     <option name="stock_status" id="stock_status" value="0">Choose...</option>
+=======
+>>>>>>> 9cb4c75140d727c3c7eeea6bbdc2c2eae7b8858f
                     <option name="stock_status" id="stock_status" value="1">In Stock</option>
                     <option id="stock_status" name="stock_status" value="0">Out of Stock</option>
                   </select>      
@@ -284,10 +311,10 @@ button:hover {
               <h3 class="box-title">Manufacturer:</h3>
             </div>
             <div class="box-body pad">
-                  <select name="manufacture_id" id="manufacture_id" class="form-control">                          
-                      <option  value = "0" selected>Choose...</option>
+                  <select name="manufacture_id" id="manufacture_id" class="selectpicker form-control" data-live-search="true">                          
+                      <option  value = "0"></option>
                       @foreach($man as $t)
-                      <option  value="{{ ($t->id) }}">{{ ($t->name) }}</option>
+                      <option  value="{{ $t->id }}">{{$t->name}}</option>
                       @endforeach
                   </select>
             </div>
@@ -296,12 +323,24 @@ button:hover {
             <h3 class="box-title">Tag:</h3>
             </div>
             <div class="box-body pad">
-              <select name="tag_id" id="tag_id" class="form-control">                          
-                  <option selected>Choose...</option>
-                  @foreach($tag as $t)
-                  <option  value="{{ ($t->id) }}">{{ ($t->name) }}</option>
+            <select name="tag_id" id="tag_id" class="selectpicker form-control"  data-live-search="true" >
+                <option value=""></option>
+                @foreach($tag as $t)
+                  <option  value="{{ ($t->id) }}">{{$t->name}}</option>
                   @endforeach
-              </select>
+            </select>
+            </div>
+            <div class="box-header">
+            <h3 class="box-title">Category:</h3>
+            </div>
+            <div class="box-body pad">
+            <select name="category_id" id="category_id" class="selectpicker form-control"  data-live-search="true" >
+                <!-- <option value=""></option>
+                @foreach($cat as $c)
+                <option  value="{{ ($c->id) }}">{{$c->name}}</option>
+                @endforeach -->
+                {!! $categories_d !!}
+            </select>
             </div>
             <div class="box-header">
               <h3 class="box-title">Sort Order:</h3>
@@ -309,9 +348,14 @@ button:hover {
             <label  style="margin-left:15px;" class="container radioLeft ">Top
             <input type="radio"  name="sort_order" onclick="test(this)" id="radioBtn" value ="1">
             <span class="checkmark"></span>
+<<<<<<< HEAD
             </label>
+=======
+            </label>    
+>>>>>>> 9cb4c75140d727c3c7eeea6bbdc2c2eae7b8858f
   </div>   
   <div class="tab">
+
             <div class="box-header">
               <h3 class="box-title">Width:</h3>
             </div>
@@ -329,8 +373,13 @@ button:hover {
               <h3 class="box-title">Height:</h3>
             </div>
             <div class="box-body pad">
+<<<<<<< HEAD
             <input type="number" class="form-control" name="height" id="height" oninput="this.className = ''" style="line-height: 18px; border: 1px solid #dddddd; padding: 10px;"/>
               @if ($errors->has('height'))
+=======
+            <input type="number" class="form-control" name="width" id="width" oninput="this.className = ''" style="line-height: 18px; border: 1px solid #dddddd; padding: 10px;"/>
+              @if ($errors->has('width'))
+>>>>>>> 9cb4c75140d727c3c7eeea6bbdc2c2eae7b8858f
               <span class="help-block">
               <strong style="color:red">{{ $errors->first('height') }}</strong>
               </span> 
@@ -341,11 +390,20 @@ button:hover {
               <h3 class="box-title">Weight:</h3>
             </div>
             <div class="box-body pad">
+<<<<<<< HEAD
               <input type="number" class="form-control" name="weight" id="weight" oninput="this.className = ''" style="line-height: 18px; border: 1px solid #dddddd; padding: 10px;"/>
                 @if ($errors->has('weight'))
                 <span class="help-block">
                   <strong style="color:red">{{ $errors->first('weight') }}</strong>
                 </span> 
+=======
+            <input type="number" class="form-control" name="height" id="height" oninput="this.className = ''" style="line-height: 18px; border: 1px solid #dddddd; padding: 10px;"/>
+              @if ($errors->has('height'))
+              <span class="help-block">
+              <strong style="color:red">{{ $errors->first('height') }}</strong>
+              </span> 
+            
+>>>>>>> 9cb4c75140d727c3c7eeea6bbdc2c2eae7b8858f
               @endif
             </div>
 
@@ -367,21 +425,48 @@ button:hover {
                <h3 class="box-title">Meta Title:</h3>
             </div>
             <div class="box-body pad">
+<<<<<<< HEAD
             <input type="text" class="form-control" name="meta_title" id="meta_title" oninput="this.className = ''" style="line-height: 18px; border: 1px solid #dddddd; padding: 10px;"/>
+=======
+            <input type="text" class="form-control" name="meta_title" id="meta" oninput="this.className = ''" style="line-height: 18px; border: 1px solid #dddddd; padding: 10px;"/>
+>>>>>>> 9cb4c75140d727c3c7eeea6bbdc2c2eae7b8858f
               @if ($errors->has('meta_title'))
               <span class="help-block">
               <strong style="color:red">{{ $errors->first('meta_title') }}</strong>
               </span> 
             
               @endif
+<<<<<<< HEAD
+=======
+            </div>
+            <div class="box-header">
+              <h3 class="box-title">Related Products:</h3>
+            </div>
+            <div class="box-body pad">
+                  <select name="related_product[]" id="related_product" class="selectpicker form-control" multiple="multiple" data-live-search="true">                          
+                      <option  value = "0"></option>
+                      @foreach($products as $p)
+                      <option  value="{{ $p->id }}">{{$p->name}}</option>
+                      @endforeach
+                  </select>
+>>>>>>> 9cb4c75140d727c3c7eeea6bbdc2c2eae7b8858f
             </div>
 
             <div class="box-header">
               <h3 class="box-title">Product Image:</h3>
             </div>
-            <div class="form-group dropzone">
-              <input type="file" id="file-1" name="file"  multiple class="file" data-overwrite-initial="false" data-min-file-count="2" >
+         
+              <div class="form-group">
+                <input type="file" id="profileImage" name="image[]" class="form-control" multiple/>
+              </div> 
+            <div class="row" id="preview_img">
+              
             </div>
+<<<<<<< HEAD
+=======
+            <br>
+            
+>>>>>>> 9cb4c75140d727c3c7eeea6bbdc2c2eae7b8858f
   </div>
     <div style="overflow:auto;">
       <div style="float:right;">
@@ -407,10 +492,12 @@ button:hover {
 @endsection
 
 @section('scripts')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script> 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.7/js/fileinput.js" type="text/javascript"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.7/themes/fa/theme.js" type="text/javascript"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/esm/popper.min.js" type="text/javascript"></script>
 <script>
+<<<<<<< HEAD
 
 $('#file-1').fileinput({
   theme:'fa',
@@ -443,8 +530,73 @@ $('#file-1').on('fileuploaded', function(event, data, previewId, index) {
     }
     else if(!input3){
       $("#input3").val(data.response);
+=======
+$('select').selectpicker();
+
+$('#profileImage').on('change', function(){ //on file input change
+    if (window.File && window.FileReader && window.FileList && window.Blob) //check File API supported browser
+    {
+
+        var data = $(this)[0].files; //this file data
+         
+        $.each(data, function(index, file){ //loop though each file
+            if(/(\.|\/)(gif|jpe?g|png)$/i.test(file.type)){ //check supported file type
+                var fRead = new FileReader(); //new filereader
+                fRead.onload = (function(file){ //trigger function on successful read
+                return function(e) {
+                    var img = $('<img/>').addClass('thumb').attr('src', e.target.result); //create image element 
+                    $('#preview_img').append(img); //append image to output element
+                };
+                })(file);
+                fRead.readAsDataURL(file); //URL representing the file's data.
+            }
+        });
+         
+    }else{
+        alert("Your browser doesn't support File API!"); //if File API is absent
+>>>>>>> 9cb4c75140d727c3c7eeea6bbdc2c2eae7b8858f
     }
-});
+ });
+
+// $('#file-1').fileinput({
+//   theme:'fa',
+//   uploadUrl:"/product/image-upload",
+//   uploadExtraData:function () {
+//     return{
+//       _token:$("input[name='_token']").val()
+//     };
+//   },
+//   allowedFileExtensions:['jpg','png','gif'],
+//   overwriteInitial:false,
+//   maxFileSize:2000,
+//   maxFileNum:3,
+//    slugCallback:function (filename) {
+//     return filename.replace('(','_').replace(']','_');
+//   }
+// });
+
+// $('#file-1').on('fileuploaded', function(event, data, previewId, index) {
+//     var input1 = $("#input1").val(),
+//         input2 = $("#input2").val(),
+//         input3 = $("#input3").val();
+
+//     if(!input1) {
+//       $("#input1").val(data.response);
+//     } 
+//     else if (!input2){
+//       $("#input2").val(data.response);
+//     }
+//     else if(!input3){
+//       $("#input3").val(data.response);
+//     }
+// });
+// $('#file-1').on("filepredelete", function(jqXHR) {
+//         var abort = true;
+//         if (confirm("Are you sure you want to delete this image?")) {
+//             abort = false;
+//         }
+//         return abort; // you can also send any data/object that you can receive on `filecustomerror` event
+//     });
 
 var currentTab = 0; // Current tab is set to be the first tab (0)
 showTab(currentTab); // Display the current tab

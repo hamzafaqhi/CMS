@@ -187,14 +187,14 @@ button:hover {
       <section class="content-header">
         <h1>
           Products
-          <small>Edit Product</small>
+          <small>Add Product</small>
         </h1>
         <ol class="breadcrumb">
           <li>
               <a href="{{route('dashboard')}}"><i class="fa fa-dashboard"></i> Dashboard</a>
           </li>
           <li><a href="{{ route('product.index') }}">Products</a></li>
-          <li class="active">Edit Product</li>
+          <li class="active">Add Product</li>
         </ol>
       </section>
       <!-- Main content -->
@@ -204,173 +204,229 @@ button:hover {
 	        <button type="button" class="close" data-dismiss="alert">×</button>	
           </div>
       @endif
-      <div class="box">     
-      <form method="POST" id="regForm" autocomplete="off"  action="{{ action ('ProductController@update') }}">
+<div class="box">     
+      <form method="POST" id="regForm" autocomplete="off"  action="{{ action ('ProductController@update') }}"  enctype="multipart/form-data">
       @csrf
-
-      <input type="hidden" name="id" id="hidden_id" value="{{$data->id}}" />
   <!-- One "tab" for each step in the form: -->
   <div class="tab">
-  <div class="box-header">
-            <h3 class="box-title">Name: </h3>
+            <input type="hidden" name="id" value="{{$data->id}}">
+            <div class="box-header">
+              <h3 class="box-title">Name: </h3>
             </div>
-  <div class="box-body pad">
-              <input type="text" class="form-control" name="product_name" id="product_name" oninput="this.className = ''" style="line-height: 18px; border: 1px solid #dddddd; padding: 10px;"  value="{{$data->name}}"/>
-              @if ($errors->has('product_name'))
-              <span class="help-block">
-              <strong style="color:red">{{ $errors->first('product_name') }}</strong>
-              </span> 
-              @endif           
+              <div class="box-body pad">
+                <input type="text" class="form-control" name="product_name" id="product_name" value="{{$data->name}}" oninput="this.className = ''" style="line-height: 18px; border: 1px solid #dddddd; padding: 10px;"/>
+                @if ($errors->has('product_name'))
+                <span class="help-block">
+                <strong style="color:red">{{ $errors->first('product_name') }}</strong>
+                </span> 
+                @endif           
             </div>
            <!-- /.box -->
            
-           <div class="box-header">
-            <h3 class="box-title">Description: </h3>
+            <div class="box-header">
+               <h3 class="box-title">Description: </h3>
             </div>
             <div class="box-body pad">              
-            <p><textarea class="textarea"  id="description" name="description" oninput="this.className = ''" 
-                          style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea></p>
-              @if ($errors->has('description'))
-              <span class="help-block">
-              <strong style="color:red">{{ $errors->first('description') }}</strong>
-              </span> 
-              @endif       
+              <p><textarea class="textarea"  id="description" name="description"  oninput="this.className = ''" 
+                            style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea></p>
+                @if ($errors->has('description'))
+                <span class="help-block">
+                <strong style="color:red">{{ $errors->first('description') }}</strong>
+                </span> 
+                @endif       
             </div>    
             
             <div class="box-header">
-            <h3 class="box-title">Price: </h3>
+              <h3 class="box-title">Price: </h3>
             </div>
             <div class="box-body pad">
-            <input type="text" class="form-control" name="price" id="price" oninput="this.className = ''" style="line-height: 18px; border: 1px solid #dddddd; padding: 10px;"  value="{{$data->price}}"/>
-              @if ($errors->has('price'))
-              <span class="help-block">
-              <strong style="color:red">{{ $errors->first('price') }}</strong>
-              </span> 
-            
-              @endif
-              </div>
-
-              <div class="box-header">
-            <h3 class="box-title">Quantity</h3>
-            </div>
-            <div class="box-body pad">
-              <input type="text" class="form-control" name="quantity" id="quantity" oninput="this.className = ''" style="line-height: 18px; border: 1px solid #dddddd; padding: 10px;"  value="{{$data->quantity}}"/>
-              @if ($errors->has('quantity'))
-              <span class="help-block">
-              <strong style="color:red">{{ $errors->first('quantity') }}</strong>
-              </span> 
+              <input type="number" class="form-control" name="price" id="price" oninput="this.className = ''" value="{{$data->price}}" style="line-height: 18px; border: 1px solid #dddddd; padding: 10px;"/>
+                @if ($errors->has('price'))
+                <span class="help-block">
+                <strong style="color:red">{{ $errors->first('price') }}</strong>
+                </span> 
               
-              @endif           
-              </div>
-                 
-  </div>
-  <div class="tab">
-              <div class="box-header">
-            <h3 class="box-title">Status:</h3>
+                @endif
+            </div>
+
+            <div class="box-header">
+              <h3 class="box-title">Quantity</h3>
+            </div>
+            <div class="box-body pad">
+                <input type="number" class="form-control" name="quantity" id="quantity" value="{{$data->quantity}}" oninput="this.className = ''" style="line-height: 18px; border: 1px solid #dddddd; padding: 10px;"/>
+                @if ($errors->has('quantity'))
+                <span class="help-block">
+                <strong style="color:red">{{ $errors->first('quantity') }}</strong>
+                </span> 
+                
+                @endif           
+            </div>
+
+            <div class="box-header">
+              <h3 class="box-title">Status:</h3>
             </div>
             <div class="box-body pad">
                   <select name="stock_status" id="stock_status" class="form-control">
-                    <option name="stock_status" id="stock_status" value="0"></option>
-                    
-                    <option name="stock_status" id="stock_status" value="">In Stock</option>
-                    <option id="stock_status" name="stock_status" value="0">Out of Stock</option>
-                
+                    <option name="stock_status"  id="stock_status" value="1" {{$data->stock_status == 1  ? 'selected' : ''}} >In Stock</option>
+                    <option id="stock_status" name="stock_status" value="0"  {{ ( $data->stock_status == 0) ? 'selected' : '' }}>Out of Stock</option>
                   </select>      
+            </div>
+            
+            <div class="box-header">
+              <h3 class="box-title">Manufacturer:</h3>
+              
+            </div>
+            <div class="box-body pad">
+                  <select name="manufacture_id" id="manufacture_id" class="selectpicker form-control"  data-live-search="true">                          
+                      <option  value = "0"></option>
+                      
+                      @foreach($man as $t)
+                            <option  value="{{ $t->id }}" {{($data->manufacture_id == $t->id) ? selected : '' }}>{{$t->name}}</option>                      
+                      @endforeach
+                  </select>
             </div>
 
             <div class="box-header">
-            <h3 class="box-title">Weight:</h3>
+            <h3 class="box-title">Tag:</h3>
             </div>
             <div class="box-body pad">
-            <input type="text" class="form-control" name="weight" id="weight" oninput="this.className = ''" style="line-height: 18px; border: 1px solid #dddddd; padding: 10px;"  value="{{$data->weight}}"/>
-              @if ($errors->has('weight'))
-              <span class="help-block">
-              <strong style="color:red">{{ $errors->first('weight') }}</strong>
-              </span> 
-            
-              @endif
-              </div>
-            
-            <div class="box-header">
-            <h3 class="box-title">Sort Order:</h3>
+            <select name="tag_id" id="tag_id" class="selectpicker form-control"  data-live-search="true" >
+                <option value=""></option>
+                @foreach($tag as $t)
+                  <option  value="{{ ($t->id) }}">{{$t->name}}</option>
+                  @endforeach
+            </select>
             </div>
-            <label class="container radioLeft ">Top
+            <div class="box-header">
+            <h3 class="box-title">Category:</h3>
+            </div>
+            <div class="box-body pad">
+            <select name="category_id" id="category_id" class="selectpicker form-control"  data-live-search="true" >
+                <!-- <option value=""></option>
+                @foreach($cat as $c)
+                <option  value="{{ ($c->id) }}">{{$c->name}}</option>
+                @endforeach -->
+                {!! $categories_d !!}
+            </select>
+            </div>
+
+            <div class="box-header">
+              <h3 class="box-title">Sort Order:</h3>
+            </div>
+            <label style="margin-left:15px;" class="container radioLeft ">Top
+            <input type="hidden" id="sort" value="{{$data->sortorder}}">
             <input type="radio"  name="sort_order" onclick="test(this)" id="radioBtn" value ="1">
             <span class="checkmark"></span>
-            </label>
-  </div>
+            </label>    
+  </div>   
   <div class="tab">
-  <div class="box-header">
-            <h3 class="box-title">Width:</h3>
+
+            <div class="box-header">
+              <h3 class="box-title">Weight:</h3>
             </div>
             <div class="box-body pad">
-            <input type="text" class="form-control" name="width" id="width" oninput="this.className = ''" style="line-height: 18px; border: 1px solid #dddddd; padding: 10px;"  value="{{$data->weight}}"/>
+              <input type="text" class="form-control" name="weight" id="weight" value="{{$data->weight}}" oninput="this.className = ''" style="line-height: 18px; border: 1px solid #dddddd; padding: 10px;"/>
+                @if ($errors->has('weight'))
+                <span class="help-block">
+                  <strong style="color:red">{{ $errors->first('weight') }}</strong>
+                </span> 
+              @endif
+            </div>
+
+            <div class="box-header">
+              <h3 class="box-title">Width:</h3>
+            </div>
+            <div class="box-body pad">
+            <input type="number" class="form-control" name="width" id="width" value="{{$data->width}}" oninput="this.className = ''" style="line-height: 18px; border: 1px solid #dddddd; padding: 10px;"/>
               @if ($errors->has('width'))
               <span class="help-block">
               <strong style="color:red">{{ $errors->first('width') }}</strong>
               </span> 
             
               @endif
-              </div>
+            </div>
 
-              <div class="box-header">
-            <h3 class="box-title">Height:</h3>
+            <div class="box-header">
+              <h3 class="box-title">Height:</h3>
             </div>
             <div class="box-body pad">
-            <input type="text" class="form-control" name="height" id="height" oninput="this.className = ''" style="line-height: 18px; border: 1px solid #dddddd; padding: 10px;"  value="{{$data->height}}"/>
+            <input type="number" class="form-control" name="height" id="height" value="{{$data->height}}" oninput="this.className = ''" style="line-height: 18px; border: 1px solid #dddddd; padding: 10px;"/>
               @if ($errors->has('height'))
               <span class="help-block">
               <strong style="color:red">{{ $errors->first('height') }}</strong>
               </span> 
             
               @endif
-              </div>
+            </div>
 
-              <div class="box-header">
-            <h3 class="box-title">Length:</h3>
+            <div class="box-header">
+               <h3 class="box-title">Length:</h3>
             </div>
             <div class="box-body pad">
-            <input type="text" class="form-control" name="length" id="length" oninput="this.className = ''" style="line-height: 18px; border: 1px solid #dddddd; padding: 10px;"  value="{{$data->length}}"/>
+            <input type="number" class="form-control" name="length" id="length" value="{{$data->length}}" oninput="this.className = ''" style="line-height: 18px; border: 1px solid #dddddd; padding: 10px;"/>
               @if ($errors->has('length'))
               <span class="help-block">
               <strong style="color:red">{{ $errors->first('length') }}</strong>
               </span> 
             
               @endif
-              </div>
+            </div>
 
-              <div class="box-header">
-            <h3 class="box-title">Meta Title:</h3>
+            
+            <div class="box-header">
+               <h3 class="box-title">Meta Title:</h3>
             </div>
             <div class="box-body pad">
-            <input type="text" class="form-control" name="meta_title" id="meta_title" oninput="this.className = ''" style="line-height: 18px; border: 1px solid #dddddd; padding: 10px;"  value="{{$data->meta_title}}"/>
+            <input type="text" class="form-control" name="meta_title" id="meta" value="{{$data->meta_title}}" oninput="this.className = ''" style="line-height: 18px; border: 1px solid #dddddd; padding: 10px;"/>
               @if ($errors->has('meta_title'))
               <span class="help-block">
               <strong style="color:red">{{ $errors->first('meta_title') }}</strong>
               </span> 
             
               @endif
-              </div>
+            </div>
+            <div class="box-header">
+              <h3 class="box-title">Related Products:</h3>
+            </div>
+            <div class="box-body pad">
+                  <select name="related_product[]" id="related_product" class="selectpicker form-control" multiple="multiple" data-live-search="true">                          
+                      <option  value = "0"></option>
+                      @foreach($products as $p)
+                      <option  value="{{ $p->id }}">{{$p->name}}</option>
+                      @endforeach
+                  </select>
+            </div>
+            <div class="box-header">
+              <h3 class="box-title">Product Image:</h3>
+            </div>
+         
+              <div class="form-group">
+                <input type="hidden" name="has_image" value="{{ $data->image_products ? 1 : 0}}">
+                <input type="file" id="profileImage" name="image[]" class="form-control" multiple/>
+              </div> 
+            <div class="row" id="preview_img">
+              
+            </div>
+            <br>
+            
   </div>
   <div style="overflow:auto;">
     <div style="float:right;">
-      <button type="button" id="prevBtn" class="btn btn-default" onclick="nextPrev(-1)">Previous</button>
-      <button type="button" id="nextBtn" class="btn btn-block btn-primary" onclick="nextPrev(1)">Next</button>
+      <button type="button" id="prevBtn" class="btn btn-default" onclick="nextPrev(-1)" style="/* margin-right: 0px; *//* display: inline; */">Previous</button>
+      <button type="button" id="nextBtn" class="btn btn-block btn-primary" onclick="nextPrev(1)" style="margin-right:10px;width: 80px;">Next</button>
     </div>
   </div>
-  <!-- Circles which indicates the steps of the form: -->
-  <div style="text-align:center;margin-top:40px;">
-    <span class="step"></span>
-    <span class="step"></span>
-    <span class="step"></span>
-  </div>
-</form>
+    <!-- Circles which indicates the steps of the form: -->
+    <div style="text-align:center;margin-top:40px;">
+      <span class="step"></span>
+      <span class="step"></span>
+    </div>
+  </form>
 </div>      
             <!-- /.content -->
-            </section>
+</section>
             
-          </div>
-
+</div>
 @endsection
 
 @section('scripts')
@@ -422,15 +478,15 @@ function validateForm() {
   x = document.getElementsByClassName("tab");
   y = x[currentTab].getElementsByTagName("input");
   // A loop that checks every input field in the current tab:
-  for (i = 0; i < y.length; i++) {
-    // If a field is empty...
-    if (y[i].value == "") {
-      // add an "invalid" class to the field:
-      y[i].className += " invalid";
-      // and set the current valid status to false
-      valid = false;
-    }
-  }
+  // for (i = 0; i < y.length; i++) {
+  //   // If a field is empty...
+  //   if (y[i].value == "") {
+  //     // add an "invalid" class to the field:
+  //     y[i].className += " invalid";
+  //     // and set the current valid status to false
+  //     valid = false;
+  //   }
+  // }
   // If the valid status is true, mark the step as finished and valid:
   if (valid) {
     document.getElementsByClassName("step")[currentTab].className += " finish";
@@ -464,6 +520,18 @@ var radioState = false;
     function uncheck() {
         document.getElementById("radioBtn").checked = false;
     }
+    $(document).ready(function()
+    {
+     var sort =  $('#sort').val();
+      if(sort == 1)
+      {
+        document.getElementById("radioBtn").checked = true;
+      }
+      else
+      {
+        document.getElementById("radioBtn").checked = false;
+      }
+    });
 </script>
 
 @endsection

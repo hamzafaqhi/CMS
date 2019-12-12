@@ -2,15 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Voucher;
+use Validator;
+use Redirect;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class VoucherController extends Controller
 {
 
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
+    // public function __construct()
+    // {
+    //     $this->middleware('auth');
+    // }
     /**
      * Display a listing of the resource.
      *
@@ -30,7 +34,7 @@ class VoucherController extends Controller
             ->rawColumns(['action'])
             ->make(true);            
         }
-        return view('pages.voucher');
+        return view('pages.vouchers.voucher');
     }
 
     /**
@@ -40,7 +44,7 @@ class VoucherController extends Controller
      */
     public function create()
     {
-        return view('pages.vouch_create');
+        return view('pages.vouchers.create_vouchers');
     }
 
     /**
@@ -51,7 +55,33 @@ class VoucherController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make(request()->all(),[
+            'name' => 'required|unique:vouchers,name',
+            'amount' => 'required|regex:/^[0-9]+$/',
+            'amount_type' => 'required',
+            // 'expiry_date' => 'required|after:today',
+        ]);
+        if($validator->passes())
+        {
+           $date = Carbon::createFromFormat('d-m-Y', $request->expiry_date)->format('Y-m-d');
+           $voucher = new Voucher();
+           $voucher->name = $request->name;
+           $voucher->amount = $request->amount;
+           $voucher->amount_type = $request->amount_type;
+           $voucher->expiry_date = $date;
+           if($request->has('status'))
+           {
+               $voucher->status = '1';
+           }
+           else
+           {
+            $voucher->status = '0';
+           }
+           $voucher->save();
+           return Redirect::back()->with('success','Voucher created successfully');
+        }
+        return Redirect::back()->withErrors($validator);
+       
     }
 
     /**
@@ -73,7 +103,11 @@ class VoucherController extends Controller
      */
     public function edit($id)
     {
-        //
+        if (request()->ajax())
+        {
+            $data = Voucher::findOrFail($id);
+            return response()->json(['data'=>$data]);
+        }
     }
 
     /**
@@ -83,9 +117,11 @@ class VoucherController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $record = Voucher::whereId($request->id)->update(['name'=>$request->name, 'amount' =>$request->amount, 'amount_type' =>$request->amount_type, 'expiry_date' =>$request->expiry_date , 'status' =>$request->status]);
+        
+        return back()->with('success','Voucher edited successfully');
     }
 
     /**
@@ -96,6 +132,7 @@ class VoucherController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $Category = Voucher::find($id);
+        $Category->delete();
     }
 }

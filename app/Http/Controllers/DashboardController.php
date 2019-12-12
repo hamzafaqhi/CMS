@@ -16,11 +16,6 @@ class DashboardController extends Controller
         return view('pages.dashboard');
     }
 
-    public function invoice()
-    {
-        return view('pages.invoice');
-    }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -31,6 +26,9 @@ class DashboardController extends Controller
         return view('pages.category');
     }
 
+    public function setting(){
+        return view ('pages.setting');
+    }
     /**
      * Store a newly created resource in storage.
      *

@@ -201,6 +201,7 @@ $(document).ready(function()
    {
     setTimeout(function(){
      $('#remove_modal').modal('hide');
+     $('#remove_button').text('OK');
      $('#cat_table').DataTable().ajax.reload();
     }, 2000);
    }

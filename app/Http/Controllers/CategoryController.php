@@ -42,7 +42,8 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view('pages.createcategory');
+        $category = Category::where('parent_id',0)->get();
+        return view('pages.createcategory',compact('category'));
     }
 
     /**
@@ -52,17 +53,29 @@ class CategoryController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    {  
         $category = new Category();
         $validator = Validator::make($request->all(),[
             'category_name' => 'required',
             'description' => 'required'
         ]);
+        
         if ($validator->passes())
         {
             $category->name= $request->category_name;
             $category->description= $request->description;
-            $category->author="hamza";
+            if($request->has('sort_order'))
+            {
+                $category->sortorder= $request->sort_order;
+            }
+            else
+            {
+                $category->sortorder= 0;
+            }
+            if($request->has('parent_id'))
+            {
+                $category->parent_id= $request->parent_id;
+            }
             $category->save();
             return back()->with('success','Category created successfully');
         }

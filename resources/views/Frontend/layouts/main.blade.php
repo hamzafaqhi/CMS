@@ -1,9 +1,9 @@
-<!doctype html>
+<!doctype html >
 <html class="no-js" lang="zxx">
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="x-ua-compatible" content="ie=edge">
-	<title>@yield('title','Home ')</title>
+	<title>@yield('title','Home')</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -11,7 +11,7 @@
 	<link rel="shortcut icon" href="{{ asset('boighor/images/favicon.ico')}}">
 	<link rel="apple-touch-icon" href="{{ asset('boighor/images/icon.png')}}">
 
-	<!-- Google font (font-family: 'Roboto', sans-serif; Poppins ; Satisfy) -->
+	<!-- Google font (font-family: 'Roboto', sans-serif; Popp    ins ; Satisfy) -->
 	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet"> 
 	<link href="https://fonts.googleapis.com/css?family=Poppins:300,300i,400,400i,500,600,600i,700,700i,800" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet"> 
@@ -20,10 +20,14 @@
 	<link rel="stylesheet" href="{{ asset('boighor/css/bootstrap.min.css') }}">
 	<link rel="stylesheet" href="{{ asset('boighor/css/plugins.css') }}">
 	<link rel="stylesheet" href="{{ asset('boighor/style.css') }}">
+	
+	
 
 	<!-- Cusom css -->
    <link rel="stylesheet" href="{{ asset('boighor/css/custom.css') }}">
+	<!------ Include the above in your HEAD tag ---------->
 
+	<!-- <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"> -->
 	<!-- Modernizer js -->
     <script src="{{ asset('boighor/js/vendor/modernizr-3.5.0.min.js') }}"></script>
     @yield('stylesheets')
@@ -39,32 +43,22 @@
 	@include('Frontend.layouts.navbar')
 		<!-- //Header -->
 		<!-- Start Search Popup -->
-		<div class="brown--color box-search-content search_active block-bg close__top">
-			<form id="search_mini_form" class="minisearch" action="#">
+		<!-- <div class="brown--color box-search-content search_active block-bg close__top">
+			<form id="search_mini_form" class="minisearch" action="{{route('search_products')}}" method="POST">
 				<div class="field__search">
-					<input type="text" placeholder="Search entire store here...">
+					<input type="text" name="search" placeholder="Search entire store here...">
 					<div class="action">
-						<a href="#"><i class="zmdi zmdi-search"></i></a>
+						<button style="background:none; border:none" type="submit"><a href="#"><i class="zmdi zmdi-search"></i></a></button>
 					</div>
 				</div>
 			</form>
 			<div class="close__wrap">
 				<span>close</span>
 			</div>
-		</div>
+		</div> -->
 		<!-- End Search Popup -->
         <!-- Start Slider area -->
-        <div class="slider-area brown__nav slider--15 slide__activation slide__arrow01 owl-carousel owl-theme">
-        	<!-- Start Single Slide -->
-	        <div class="slide animation__style10 bg-image--1 fullscreen align__center--left">
-	            
-            </div>
-            <!-- End Single Slide -->
-        	<!-- Start Single Slide -->
-	        <div class="slide animation__style10 bg-image--7 fullscreen align__center--left">
-            </div>
-            <!-- End Single Slide -->
-        </div>
+       
         <!-- End Slider area -->
 		<!-- Start BEst Seller Area -->
         @yield('content')
@@ -218,6 +212,7 @@
 	<script src="{{ asset ('boighor/js/bootstrap.min.js')}}"></script>
 	<script src="{{ asset ('boighor/js/plugins.js')}}"></script>
 	<script src="{{ asset ('boighor/js/active.js')}}"></script>
+	
 	@yield('scripts')
 </body>
 </html>
