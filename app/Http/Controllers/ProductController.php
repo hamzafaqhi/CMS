@@ -48,7 +48,7 @@ class ProductController extends Controller
     {
         $man = Manufacture::all();
         $tag = Tag::all();
-        $cat = Category::where(['parent_id'=> 0])->get();
+        $cat = Category::where(['parent_id'=> null])->get();
         $products = Product::get();
         $categories_d = "<option value=''></option>";
             foreach($cat as $c)
@@ -108,12 +108,13 @@ class ProductController extends Controller
             {   
                 $related_product = new Product_Related();
                 $related_product->product_id = $product->id;
-                for ($i = 1; $i < count(request()->related_product); $i++) {
+                for ($i = 0; $i < count(request()->related_product); $i++) {
                     $answers[] = [
                         'product_id' => $product->id,
                         'related_product_id' => request()->related_product[$i],
                     ];
                 }
+                
                 $related_product->insert($answers);
             }
             if(request()->exists('image') )
@@ -247,6 +248,7 @@ class ProductController extends Controller
                         'related_product_id' => request()->related_product[$i],
                     ];
                 }
+               
                 $related_product->insert($answers);
             }
             if(request()->exists('image') )

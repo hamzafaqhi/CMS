@@ -3,6 +3,11 @@
 @section('content')
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
+@if ($message = Session::get('success'))
+            <div class="alert alert-success alert-dismissible"><i class="fa fa-check-circle"> </i>{{$message}}.
+                <button type="button" class="close" data-dismiss="alert">×</button>	
+            </div>
+@endif
       <!-- Content Header (Page header) -->
       <section class="content-header">
         <h1>

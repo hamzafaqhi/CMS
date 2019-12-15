@@ -31,6 +31,11 @@ class UserController extends Controller
         $remember = "";
         if($request->isMethod('post'))
         {
+            $check = User::where('email',$request->email)->first();
+            if($check->disable == 1)
+            {
+                return Redirect::back()->with('failure','Your account is banned!');
+            }
             if($request->has('rememberme'))
             {
                 $credentials = $request->only('email', 'password');
@@ -40,7 +45,8 @@ class UserController extends Controller
                     Auth::login($user,true);
                     return redirect('/user-account');
                 }
-                else{
+                else
+                {
                     return Redirect::back()->with('failure','Invalid credentials');
                 }
             }

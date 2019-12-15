@@ -185,11 +185,24 @@
 
 							<div class="row">
 								@foreach($products as $p)
+								
+								@php 
+						
+								if(count($p->image_products) > 0)
+								{
+									$images = explode(',' , $p->image_products[0]->image_path)[0];
+								
+								}
+								else
+								{
+									$images = "";
+								}
+								@endphp
 	        						<!-- Start Single Product -->
 		        					<div class="product product__style--3 col-lg-4 col-md-4 col-sm-6 col-12">
 			        					<div class="product__thumb">
-											<a class="first__img" href="{{ URL('/single/product/'.$p->id )}}"><img src="images/books/1.jpg" alt="product image"></a>
-											<a class="second__img animation1" href="{{ URL('/single/product/'.$p->id )}}"><img src="images/books/2.jpg" alt="product image"></a>
+											<a class="first__img" href="{{ URL('/single/product/'.$p->id )}}"><img src="/storage/products/{{$images}}" alt="product image"></a>
+											<a class="second__img animation1" href="{{ URL('/single/product/'.$p->id )}}"><img src="/storage/products/{{$images}}" alt="product image"></a>
 											<div class="hot__box">
 												<span class="hot-label">BEST SELLER</span>
 											</div>

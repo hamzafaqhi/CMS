@@ -242,7 +242,7 @@ button:hover {
             </div>
             <div class="box-body pad">              
               <p><textarea class="textarea"  id="description" name="description" oninput="this.className = ''" 
-                            style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea></p>
+                  style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea></p>
                 @if ($errors->has('description'))
                 <span class="help-block">
                 <strong style="color:red">{{ $errors->first('description') }}</strong>
@@ -254,7 +254,7 @@ button:hover {
               <h3 class="box-title">Price: </h3>
             </div>
             <div class="box-body pad">
-              <input type="number" class="form-control" name="price" id="price" oninput="this.className = ''" style="line-height: 18px; border: 1px solid #dddddd; padding: 10px;"/>
+              <input type="number" class="form-control" name="price" id="price" oninput="this.className = ''" min="0" style="line-height: 18px; border: 1px solid #dddddd; padding: 10px;"/>
                 @if ($errors->has('price'))
                 <span class="help-block">
                 <strong style="color:red">{{ $errors->first('price') }}</strong>
@@ -267,7 +267,7 @@ button:hover {
               <h3 class="box-title">Quantity</h3>
             </div>
             <div class="box-body pad">
-                <input type="number" class="form-control" name="quantity" id="quantity" oninput="this.className = ''" style="line-height: 18px; border: 1px solid #dddddd; padding: 10px;"/>
+                <input type="number" class="form-control" name="quantity" id="quantity" min="0" oninput="this.className = ''" style="line-height: 18px; border: 1px solid #dddddd; padding: 10px;"/>
                 @if ($errors->has('quantity'))
                 <span class="help-block">
                 <strong style="color:red">{{ $errors->first('quantity') }}</strong>
@@ -420,11 +420,9 @@ button:hover {
             <br>
             
   </div>
-  <div style="overflow:auto;">
-    <div style="float:right;">
-      <button type="button" id="prevBtn" class="btn btn-default" onclick="nextPrev(-1)" style="/* margin-right: 0px; *//* display: inline; */">Previous</button>
-      <button type="button" id="nextBtn" class="btn btn-block btn-primary" onclick="nextPrev(1)" style="margin-right:10px;width: 80px;">Next</button>
-    </div>
+  <div style="float:right;margin-right:1.5rem" class="row">
+      <button type="button" id="prevBtn" class="btn btn-default" onclick="nextPrev(-1)" style="margin-right: 10px;">Previous</button>
+      <button type="button" id="nextBtn" class="btn btn-primary" onclick="nextPrev(1)" style="margin-right:10px">Next</button>
   </div>
     <!-- Circles which indicates the steps of the form: -->
     <div style="text-align:center;margin-top:40px;">
@@ -471,46 +469,6 @@ $('#profileImage').on('change', function(){ //on file input change
         alert("Your browser doesn't support File API!"); //if File API is absent
     }
  });
-
-// $('#file-1').fileinput({
-//   theme:'fa',
-//   uploadUrl:"/product/image-upload",
-//   uploadExtraData:function () {
-//     return{
-//       _token:$("input[name='_token']").val()
-//     };
-//   },
-//   allowedFileExtensions:['jpg','png','gif'],
-//   overwriteInitial:false,
-//   maxFileSize:2000,
-//   maxFileNum:3,
-//    slugCallback:function (filename) {
-//     return filename.replace('(','_').replace(']','_');
-//   }
-// });
-
-// $('#file-1').on('fileuploaded', function(event, data, previewId, index) {
-//     var input1 = $("#input1").val(),
-//         input2 = $("#input2").val(),
-//         input3 = $("#input3").val();
-
-//     if(!input1) {
-//       $("#input1").val(data.response);
-//     } 
-//     else if (!input2){
-//       $("#input2").val(data.response);
-//     }
-//     else if(!input3){
-//       $("#input3").val(data.response);
-//     }
-// });
-// $('#file-1').on("filepredelete", function(jqXHR) {
-//         var abort = true;
-//         if (confirm("Are you sure you want to delete this image?")) {
-//             abort = false;
-//         }
-//         return abort; // you can also send any data/object that you can receive on `filecustomerror` event
-//     });
 
 var currentTab = 0; // Current tab is set to be the first tab (0)
 showTab(currentTab); // Display the current tab
@@ -559,15 +517,15 @@ function validateForm() {
   x = document.getElementsByClassName("tab");
   y = x[currentTab].getElementsByTagName("input");
   // A loop that checks every input field in the current tab:
-  for (i = 0; i < y.length; i++) {
-    // If a field is empty...
-    if (y[i].value == "") {
-      // add an "invalid" class to the field:
-      y[i].className += " invalid";
-      // and set the current valid status to false
-      valid = false;
-    }
-  }
+  // for (i = 0; i < y.length; i++) {
+  //   // If a field is empty...
+  //   if (y[i].value == "") {
+  //     // add an "invalid" class to the field:
+  //     y[i].className += " invalid";
+  //     // and set the current valid status to false
+  //     valid = false;
+  //   }
+  // }
   // If the valid status is true, mark the step as finished and valid:
   if (valid) {
     document.getElementsByClassName("step")[currentTab].className += " finish";

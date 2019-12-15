@@ -90,6 +90,15 @@ Route::post('page/update','CMSPagesController@update');
 Route::get('/newsletter','NewsLetterController@index')->name('news.index');
 Route::get('/news/{id}/delete','NewsLetterController@destroyNewsletter')->name('delete.news');
 
+Route::get('/users','UserController@index')->name('users');
+Route::get('/profile/{id}','UserController@show')->name('profile');
+Route::get('/users/admin','UserController@getAdmin')->name('admin.users');
+Route::post('/user/update','UserController@updateRole')->name('users.role');
+Route::post('/user/edit','UserController@update')->name('users.update');
+Route::post('/user/deactivate','UserController@deactivateUser')->name('deactivate');
+Route::post('/user/activate','UserController@activateUser')->name('activate');
+
+
 
 Route::get('/logout','Auth\LoginController@logout')->name('logout');
 

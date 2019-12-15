@@ -190,8 +190,9 @@
           <ul class="treeview-menu">
             <!-- <li><a href=""><i class="fa fa-circle-o"></i> Design</a></li> -->
             <li class="treeview">
-            <li><a href="{{route('news.index')}}"><i class="fa fa-circle-o"></i> Users</a></li>
-            <li><a href="{{route('news.index')}}"><i class="fa fa-circle-o"></i> Profile</a></li>
+            <li><a href="{{route('users')}}"><i class="fa fa-circle-o"></i> Users</a></li>
+            <li><a href="{{route('admin.users')}}"><i class="fa fa-circle-o"></i> Admins</a></li>
+            <li><a href="{{route('profile',['id' => Auth::user()->id])}}"><i class="fa fa-circle-o"></i> Profile</a></li>
             </li>
           </ul>
         </li>

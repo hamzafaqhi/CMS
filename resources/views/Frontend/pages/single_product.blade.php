@@ -48,7 +48,8 @@ h1 { font-size: 1.5em; margin: 10px; }
 </style>
 @stop
 @section('content')	
-<div class="slider-area brown__nav slider--15 slide__activation slide__arrow01 owl-carousel owl-theme">
+	<!-- Main wrapper -->
+	<div class="slider-area brown__nav slider--15 slide__activation slide__arrow01 owl-carousel owl-theme">
 			<!-- Start Single Slide -->
 		@if(!empty($banner))
 			@foreach($banner as $b)
@@ -68,8 +69,7 @@ h1 { font-size: 1.5em; margin: 10px; }
 	        <!-- <div class="slide animation__style10 bg-image--7 fullscreen align__center--left">
             </div> -->
             <!-- End Single Slide -->
-</div>	<!-- Main wrapper -->
-	<div class="wrapper" id="wrapper">
+</div>
         <div class="maincontent bg--white pt--80 pb--55">
         	<div class="container">
 			<div class="alert alert-success pro" style="display:none">
@@ -506,7 +506,7 @@ h1 { font-size: 1.5em; margin: 10px; }
 		</div>
 		<!-- END QUICKVIEW PRODUCT -->
 
-	</div>
+
     <!-- //Main wrapper -->
 @endsection
 @section('scripts')
