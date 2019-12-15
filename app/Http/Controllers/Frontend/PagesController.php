@@ -18,16 +18,62 @@ class PagesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($id = null)
     {
+        if(request()->isMethod('POST'))
+        {
+            if(!empty($id))
+            { 
+                $products = Product::where('stock_status',1)->where('category_id',$id)->orderBy('id','ASC')->take(10)->get();
+            }
+        }
+        else
+        {
+            $products = Product::getProduct();
+        }
         $banner = Banner::where('status',1)->latest()->get();
         $latest = Product::getLatestProduct();
-        $products = Product::getProduct();
         $cat = Category::getCategory();
-        $man = Manufacture::getManufacturers();
+        $man = Manufacture::getManufacturers(); 
         return view('Frontend.pages.homepage',compact('latest','products','cat','man','banner'));
     }
 
+    public function showProduct($id)
+    {
+        $product = Product::with('image_products')->where('id',$id)->first();
+        if(count($product->image_products) > 0)
+        {
+            $image = explode(',' , $product->image_products[0]->image_path)[0];
+        }
+        else
+        {
+            $image =  "";
+        }
+        $result  = array();
+        $result['data'] = $product;
+        $result['image'] = $image;
+        return json_encode($result); 
+    }
+
+    // public function getPro($id)
+    // {
+    //     if(request()->ajax())
+    //     {
+    //         $products = Product::with('image_products')->where('stock_status',1)->where('category_id',$id)->orderBy('id','ASC')->take(10)->get();
+    //         if(count($products->image_products) > 0)
+    //         {
+    //             $image = explode(',' , $products->image_products[0]->image_path)[0];
+    //         }
+    //         else
+    //         {
+    //             $image = "";
+    //         }
+    //         $result  = array();
+    //         $result['data'] = $products;
+    //         $result['image'] = $image;
+    //         return json_encode($result); 
+    //     }
+    // }
     public function contact()
     {
         return view('Frontend.pages.contact');

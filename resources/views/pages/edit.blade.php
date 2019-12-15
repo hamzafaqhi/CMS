@@ -113,14 +113,7 @@
 * {
   box-sizing: border-box;
 }
-#regForm {
-  /* background-color: #ffffff;
-  margin: 100px auto;
-  font-family: Raleway;
-  padding: 40px;
-  width: 70%;
-  min-width: 300px; */
-}
+
 
 input {
   padding: 10px;
@@ -412,7 +405,7 @@ button:hover {
   </div>
   <div style="overflow:auto;">
     <div style="float:right;">
-      <button type="button" id="prevBtn" class="btn btn-default" onclick="nextPrev(-1)" style="/* margin-right: 0px; *//* display: inline; */">Previous</button>
+      <button type="button" id="prevBtn" class="btn btn-default" onclick="nextPrev(-1)" style= "margin-right: 0px; display: inline;">Previous</button>
       <button type="button" id="nextBtn" class="btn btn-block btn-primary" onclick="nextPrev(1)" style="margin-right:10px;width: 80px;">Next</button>
     </div>
   </div>

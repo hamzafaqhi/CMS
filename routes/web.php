@@ -20,10 +20,10 @@ Route::get('/', function () {
     return view('auth.login');
 });
 
+
+Route::group(['middleware' => ['auth', 'checkrole']], function () {
 Route::get('/dashboard','DashboardController@index')->name('dashboard');
-
 Route::get('/setting','DashboardController@setting')->name('setting');
-
 
 Route::get('/order','OrderController@index')->name('order');
 Route::get('/returns','OrderController@returns')->name('returns');
@@ -31,14 +31,13 @@ Route::get('/cancel','OrderController@cancel')->name('cancel');
 Route::get('/order/{id}/invoice','OrderController@invoice')->name('order.invoice');
 Route::get('/redirect/view/{status}','OrderController@redirectView')->name('view-redirect');
 
-
 //Category
-    Route::get('/category','CategoryController@index')->name('category.index');
-    Route::post('/category/add','CategoryController@store');
-    Route::get('/category/create','CategoryController@create')->name('category.create');
-    Route::delete('/category/{id}/delete','CategoryController@destroy');
-    Route::get('/category/{id}/edit','CategoryController@edit');
-    Route::post('category/update','CategoryController@update');
+Route::get('/category','CategoryController@index')->name('category.index');
+Route::post('/category/add','CategoryController@store');
+Route::get('/category/create','CategoryController@create')->name('category.create');
+Route::delete('/category/{id}/delete','CategoryController@destroy');
+Route::get('/category/{id}/edit','CategoryController@edit');
+Route::post('category/update','CategoryController@update');
 
 //Product
 Route::get('/product','ProductController@index')->name('product.index');
@@ -81,14 +80,42 @@ Route::delete('/ban/{id}/delete','BannerController@destroy');
 Route::post('ban/update','BannerController@update');
 // Route::get('ban/get','BannerController@getBanners');
 
+Route::get('/pages','CMSPagesController@index')->name('pages');
+Route::get('/page/create','CMSPagesController@create')->name('create-page');
+Route::post('/page/add','CMSPagesController@store');
+Route::delete('/page/{id}/delete','CMSPagesController@destroy');
+Route::get('/page/{id}/edit','CMSPagesController@edit')->name('page.edit');
+Route::post('page/update','CMSPagesController@update');
+
+Route::get('/newsletter','NewsLetterController@index')->name('news.index');
+Route::get('/news/{id}/delete','NewsLetterController@destroyNewsletter')->name('delete.news');
+
+
 Route::get('/logout','Auth\LoginController@logout')->name('logout');
+
+});
+
+
+
+
+
+
+
+
+Route::match(['get', 'post'], '/page/{url}', 'CMSPagesController@cmsPage');
+
+
+
 
 // Route::get('/home', 'HomeController@index')->name('home');
 //Frontend
-Route::get('/home','Frontend\PagesController@index')->name('homepage');
+Route::match(['GET', 'POST'],'/home','Frontend\PagesController@index')->name('homepage');
 Route::match(['GET', 'POST'],'/shop','Frontend\ShopController@index')->name('shoppage');
 Route::get('/contact','Frontend\PagesController@contact')->name('contactuspage');
 Route::get('/about','Frontend\PagesController@about')->name('aboutuspage'); 
+Route::post('cat/{id}/products','Frontend\PagesController@index')->name('search_pro_cat');
+Route::get('/show/{id}/product/','Frontend\PagesController@showProduct')->name('showproduct');
+
 Route::get('/search/{id}/{tag}','Frontend\ShopController@index')->name('search_cat');
 Route::any('/search/products','Frontend\ShopController@index')->name('search_products');
 // Route::get('/tag-search/{tag}','Frontend\ShopController@index')->name('search_tag');
@@ -96,7 +123,6 @@ Route::get('single/product/{id}','Frontend\ShopController@singleProduct')->name(
 
 Route::get('/cart','Frontend\CartController@index')->name('cartpage');
 Route::get('/add/{id}/cart/','Frontend\CartController@store')->name('addcart');
-Route::get('/show/{id}/product/','Frontend\CartController@showProduct')->name('showproduct');
 Route::get('/update/cart','Frontend\CartController@updateCart')->name('updateproduct');
 Route::get('/delete/{id}/cart','Frontend\CartController@destroyCart')->name('destroycart');
 Route::get('/user-account','Frontend\Auth\UserController@userAccount')->name('useraccount');
@@ -128,3 +154,5 @@ Route::group(['middleware' => 'user'], function () {
     Route::get('/order/{id}/return','Frontend\CheckoutController@returnOrder')->name('return-order');
 
 });
+
+Route::post('/subscribe/newsletter','NewsLetterController@store');

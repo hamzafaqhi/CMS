@@ -4,6 +4,13 @@
 <!-- Start About Area -->
         <div class="page-about about_area bg--white section-padding--lg">
         	<div class="container">
+			<div class="row">
+        			<div class="col-lg-12">
+        				<div class="section__title--3 text-center pb--30">
+        					<!-- <h1>About Us</h1> -->
+        				</div>
+        			</div>
+        		</div>
 				<div class="row">
         			<div class="col-lg-12">
         				<div class="section__title--3 text-center pb--30">

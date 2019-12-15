@@ -63,9 +63,8 @@ class UserController extends Controller
         if($request->isMethod('post'))
         {
             $user = new User();
-            $validator = Validator::make($request->all(),[
-                'first_name' => 'required| string |max:255',
-                'last_name' => 'required| string |max:255',
+            $validator = Validator::make($request->all(),[          
+                'name' => 'required| string |max:255',
                 'address' => 'required| string |max:255',
                 'city' => 'required| string |max:255',
                 'country' => 'required| string |max:255',
@@ -76,14 +75,14 @@ class UserController extends Controller
             ]);
             if ($validator->passes())
             {
-                $user->first_name = $request->first_name;
-                $user->last_name = $request->last_name;
+                $user->name = $request->name;
                 $user->address = $request->address;
                 $user->city = $request->city;
                 $user->country = $request->country;
                 $user->province = $request->province;
                 $user->phone = $request->phone;
                 $user->email = $request->email;
+                $user->role_id = 2;
                 $user->password = Hash::make($request->password);
                 $user->save();
                 $credentials = $request->only('email', 'password');
@@ -101,16 +100,23 @@ class UserController extends Controller
         $user_id = Auth::user()->id;
         $user = User::where('id',$user_id)->first();
         $order = Order::where('user_id',$user_id)->get();
-        $order_session = Order::where('user_id',$user_id)->pluck('cart_id');
-        if(count($order_session) == 1)
+        if(!$order->isEmpty())
         {
-            $cart = Cart::where('session_id',$order_session)->get();
+            $order_session = Order::where('user_id',$user_id)->pluck('cart_id');
+            if(count($order_session) == 1)
+            {
+                $cart = Cart::where('session_id',$order_session)->get();
+            }
+            else
+            {
+                $cart = Cart::whereIn(['session_id',$order_session])->get();
+            }
+            return view('Frontend.pages.account',compact('user','order','cart'));
         }
         else
         {
-            $cart = Cart::whereIn(['session_id',$order_session])->get();
+            return view('Frontend.pages.account',compact('user'));
         }
-        return view('Frontend.pages.account',compact('user','order','cart'));
     }
 
     public function resetPassword(Request $request)

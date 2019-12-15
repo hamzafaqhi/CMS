@@ -8,6 +8,9 @@ use App\Product;
 use App\Category;
 use App\product_related;
 use App\Tag;
+use App\Voucher;
+use Carbon\Carbon;
+use App\Banner;
 
 class ShopController extends Controller
 {
@@ -35,12 +38,10 @@ class ShopController extends Controller
         }
         elseif(!empty($tag))
         {
-            // $tag = Tag::where('id',$tag)->first();
             $products = Product::where('tag_id',$tag)->latest()->paginate(10);
         }
         elseif(!empty($id))
         {
-        //    $category = Category::where('id',$id)->first();
             $products = Product::where('category_id',$id)->latest()->paginate(10);
         }
         else
@@ -50,30 +51,40 @@ class ShopController extends Controller
         $products->currentPage();
         $products->total();
         $products->perPage();
-        // $category = Category::get();
         $category = Category::where(['parent_id'=> 0])->get();    
         $categories = "";
             foreach($category as $c)
             {
-                $categories .="<li><a href=' ". route('search_cat',  ['id' => $c->id, '$tag' => 0 ]) ." '>".$c->name." <span>(3)</span></a></li>";
+                $p = Product::where('category_id',$c->id)->get();
+                $p_count = $p->count();
+                $categories .="<li><a href=' ". route('search_cat',  ['id' => $c->id, '$tag' => 0 ]) ." '>".$c->name." <span>(".$p_count.")</span></a></li>";
                 // $cats = Category::where('parent_id', 0)->pluck('id');
                 $cat = Category::where(['parent_id'=>$c->id])->get();
                 foreach($cat as $sub_c)
                 {
-                    $categories .= "<ul><li><a href=' ". route('search_cat', ['id' => $sub_c->id, '$tag' => 0 ]) ." '>&nbsp;&nbsp;&nbsp;".$sub_c->name."<span>(3)</span></a></li></ul>";
+                    $p = Product::where('category_id',$sub_c->id)->get();
+                    $p_count = $p->count();
+                    $categories .= "<ul><li><a href=' ". route('search_cat', ['id' => $sub_c->id, '$tag' => 0 ]) ." '>&nbsp;&nbsp;&nbsp;".$sub_c->name."<span>(".$p_count.")</span></a></li></ul>";
                 }
             }
+        $today = Carbon::now();
+        $voucher = Voucher::where('status',1)->where('expiry_date','>',$today)->first();
         $tag = Tag::get();
-        return view('Frontend.pages.shop',compact('products','category','tag','categories'));
+        $banner = Banner::where('status',1)->latest()->get();
+        return view('Frontend.pages.shop',compact('products','category','tag','categories','voucher','banner'));
     }
 
     public function singleProduct($id)
     {
-        $products = Product::where('id',$id)->first();
+        $banner = Banner::where('status',1)->latest()->get();
+        $products = Product::with('image_products')->where('id',$id)->first();
         $category = Category::find($products->category_id);
+        $today = Carbon::now();
+        $voucher = Voucher::where('status',1)->where('expiry_date','>',$today)->first();
         $related_products_id = product_related::where('product_id',$id)->pluck('related_product_id');
         $related_products = Product::whereIn('id',$related_products_id)->get();
-        return view('Frontend.pages.single_product',compact('products','related_products','category'));
+        $upsell = Product::getUpsellProducts();
+        return view('Frontend.pages.single_product',compact('products','related_products','category','banner','voucher'));
     }
     /**
      * Show the form for creating a new resource.

@@ -200,7 +200,7 @@
 							<div class="product__thumb">
 
 								<a class="first__img" href="{{ URL('/single/product/'.$l->id )}}"><img src="/storage/products/{{$image}}" alt="product image"></a>
-								<a class="second__img animation1" href="{{ URL('/single/product/'.$l->id )}}"><img src="/storage/products/{{$image}}" alt="product image"></a>
+								<!-- <a class="second__img animation1" href="{{ URL('/single/product/'.$l->id )}}"><img src="/storage/products/{{$image}}" alt="product image"></a> -->
 								<!-- <div class="hot__box">
 									<span class="hot-label">Best Seller</span>
 								</div> -->
@@ -253,11 +253,12 @@
 							<h2>Stay With Us</h2>
 						</div>
 						<div class="newsletter__block text-center">
-							<p>Subscribe to our newsletters now and stay up-to-date with new collections, the latest lookbooks and exclusive offers.</p>
-							<form action="#">
+							<p>Subscribe to our newsletters now and stay up-to-date with new collections and exclusive offers.</p>
+							<form action="javascript:void(0)">
 								<div class="newsletter__box">
-									<input type="email" placeholder="Enter your e-mail">
-									<button>Subscribe</button>
+									<input id="mail" name="mail" type="email" placeholder="Enter your e-mail" onfocusout="checkSubscriber()">
+									<span id="status_news" style="display: none"></span>
+									<button type="button">Subscribe</button>
 								</div>
 							</form>
 						</div>
@@ -283,7 +284,7 @@
 							<a class="nav-item nav-link active" data-toggle="tab" href="#nav-all" role="tab">ALL</a>
 							@if(!empty($cat))
 							@foreach($cat as $c)
-                            <a class="nav-item nav-link" data-toggle="tab" href="#nav-biographic" role="tab">{{$c->name}}</a>
+                            <a class="nav-item nav-link" data-toggle="tab" href="{{route('search_pro_cat', ['id' => $c->id ])}}"  role="tab">{{$c->name}}</a>
 							@endforeach
 							@endif
                         </div>
@@ -295,22 +296,33 @@
 						<div class="product__indicator--4 arrows_style owl-carousel owl-theme">
 							@if(!empty($products))
 							@foreach($products as $p)
+							@php 
+					
+							if(count($p->image_products) > 0)
+							{
+								$images = explode(',' , $p->image_products[0]->image_path)[0];
+							
+							}
+							else
+							{
+								$images = "";
+							}
+							@endphp
 							<div class="single__product">
 								<!-- Start Single Product -->
 								<div class="col-lg-3 col-md-4 col-sm-6 col-12">
 									<div class="product product__style--3">
 										<div class="product__thumb">
-											<a class="first__img" href="{{ URL('/single/product/'.$p->id )}}"><img src="images/books/1.jpg" alt="product image"></a>
-											<a class="second__img animation1" href="{{ URL('/single/product/'.$p->id )}}"><img src="images/books/2.jpg" alt="product image"></a>
+											<a class="first__img" href="{{ URL('/single/product/'.$p->id )}}"><img src="/storage/products/{{$images}}" alt="product image"></a>
 											<div class="hot__box">
 												<span class="hot-label">BEST SALER</span>
 											</div>
 										</div>
 										<div class="product__content content--center content--center">
-											<h4><a href="{{ URL('/single/product/'.$l->id )}}">{{$p->name}}</a></h4>
+											<h4 id="name"><a href="{{ URL('/single/product/'.$p->id )}}">{{$p->name}}</a></h4>
 											<ul class="prize d-flex">
 												<li>${{$p->price}}</li>
-												<li class="old_prize">$35.00</li>
+												<!-- <li class="old_prize">$35.00</li> -->
 											</ul>
 											<div class="action">
 												<div class="actions_inner">
@@ -382,20 +394,20 @@
 		        <div class="modal-dialog modal__container" role="document">
 		            <div class="modal-content">
 		                <div class="modal-header modal__header">
-		                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		                    <button type="button" class="close" onclick="closeModal()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 		                </div>
 		                <div class="modal-body">
 		                    <div class="modal-product">
 		                        <!-- Start product images -->
 		                        <div class="product-images">
-		                            <div class="main-image images">
-		                                <img alt="big images" src="images/product/big-img/1.jpg">
+		                            <div class="main-image images pro_image">
+		                               
 		                            </div>
 		                        </div>
 		                        <!-- end product images -->
 		                        <div class="product-info">
-		                            <h1>Simple Fabric Bags</h1>
-		                            <div class="rating__and__review">
+		                            <h1 id="name"></h1>
+		                            <!-- <div class="rating__and__review">
 		                                <ul class="rating">
 		                                    <li><span class="ti-star"></span></li>
 		                                    <li><span class="ti-star"></span></li>
@@ -406,48 +418,17 @@
 		                                <div class="review">
 		                                    <a href="#">4 customer reviews</a>
 		                                </div>
-		                            </div>
+		                            </div> -->
 		                            <div class="price-box-3">
 		                                <div class="s-price-box">
 		                                    <span class="new-price">$17.20</span>
-		                                    <span class="old-price">$45.00</span>
 		                                </div>
 		                            </div>
 		                            <div class="quick-desc">
 		                                Designed for simplicity and made from high quality materials. Its sleek geometry and material combinations creates a modern look.
 		                            </div>
-		                            <div class="select__color">
-		                                <h2>Select color</h2>
-		                                <ul class="color__list">
-		                                    <li class="red"><a title="Red" href="#">Red</a></li>
-		                                    <li class="gold"><a title="Gold" href="#">Gold</a></li>
-		                                    <li class="orange"><a title="Orange" href="#">Orange</a></li>
-		                                    <li class="orange"><a title="Orange" href="#">Orange</a></li>
-		                                </ul>
-		                            </div>
-		                            <div class="select__size">
-		                                <h2>Select size</h2>
-		                                <ul class="color__list">
-		                                    <li class="l__size"><a title="L" href="#">L</a></li>
-		                                    <li class="m__size"><a title="M" href="#">M</a></li>
-		                                    <li class="s__size"><a title="S" href="#">S</a></li>
-		                                    <li class="xl__size"><a title="XL" href="#">XL</a></li>
-		                                    <li class="xxl__size"><a title="XXL" href="#">XXL</a></li>
-		                                </ul>
-		                            </div>
-		                            <div class="social-sharing">
-		                                <div class="widget widget_socialsharing_widget">
-		                                    <h3 class="widget-title-modal">Share this product</h3>
-		                                    <ul class="social__net social__net--2 d-flex justify-content-start">
-		                                        <li class="facebook"><a href="#" class="rss social-icon"><i class="zmdi zmdi-rss"></i></a></li>
-		                                        <li class="linkedin"><a href="#" class="linkedin social-icon"><i class="zmdi zmdi-linkedin"></i></a></li>
-		                                        <li class="pinterest"><a href="#" class="pinterest social-icon"><i class="zmdi zmdi-pinterest"></i></a></li>
-		                                        <li class="tumblr"><a href="#" class="tumblr social-icon"><i class="zmdi zmdi-tumblr"></i></a></li>
-		                                    </ul>
-		                                </div>
-		                            </div>
-		                            <div class="addtocart-btn">
-		                                <a href="#">Add to cart</a>
+		                            <div class="addtocart-btn addCart">
+		                               
 		                            </div>
 		                        </div>
 		                    </div>
@@ -503,21 +484,28 @@ function showModal(index)
 		url: "/show/"+index+"/product/",
 		type : "get",
 		data: {id: index},
+		dataType:'json',
 		success: function(result)
 		{	
-	
-			document.getElementById("product_name").innerHTML = result.name;
-			document.getElementById("quick-desc").innerHTML = result.description;
-			document.getElementById("new-price").innerHTML = "$" + result.price;
-			document.getElementById("old-price").innerHTML = "$" + result.price;
-			var d = document.getElementById("idButton");  //   Javascript
-			d.setAttribute('data-id' , result.id);
+		
+			$('#name').text(result.data.name);
+			$('.pro_image').prepend('<img alt="big images" src="/storage/products/' +result.image+ ' "/>')
+			$('.new-price').text(result.data.price);
+			$('.quick-desc').html(result.data.description);
+			$('.addCart').append('<a href="#" onclick="addCart('+result.data.id+')">Add to Cart</a>')
+			
+			
 			$('#productmodal').modal('show');
 		},
 		error: function(){
 			alert("error");
 		}
 	});
+}
+function closeModal()
+{
+	$('.modal-body').html('');
+	$('#productmodal').modal('hide');
 }
 function addWishList(index)
 {
@@ -553,6 +541,32 @@ function addWishList(index)
 		}
 	});
 }
+
+// function getPro(id)
+// {
+// 	$.ajaxSetup
+// 	({
+// 		headers: {
+// 			'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+// 		}
+// 	});
+// 	$.ajax({
+// 		url: "/cat/"+id+"/products/",
+// 		type : "get",
+// 		success: function(result)
+// 		{
+			
+// 			// $(".alert-success").show();
+// 			// setTimeout(()=>{
+// 			// 	$(".alert-success").hide();	
+// 			// },2000)
+// 			// console.log(result)
+// 		},
+// 		error: function(){
+// 			alert("error");
+// 		}
+// 	});
+// }
 function addCart(index)
 {
 	if(index == "modal")
@@ -582,5 +596,40 @@ function addCart(index)
 		}
 	});
 }
+ function checkSubscriber()
+ {
+	var email =  $('#mail').val();
+	$.ajax({
+		url: "subscribe/newsletter",
+		type : "post",
+		data: {_token:"{{ csrf_token() }}",email: email},
+		success: function(result)
+		{
+			if(result == "success")
+			{
+				$('#mail').val('');
+				$('#status_news').html('<font color="green">Success! Successfully subscribed for newsletters</font>');
+				$('#status_news').show();
+				setTimeout(()=>{
+				$("#status_news").hide();	
+				},2000);
+
+				
+			}
+			else
+			{
+				$('#status_news').html('<font color="red">Error! Email already subscribed for newsletter!</font>');
+				$('#status_news').show()
+				setTimeout(()=>{
+				$("#status_news").hide();	
+				},2000);
+
+			}
+		},
+		error: function(){
+			console("error");
+		}
+	});
+ }
 </script>
 @stop

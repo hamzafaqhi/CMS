@@ -3,12 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Category;
+use App\Page;
 use Validator;
 use Redirect;
-use Datatables;
 
-class CategoryController extends Controller
+class CMSPagesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,9 +18,9 @@ class CategoryController extends Controller
     {
         if (request()->ajax())
         {
-            return datatables()->of(Category::latest()->get())
+            return datatables()->of(Page::latest()->get())
             ->addColumn('action',function($data){
-                $button = '<button type="button" name="edit" id="'.$data->id.'" data-token="{{ csrf_token() }}" class="edit btn btn-primary btn-sm">Edit</button>';
+                $button = '<button type="submit" name="edit" id="'.$data->id.'" data-token="{{ csrf_token() }}" class="edit btn btn-primary btn-sm">Edit</button>';
                 $button .= '&nbsp;&nbsp;';
                 $button .= '<button type="button" name="delete" id="'.$data->id.'" data-token="{{ csrf_token() }}" class="delete btn btn-danger btn-sm">Delete</button>';
                 return $button;
@@ -29,11 +28,8 @@ class CategoryController extends Controller
             ->rawColumns(['action'])
             ->make(true);            
         }
-        //$category = Category::orderBy('created_at','desc')->get()->->with('category',$category);
-        return view('pages.category');
+        return view('pages.cms_pages.all_pages');
     }
-
-
 
     /**
      * Show the form for creating a new resource.
@@ -42,35 +38,45 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        $category = Category::where('parent_id',0)->get();
-        return view('pages.createcategory',compact('category'));
+        return view('pages.cms_pages.create_page');
     }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function store(Request $request)
-    {  
-        $category = new Category();
+    {
+        $page = new Page();
         $validator = Validator::make($request->all(),[
-            'category_name' => 'required',
-            'description' => 'required'
+            'title' => 'required',
+            'description' => 'required',
+            'url' => 'required'
         ]);
         
         if ($validator->passes())
         {
-            $category->name= $request->category_name;
-            $category->description= $request->description;
-            if($request->has('sort_order'))
+            $page->title= $request->title;
+            $page->url= $request->url;
+            $page->description= $request->description;
+            $page->meta_title = $request->meta_title;
+            $page->meta_description = $request->meta_description;
+            $page->meta_keywords = $request->meta_keywords;
+
+            if($request->has('status'))
             {
-                $category->sortorder= $request->sort_order;
+                $page->status= $request->status;
+          
             }
             else
             {
-                $category->sortorder= 0;
+                $page->status= 0;
             }
-            if($request->has('parent_id'))
-            {
-                $category->parent_id= $request->parent_id;
-            }
-            $category->save();
-            return back()->with('success','Category created successfully');
+           
+            $page->save();
+            return back()->with('success','Page created successfully');
         }
         return Redirect::back()->withErrors($validator);
     }
@@ -96,7 +102,7 @@ class CategoryController extends Controller
     {
         if (request()->ajax())
         {
-            $data = Category::findOrFail($id);
+            $data = Page::findOrFail($id);
             return response()->json(['data'=>$data]);
         }
     }
@@ -110,9 +116,9 @@ class CategoryController extends Controller
      */
     public function update(Request $request)
     {
-        $record = Category::whereId($request->id)->update(['name'=>$request->name, 'description' =>$request->description]);
+        $record = Page::whereId($request->id)->update(['title'=>$request->title, 'description' =>$request->description, 'url' =>$request->url, 'meta_title' =>$request->meta_title, 'meta_description' =>$request->meta_description, 'meta_keywords' =>$request->meta_keywords, 'status' =>$request->status]);
         
-        return back()->with('success','Category edited successfully');
+        return back()->with('success','Page edited successfully');
     }
 
     /**
@@ -123,7 +129,20 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        $Category = Category::find($id);
-        $Category->delete();
+        $ban = Page::find($id);
+        $ban->delete();
+    }
+
+    public function cmsPage($url)
+    {
+        $details = Page::where('url',$url)->where('status',1)->first();
+        if(!empty($details))
+        {
+            return view('Frontend.pages.cms_page',compact('details'));
+        }
+        else
+        {
+            return view('Frontend.pages.404');
+        }
     }
 }

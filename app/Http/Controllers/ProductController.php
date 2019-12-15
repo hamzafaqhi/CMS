@@ -133,9 +133,14 @@ class ProductController extends Controller
                     {
                         
                         $name = $files->getClientOriginalName().'_'.time().'.'.$files->extension();
-                        $files->move(storage_path().'/app/public/products/', $name);  
+                        $files->move(storage_path().'/app/public/products/', $name);
                         $data[] = $name;
-                        print_r($data);
+
+                        // $request->file('image')->storeAs('public/images', $imageNameToStore);
+                        // $image_path =  storage_path('app/public/products/largeimage'.$name);
+                        // $img = Image::make($files)
+                        // ->resize(500,500)
+                        // ->save($image_path);
                     }
                     $product_image->product_id = $product->id;
                     $product_image->image_path = implode(',',$data);

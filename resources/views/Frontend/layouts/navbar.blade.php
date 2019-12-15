@@ -111,7 +111,10 @@
 											</strong>
 											<div class="switcher-options">
 												<div class="switcher-currency-trigger">
-													<span class="currency-trigger">Fashion Store</span>
+													<span class="currency-trigger">{{ config('app.name') }}</span>
+												</div>
+												<div class="switcher-currency-trigger">
+													<span class="currency-trigger"><a href="{{route('dashboard')}}">Dashboard</a></span>
 												</div>
 											</div>
 										</div>
@@ -122,11 +125,11 @@
 											<div class="switcher-options">
 												<div class="switcher-currency-trigger">
 													<div class="setting__menu">
-														<span><a href="{{route('wishlistpage')}}">My Wishlist</a></span>
 														@if(empty(\Auth::check()))
 														<span><a href="{{route('myaccountpage')}}">Sign In</a></span>
 														<span><a href="{{route('myaccountpage')}}">Create An Account</a></span>
 														@else
+														<span><a href="{{route('wishlistpage')}}">My Wishlist</a></span>
 														<span><a href="{{route('useraccount')}}">Account</a></span>
 														<span><a href="{{route('logout_user')}}">Logout</a></span>
 														@endif

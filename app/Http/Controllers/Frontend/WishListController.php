@@ -19,8 +19,17 @@ class WishListController extends Controller
     public function index()
     {
         $session_wish = Session::get('session_wish');
-        $wishlist = WishList::where('session_id',$session_wish)->get();
-        return view('Frontend.pages.wishlist',compact('wishlist'));
+        if($session_wish)
+        {
+            $wishlist = WishList::where('session_id',$session_wish)->get();
+            return view('Frontend.pages.wishlist',compact('wishlist'));
+        }
+        else
+        {
+            return view('Frontend.pages.wishlist');
+        }
+        
+       
     }
 
     /**

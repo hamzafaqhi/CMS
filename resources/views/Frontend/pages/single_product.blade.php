@@ -1,6 +1,7 @@
 @extends('Frontend.layouts.main')
 @section('title','Shop | Single Product')
 @section('stylesheets')
+<link rel="stylesheet" href="{{ asset('boighor/easyzoom.css') }}">
 <style>
 @import url(//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);
 
@@ -47,7 +48,27 @@ h1 { font-size: 1.5em; margin: 10px; }
 </style>
 @stop
 @section('content')	
-	<!-- Main wrapper -->
+<div class="slider-area brown__nav slider--15 slide__activation slide__arrow01 owl-carousel owl-theme">
+			<!-- Start Single Slide -->
+		@if(!empty($banner))
+			@foreach($banner as $b)
+	        <div class="slide animation__style10 bg-image--1 fullscreen align__center--left">
+	            <img src="/storage/banners/{{$b->image}}" alt="">
+			</div>
+			@endforeach
+		
+		@else
+
+			<div class="slide animation__style10 bg-image--1 fullscreen align__center--left">
+	            
+			</div>
+		@endif
+            <!-- End Single Slide -->
+        	<!-- Start Single Slide -->
+	        <!-- <div class="slide animation__style10 bg-image--7 fullscreen align__center--left">
+            </div> -->
+            <!-- End Single Slide -->
+</div>	<!-- Main wrapper -->
 	<div class="wrapper" id="wrapper">
         <div class="maincontent bg--white pt--80 pb--55">
         	<div class="container">
@@ -69,6 +90,7 @@ h1 { font-size: 1.5em; margin: 10px; }
 			<div class="alert alert-danger revinfo" style="display:none">
 				<strong>Alert!</strong>You must Login/Signup to review this product!<a href="{{route('myaccountpage')}}">Click here for Login/Signup</a> 
 			</div>
+
         		<div class="row">
         			<div class="col-lg-9 col-12">
         				<div class="wn__single__product">
@@ -76,21 +98,39 @@ h1 { font-size: 1.5em; margin: 10px; }
         						<div class="col-lg-6 col-12">
         							<div class="wn__fotorama__wrapper">
                                     
-	        							<div class="fotorama wn__fotorama__action" data-nav="thumbs">
-		        							  <a href="1.jpg"><img src="images/product/1.jpg" alt=""></a>
-		        							  <a href="2.jpg"><img src="images/product/2.jpg" alt=""></a>
+	        							<div class="fotorama wn__fotorama__action " data-nav="thumbs">
+											@foreach($products->image_products as $p)
+												@php 
+												if(!empty($p))
+												{
+													$image = explode(',' , $p->image_path);
+												}
+												else
+												{
+													$image = "";
+												}
+												@endphp
+											@endforeach
+											@if(!empty($image))
+											@foreach($image as $i)
+											  <a href="1.jpg"><img src="/storage/products/{{$i}}" class="thumbnails" alt=""></a>
+											
+		        							  <!-- <a href="2.jpg"><img src="images/product/2.jpg" alt=""></a>
 		        							  <a href="3.jpg"><img src="images/product/3.jpg" alt=""></a>
 		        							  <a href="4.jpg"><img src="images/product/4.jpg" alt=""></a>
 		        							  <a href="5.jpg"><img src="images/product/5.jpg" alt=""></a>
 		        							  <a href="6.jpg"><img src="images/product/6.jpg" alt=""></a>
 		        							  <a href="7.jpg"><img src="images/product/7.jpg" alt=""></a>
-		        							  <a href="8.jpg"><img src="images/product/8.jpg" alt=""></a>
+											  <a href="8.jpg"><img src="images/product/8.jpg" alt=""></a> -->
+											  
+											  @endforeach
+											  @endif
 	        							</div>
         							</div>
                                 </div>
         						<div class="col-lg-6 col-12">
         							<div class="product__info__main">
-        								<h1>{{$products->name}}</h1>
+										<h1>{{$products->name}}</h1>
         								<div class="product-reviews-summary d-flex">
         									<ul class="rating-summary d-flex">
     											<li><i class="zmdi zmdi-star-outline"></i></li>
@@ -207,47 +247,96 @@ h1 { font-size: 1.5em; margin: 10px; }
 	                        	<!-- End Single Tab Content -->
 	                        </div>
 						</div>
-						@if(count($related_products))
+						@if(!empty($related_products))
 						<div class="wn__related__product pt--80 pb--50">
 							<div class="section__title text-center">
-								<h2 class="title__be--2">Related Products</h2>
+								<h2 class="title__be--2">Related Products	</h2>
 							</div>
 							<div class="row mt--60">
 								<div class="productcategory__slide--2 arrows_style owl-carousel owl-theme">
+								@foreach($related_products as $r)
 									<!-- Start Single Product -->
-									@foreach($related_products as $r)
+									@php 
+									if(count($r->image_products) > 0)
+									{
+										$image = explode(',' , $r->image_products[0]->image_path)[0];
+									
+									}
+									else
+									{
+										$image = "";
+									}
+									@endphp
 									<div class="product product__style--3 col-lg-4 col-md-4 col-sm-6 col-12">
 										<div class="product__thumb">
-											<a class="first__img" href="single-product.html"><img src="images/books/1.jpg" alt="product image"></a>
-											<a class="second__img animation1" href="single-product.html"><img src="images/books/2.jpg" alt="product image"></a>
-											<div class="hot__box">
-												<span class="hot-label">BEST SALLER</span>
-											</div>
+											<a class="first__img" href="{{ URL('/single/product/'.$r->id )}}"><img src="/storage/products/{{$image}}" alt="no image found"></a>
+											<!-- <a class="second__img animation1" href="{{ URL('/single/product/'.$r->id )}}"><img src="{{asset('boighor/images/books/9.jpg')}}" alt="product image"></a> -->
+										
 										</div>
 										<div class="product__content content--center">
-											<h4><a href="single-product.html">{{$r->name}}</a></h4>
+											<h4><a href="{{ URL('/single/product/'.$r->id )}}">{{$r->name}}</a></h4>
 											<ul class="prize d-flex">
 												<li>{{$r->price}}</li>
-												<li class="old_prize">{{$r->price}}</li>
+												<!-- <li class="old_prize">{{$r->price}}</li> -->
 											</ul>
 											<div class="action">
 												<div class="actions_inner">
 													<ul class="add_to_links">
-														<li><a class="cart" href="cart.html"><i class="bi bi-shopping-bag4"></i></a></li>
-														<li><a class="wishlist" href="wishlist.html"><i class="bi bi-shopping-cart-full"></i></a></li>
-														<li><a class="compare" href="#"><i class="bi bi-heart-beat"></i></a></li>
-														<li><a data-toggle="modal" title="Quick View" class="quickview modal-view detail-link" href="#productmodal"><i class="bi bi-search"></i></a></li>
+														<li><a class="cart" href="#" onclick="addCart('{{$r->id}}')"><i class="bi bi-shopping-bag4"></i></a></li>
+														<li><a class="wishlist" href="#" onclick="addWishList('{{$r->id}}')"><i class="bi bi-shopping-cart-full"></i></a></li>
+														<!-- <li><a class="compare" href="#"><i class="bi bi-heart-beat"></i></a></li> -->
+														<li><a data-toggle="modal" title="Quick View" class="quickview modal-view detail-link" href="#" onclick="showModal('{{$r->id}}')"><i class="bi bi-search"></i></a></li>
 													</ul>
 												</div>
 											</div>
-											<div class="product__hover--content">
-												<ul class="rating d-flex">
-													<li class="on"><i class="fa fa-star-o"></i></li>
-													<li class="on"><i class="fa fa-star-o"></i></li>
-													<li class="on"><i class="fa fa-star-o"></i></li>
-													<li><i class="fa fa-star-o"></i></li>
-													<li><i class="fa fa-star-o"></i></li>
-												</ul>
+										</div>
+									</div>
+								@endforeach
+								</div>
+							</div>
+						</div>
+						@endif
+						@if(!empty($upsell))
+						<div class="wn__related__product">
+							<div class="section__title text-center">
+								<h2 class="title__be--2">upsell products</h2>
+							</div>
+							<div class="row mt--60">
+								<div class="productcategory__slide--2 arrows_style owl-carousel owl-theme">
+									<!-- Start Single Product -->
+									@foreach($upsell as $u)
+									<!-- Start Single Product -->
+									@php 
+									if(count($u->image_products) > 0)
+									{
+										$image = explode(',' , $u->image_products[0]->image_path)[0];
+									
+									}
+									else
+									{
+										$image = "";
+									}
+									@endphp
+									<div class="product product__style--3 col-lg-4 col-md-4 col-sm-6 col-12">
+										<div class="product__thumb">
+											<a class="first__img" href="{{ URL('/single/product/'.$r->id )}}"><img src="'/storage/products/{{$image}}" alt="product image"></a>
+											<a class="second__img animation1" href="{{ URL('/single/product/'.$r->id )}}"><img src="/storage/products/{{$image}}" alt="product image"></a>
+										</div>
+										<div class="product__content content--center">
+											<h4><a href="{{ URL('/single/product/'.$r->id )}}">{{$u->name}}</a></h4>
+											<ul class="prize d-flex">
+												<li>${{$u->price}}</li>
+												
+											</ul>
+											<div class="action">
+												<div class="actions_inner">
+													<ul class="add_to_links">
+														<li><a class="cart" href="#" onclick="addCart('{{$u->id}}')"><i class="bi bi-shopping-bag4"></i></a></li>
+														<li><a class="wishlist" href="#" onclick="addWishList('{{$u->id}}')"><i class="bi bi-shopping-cart-full"></i></a></li>
+														<!-- <li><a class="compare" href="#"><i class="bi bi-heart-beat"></i></a></li> -->
+														<li><a data-toggle="modal" title="Quick View" class="quickview modal-view detail-link" href="#" onclick="showModal('{{$u->id}}')"><i class="bi bi-search"></i></a></li>
+													</ul>
+												</div>
 											</div>
 										</div>
 									</div>
@@ -256,6 +345,92 @@ h1 { font-size: 1.5em; margin: 10px; }
 							</div>
 						</div>
 						@endif
+						
+					</div>
+					<div class="col-lg-3 col-12 md-mt-40 sm-mt-40">
+        				<div class="shop__sidebar">
+        					<!-- <aside class="wedget__categories poroduct--cat">
+        						<h3 class="wedget__title">Product Categories</h3>
+        						<ul>
+        							<li><a href="#">Biography <span>(3)</span></a></li>
+        							<li><a href="#">Business <span>(4)</span></a></li>
+        							<li><a href="#">Cookbooks <span>(6)</span></a></li>
+        							<li><a href="#">Health & Fitness <span>(7)</span></a></li>
+        							<li><a href="#">History <span>(8)</span></a></li>
+        							<li><a href="#">Mystery <span>(9)</span></a></li>
+        							<li><a href="#">Inspiration <span>(13)</span></a></li>
+        							<li><a href="#">Romance <span>(20)</span></a></li>
+        							<li><a href="#">Fiction/Fantasy <span>(22)</span></a></li>
+        							<li><a href="#">Self-Improvement <span>(13)</span></a></li>
+        							<li><a href="#">Humor Books <span>(17)</span></a></li>
+        							<li><a href="#">Harry Potter <span>(20)</span></a></li>
+        							<li><a href="#">Land of Stories <span>(34)</span></a></li>
+        							<li><a href="#">Kids' Music <span>(60)</span></a></li>
+        							<li><a href="#">Toys & Games <span>(3)</span></a></li>
+        							<li><a href="#">hoodies <span>(3)</span></a></li>
+        						</ul>
+        					</aside>
+        					<aside class="wedget__categories pro--range">
+        						<h3 class="wedget__title">Filter by price</h3>
+        						<div class="content-shopby">
+        						    <div class="price_filter s-filter clear">
+        						        <form action="#" method="GET">
+        						            <div id="slider-range"></div>
+        						            <div class="slider__range--output">
+        						                <div class="price__output--wrap">
+        						                    <div class="price--output">
+        						                        <span>Price :</span><input type="text" id="amount" readonly="">
+        						                    </div>
+        						                    <div class="price--filter">
+        						                        <a href="#">Filter</a>
+        						                    </div>
+        						                </div>
+        						            </div>
+        						        </form>
+        						    </div>
+        						</div>
+        					</aside>
+        					<aside class="wedget__categories poroduct--compare">
+        						<h3 class="wedget__title">Compare</h3>
+        						<ul>
+        							<li><a href="#">x</a><a href="#">Condimentum posuere</a></li>
+        							<li><a href="#">x</a><a href="#">Condimentum posuere</a></li>
+        							<li><a href="#">x</a><a href="#">Dignissim venenatis</a></li>
+        						</ul>
+        					</aside> -->
+        					<!-- <aside class="wedget__categories poroduct--tag">
+        						<h3 class="wedget__title">Product Tags</h3>
+        						<ul>
+        							<li><a href="#">Biography</a></li>
+        							<li><a href="#">Business</a></li>
+        							<li><a href="#">Cookbooks</a></li>
+        							<li><a href="#">Health & Fitness</a></li>
+        							<li><a href="#">History</a></li>
+        							<li><a href="#">Mystery</a></li>
+        							<li><a href="#">Inspiration</a></li>
+        							<li><a href="#">Religion</a></li>
+        							<li><a href="#">Fiction</a></li>
+        							<li><a href="#">Fantasy</a></li>
+        							<li><a href="#">Music</a></li>
+        							<li><a href="#">Toys</a></li>
+        							<li><a href="#">Hoodies</a></li>
+        						</ul>
+							</aside> -->
+							@if(!empty($voucher))
+        					<aside class="wedget__categories sidebar--banner">
+								
+								<img src="{{asset('boighor/images/others/banner_left.jpg')}}" alt="banner images">
+								<div class="text">
+									<h2>use code</h2>
+									@if($voucher->amount_type == "fixed")
+									<h6>{{$voucher->name}} <br> <strong>and save {{$voucher->amount}}</strong></h6>
+									@else
+									<h6>{{$voucher->name}}<br> <strong>save up to {{$voucher->amount}}%</strong>off</h6>
+									@endif
+								</div>
+							</aside>
+							@endif
+        				</div>
         			</div>
         		</div>
         	</div>
@@ -279,6 +454,7 @@ h1 { font-size: 1.5em; margin: 10px; }
 		<!-- QUICKVIEW PRODUCT -->
 		<div id="quickview-wrapper">
 		    <!-- Modal -->
+		    <!-- Modal -->
 		    <div class="modal fade" id="productmodal" tabindex="-1" role="dialog">
 		        <div class="modal-dialog modal__container" role="document">
 		            <div class="modal-content">
@@ -289,14 +465,14 @@ h1 { font-size: 1.5em; margin: 10px; }
 		                    <div class="modal-product">
 		                        <!-- Start product images -->
 		                        <div class="product-images">
-		                            <div class="main-image images">
-		                                <img alt="big images" src="images/product/big-img/1.jpg">
+		                            <div class="main-image images pro_image">
+		                               
 		                            </div>
 		                        </div>
 		                        <!-- end product images -->
 		                        <div class="product-info">
-		                            <h1>Simple Fabric Bags</h1>
-		                            <div class="rating__and__review">
+		                            <h1 id="name"></h1>
+		                            <!-- <div class="rating__and__review">
 		                                <ul class="rating">
 		                                    <li><span class="ti-star"></span></li>
 		                                    <li><span class="ti-star"></span></li>
@@ -307,55 +483,25 @@ h1 { font-size: 1.5em; margin: 10px; }
 		                                <div class="review">
 		                                    <a href="#">4 customer reviews</a>
 		                                </div>
-		                            </div>
+		                            </div> -->
 		                            <div class="price-box-3">
 		                                <div class="s-price-box">
 		                                    <span class="new-price">$17.20</span>
-		                                    <span class="old-price">$45.00</span>
 		                                </div>
 		                            </div>
 		                            <div class="quick-desc">
 		                                Designed for simplicity and made from high quality materials. Its sleek geometry and material combinations creates a modern look.
 		                            </div>
-		                            <div class="select__color">
-		                                <h2>Select color</h2>
-		                                <ul class="color__list">
-		                                    <li class="red"><a title="Red" href="#">Red</a></li>
-		                                    <li class="gold"><a title="Gold" href="#">Gold</a></li>
-		                                    <li class="orange"><a title="Orange" href="#">Orange</a></li>
-		                                    <li class="orange"><a title="Orange" href="#">Orange</a></li>
-		                                </ul>
+		                            <div class="addtocart-btn addCart">
+		                               
 		                            </div>
-		                            <div class="select__size">
-		                                <h2>Select size</h2>
-		                                <ul class="color__list">
-		                                    <li class="l__size"><a title="L" href="#">L</a></li>
-		                                    <li class="m__size"><a title="M" href="#">M</a></li>
-		                                    <li class="s__size"><a title="S" href="#">S</a></li>
-		                                    <li class="xl__size"><a title="XL" href="#">XL</a></li>
-		                                    <li class="xxl__size"><a title="XXL" href="#">XXL</a></li>
-		                                </ul>
-		                            </div>
-		                            <div class="social-sharing">
-		                                <div class="widget widget_socialsharing_widget">
-		                                    <h3 class="widget-title-modal">Share this product</h3>
-		                                    <ul class="social__net social__net--2 d-flex justify-content-start">
-		                                        <li class="facebook"><a href="#" class="rss social-icon"><i class="zmdi zmdi-rss"></i></a></li>
-		                                        <li class="linkedin"><a href="#" class="linkedin social-icon"><i class="zmdi zmdi-linkedin"></i></a></li>
-		                                        <li class="pinterest"><a href="#" class="pinterest social-icon"><i class="zmdi zmdi-pinterest"></i></a></li>
-		                                        <li class="tumblr"><a href="#" class="tumblr social-icon"><i class="zmdi zmdi-tumblr"></i></a></li>
-		                                    </ul>
-		                                </div>
-		                            </div>
-		                            <div class="addtocart-btn">
-		                                <a href="#">Add to cart</a>
-		                            </div>
-		                        </div><!-- .product-info -->
-		                    </div><!-- .modal-product -->
-		                </div><!-- .modal-body -->
-		            </div><!-- .modal-content -->
-		        </div><!-- .modal-dialog -->
+		                        </div>
+		                    </div>
+		                </div>
+		            </div>
+		        </div>
 		    </div>
+	
 		    <!-- END Modal -->
 		</div>
 		<!-- END QUICKVIEW PRODUCT -->
@@ -364,7 +510,37 @@ h1 { font-size: 1.5em; margin: 10px; }
     <!-- //Main wrapper -->
 @endsection
 @section('scripts')
+<script src="{{ asset ('boighor/js/easyzoom.js')}}"></script>
 <script>
+
+var $easyzoom = $('.easyzoom').easyZoom();
+
+// Setup thumbnails example
+var api1 = $easyzoom.filter('.easyzoom--with-thumbnails').data('easyZoom');
+
+$('.thumbnails').on('click', 'a', function(e) {
+	var $this = $(this);
+
+	e.preventDefault();
+
+	// Use EasyZoom's `swap` method
+	api1.swap($this.data('standard'), $this.attr('href'));
+});
+
+// Setup toggles example
+var api2 = $easyzoom.filter('.easyzoom--with-toggle').data('easyZoom');
+
+$('.toggle').on('click', function() {
+	var $this = $(this);
+
+	if ($this.data("active") === true) {
+		$this.text("Switch on").data("active", false);
+		api2.teardown();
+	} else {
+		$this.text("Switch off").data("active", true);
+		api2._init();
+	}
+});
 	// $('.starrr').starrr();
 	function addWishList(index)
 	{
@@ -495,6 +671,34 @@ h1 { font-size: 1.5em; margin: 10px; }
 	});
 
 });
+function showModal(index)
+{
+	$.ajaxSetup
+	({
+		headers: {
+			'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+		}
+	});
+	$.ajax({
+		url: "/show/"+index+"/product/",
+		type : "get",
+		data: {id: index},
+		dataType:'json',
+		success: function(result)
+		{	
+		
+			$('#name').text(result.data.name);
+			$('.pro_image').prepend('<img alt="big images" src="/storage/products/' +result.image+ ' "/>');
+			$('.new-price').text(result.data.price);
+			$('.quick-desc').append('result.data.description');
+			$('.addCart').append('<a href="#" onclick="addCart('+result.data.id+')">Add to Cart</a>');
+			$('#productmodal').modal('show');
+		},
+		error: function(){
+			alert("error");
+		}
+	});
+}
 </script>
 @stop
 	
