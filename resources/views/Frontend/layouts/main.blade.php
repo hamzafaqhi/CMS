@@ -23,8 +23,53 @@
 	<link rel="stylesheet" href="{{ asset('boighor/style.css') }}">
 	
 	
+	<!-- themes Stylesheets -->
 
-	<!-- Cusom css -->
+
+<?php // $contents = File::get(storage_path('app/file.txt'));
+       
+$stylesheet = File::get(storage_path('app/file.txt'));
+
+
+switch($stylesheet) {
+    case '1':
+        $style = './boighor/1.css';
+        break;
+    case '2':
+        $style = './boighor/2.css';
+        break;
+         case '3':
+        $style = './boighor/3.css';
+        break;
+         case '4':
+        $style = './boighor/4.css';
+        break;
+         case '5':
+        $style = './boighor/5.css';
+        break;
+         case '6':
+        $style = './boighor/6.css';
+        break; 
+         case '7':
+        $style = './boighor/7.css';
+        break; 
+    default:
+          $style = './boighor/1.css';
+        break;
+}
+echo '<link rel="stylesheet" type="text/css" href="'.$style.'">';  
+
+ ?>
+	
+	
+	<!-- <link rel="stylesheet" href="{{ asset('boighor/3.css') }}"> -->
+	 <!-- <link rel="stylesheet" href="{{ asset('boighor/4.css') }}">    -->
+	<!-- <link rel="stylesheet" href="{{ asset('boighor/5.css') }}">  -->
+	<!-- <link rel="stylesheet" href="{{ asset('boighor/6.css') }}">  -->
+	<!-- <link rel="stylesheet" href="{{ asset('boighor/7.css') }}"> -->
+
+
+	<!-- Cusom css 
    <link rel="stylesheet" href="{{ asset('boighor/css/custom.css') }}">
 	<!------ Include the above in your HEAD tag ---------->
 
@@ -59,7 +104,27 @@
 		</div> -->
 		<!-- End Search Popup -->
         <!-- Start Slider area -->
+<<<<<<< HEAD
        
+=======
+        <div class="banner slider-area brown__nav slider--15 slide__activation slide__arrow01 owl-carousel owl-theme">
+        	<!-- Start Single Slide -->
+	      
+	            
+           
+            <div class="slide animation__style10 bg-image--ts1 fullscreen align__center--left">
+	            
+            </div>
+            <!-- End Single Slide -->
+        	<!-- Start Single Slide -->
+	        <div class="slide animation__style10 bg-image--ts2 fullscreen align__center--left">
+            </div>
+
+             <div class="slide animation__style10 bg-image--ts3 fullscreen align__center--left">
+            </div>
+            <!-- End Single Slide -->
+        </div>
+>>>>>>> cf489f2f1eab820149410203f5ff38370176286e
         <!-- End Slider area -->
 		<!-- Start BEst Seller Area -->
         @yield('content')
@@ -68,17 +133,22 @@
 		
 		<!-- Best Sale Area Area -->
 		<!-- Footer Area -->
-		<footer id="wn__footer" class="footer__area bg__cat--8 brown--color">
-			<div class="footer-static-top">
+		<footer id="wn__footer" class="footer__area bg__cat--8 brown--color ">
+			<div class="footer-static-top  ">
 				<div class="container">
 					<div class="row">
 						<div class="col-lg-12">
 							<div class="footer__widget footer__menu">
 								<div class="ft__logo">
+<<<<<<< HEAD
 									<a href="{{route('homepage')}}">
 										<img src="{{asset('/boighor/images/logo/3.png')}}" alt="logo">
+=======
+									<a href="index.html">
+										<img src="http://localhost:8000/boighor/images/logo/3.png" alt="logo">
+>>>>>>> cf489f2f1eab820149410203f5ff38370176286e
 									</a>
-									<p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered duskam alteration variations of passages</p>
+									<p class="foot_for_home">There are many variations of passages of Lorem Ipsum available, but the majority have suffered duskam alteration variations of passages</p>
 								</div>
 								<div class="footer__content">
 									

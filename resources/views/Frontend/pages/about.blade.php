@@ -135,7 +135,7 @@
         						<img src="images/about/team/3.jpg" alt="Team images">
         					</div>
         					<div class="content text-center">
-        						<h4>VICTORIA DOE</h4>
+        						<h4>Fatima Butt</h4>
         						<p>Marketer</p>
         						<ul class="team__social__net">
         							<li><a href="#"><i class="icon-social-twitter icons"></i></a></li>

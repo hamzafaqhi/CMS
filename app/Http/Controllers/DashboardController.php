@@ -3,6 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use DB;
+use File;
+use App\Http\Requests;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
 
 class DashboardController extends Controller
 {
@@ -11,9 +16,40 @@ class DashboardController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
     public function index()
     {
+
         return view('pages.dashboard');
+// $users = DB::select('select * from student');
+//       return view('pages.dashboard',['users'=>$users]);
+
+    }
+
+//     public static function theme1()
+//     {
+        
+//              
+//         Storage::disk('local')->put('file.txt', '1');
+// //echo "Record updated successfully.<br/>";
+// $contents = File::get(storage_path('app/file.txt'));
+       
+// echo $contents;
+
+
+// // if($contents==1)
+// // {echo "theme ",$contents," selected";}
+// //  else{echo "not 1";}       
+
+ 
+//     // return view('pages.dashboard');
+
+
+// }
+//   
+  public function invoice()
+    {
+        return view('pages.invoice');
     }
 
     /**
