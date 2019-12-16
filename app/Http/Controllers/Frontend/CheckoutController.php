@@ -97,7 +97,7 @@ class CheckoutController extends Controller
             $order->total_price = $total_price; 
             if($order->save())
             {
-                $cart_status = Cart::where('session_id',$request->cart_id)->update(['cart_status' => 0]);
+                $cart_status = Cart::where('session_id',$request->cart_id)->update(['status' => 0]);
 
             }
             Session::forget('cart_items');

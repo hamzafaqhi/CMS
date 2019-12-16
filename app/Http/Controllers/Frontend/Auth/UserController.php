@@ -117,6 +117,7 @@ class UserController extends Controller
             {
                 $cart = Cart::whereIn(['session_id',$order_session])->get();
             }
+           
             return view('Frontend.pages.account',compact('user','order','cart'));
         }
         else
