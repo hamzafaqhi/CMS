@@ -28,46 +28,18 @@
    <link rel="stylesheet" href="{{ asset('boighor/css/custom.css') }}">
 	<!------ Include the above in your HEAD tag ---------->
 
-	<!-- <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"> -->
-	<!-- Modernizer js -->
     <script src="{{ asset('boighor/js/vendor/modernizr-3.5.0.min.js') }}"></script>
     @yield('stylesheets')
 </head>
 <body>
-	<!--[if lte IE 9]>
-		<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
-	<![endif]-->
-
+	
 	<!-- Main wrapper -->
 	<div class="wrapper" id="wrapper">
 		<!-- Header -->
 	@include('Frontend.layouts.navbar')
-		<!-- //Header -->
-		<!-- Start Search Popup -->
-		<!-- <div class="brown--color box-search-content search_active block-bg close__top">
-			<form id="search_mini_form" class="minisearch" action="{{route('search_products')}}" method="POST">
-				<div class="field__search">
-					<input type="text" name="search" placeholder="Search entire store here...">
-					<div class="action">
-						<button style="background:none; border:none" type="submit"><a href="#"><i class="zmdi zmdi-search"></i></a></button>
-					</div>
-				</div>
-			</form>
-			<div class="close__wrap">
-				<span>close</span>
-			</div>
-		</div> -->
-		<!-- End Search Popup -->
-        <!-- Start Slider area -->
-       
-        <!-- End Slider area -->
-		<!-- Start BEst Seller Area -->
-        @yield('content')
-		<!-- End Recent Post Area -->
-		<!-- Best Sale Area -->
 		
-		<!-- Best Sale Area Area -->
-		<!-- Footer Area -->
+        @yield('content')
+		
 		<footer id="wn__footer" class="footer__area bg__cat--8 brown--color">
 			<div class="footer-static-top">
 				<div class="container">
@@ -106,19 +78,12 @@
 								</div>
 							</div>
 						</div>
-						<!-- <div class="col-lg-6 col-md-6 col-sm-12">
-							<div class="payment text-right">
-								<img src="{{asset('boighor/images/icons/payment.png')}}" alt="" />
-							</div>
-						</div> -->
+						
 					</div>
 				</div>
 			</div>
 		</footer>
-		<!-- //Footer Area -->
-		<!-- QUICKVIEW PRODUCT -->
-		
-		<!-- END QUICKVIEW PRODUCT -->
+
 	</div>
 	<!-- //Main wrapper -->
 

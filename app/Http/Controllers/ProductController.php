@@ -58,7 +58,7 @@ class ProductController extends Controller
                 $category = Category::where(['parent_id'=>$c->id])->get();
                 foreach($category as $sub_c)
                 {
-                    $categories_d .= "<option  value='".$sub_c->id."'>&nbsp;--&nbsp;".$sub_c->name."</option>";
+                    $categories_d .= "<option  value='".$sub_c->id."'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;".$sub_c->name."</option>";
                 }
             }
         
@@ -183,7 +183,7 @@ class ProductController extends Controller
         $man = Manufacture::all();
         $tag = Tag::all();
         $products = Product::get();
-        $cat = Category::where(['parent_id'=> 0])->get();
+        $cat = Category::where(['parent_id'=> null])->get();
         $categories_d = "<option value=''></option>";
             foreach($cat as $c)
             {
@@ -192,7 +192,7 @@ class ProductController extends Controller
                 $category = Category::where(['parent_id'=>$c->id])->get();
                 foreach($category as $sub_c)
                 {
-                    $categories_d .= "<option  value='".$sub_c->id."'>&nbsp;--&nbsp;".$sub_c->name."</option>";
+                    $categories_d .= "<option  value='".$sub_c->id."'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;".$sub_c->name."</option>";
                 }
             }
             $data = Product::findOrFail($id);

@@ -274,7 +274,7 @@ button:hover {
                       <option  value = "0"></option>
                       
                       @foreach($man as $t)
-                            <option  value="{{ $t->id }}" {{($data->manufacture_id == $t->id) ? selected : '' }}>{{$t->name}}</option>                      
+                            <option  value="{{ $t->id }}" {{($data->manufacture_id == $t->id) ? 'selected' : '' }}>{{$t->name}}</option>                      
                       @endforeach
                   </select>
             </div>
@@ -286,7 +286,7 @@ button:hover {
             <select name="tag_id" id="tag_id" class="selectpicker form-control"  data-live-search="true" >
                 <option value=""></option>
                 @foreach($tag as $t)
-                  <option  value="{{ ($t->id) }}">{{$t->name}}</option>
+                  <option  value="{{ ($t->id) }}"  {{($data->tag_id == $t->id) ? 'selected' : '' }}>{{$t->name}}</option>
                   @endforeach
             </select>
             </div>
