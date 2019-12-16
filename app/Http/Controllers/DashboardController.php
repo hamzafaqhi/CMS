@@ -21,32 +21,10 @@ class DashboardController extends Controller
     {
 
         return view('pages.dashboard');
-// $users = DB::select('select * from student');
-//       return view('pages.dashboard',['users'=>$users]);
 
     }
 
-//     public static function theme1()
-//     {
-        
-//              
-//         Storage::disk('local')->put('file.txt', '1');
-// //echo "Record updated successfully.<br/>";
-// $contents = File::get(storage_path('app/file.txt'));
-       
-// echo $contents;
 
-
-// // if($contents==1)
-// // {echo "theme ",$contents," selected";}
-// //  else{echo "not 1";}       
-
- 
-//     // return view('pages.dashboard');
-
-
-// }
-//   
   public function invoice()
     {
         return view('pages.invoice');

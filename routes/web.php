@@ -33,7 +33,9 @@ Route::get('/redirect/view/{status}','OrderController@redirectView')->name('view
 
 Route::get('/dashboard/{id}',function($id){
 echo "                                                                                                           YOU HAVE SELECTED THEME  ".$id.". PLEASE REFRESH YOUR WEBSITE TO SEE THE CHANGES!!";
-if($id=='1'){        Storage::disk('local')->put('file.txt', '1');}
+if($id=='1'){        
+    Storage::disk('local')->put('file.txt', '1');
+}
 elseif($id=='2') {        Storage::disk('local')->put('file.txt', '2');}
 
 elseif($id=='3') {        Storage::disk('local')->put('file.txt', '3');}

@@ -12,7 +12,9 @@ use Illuminate\Support\Facades\Storage;
 class theme7 extends Controller
 {
     //theme 7   
-   public function index() {
+   public function index() 
+    {
         Storage::disk('local')->put('file.txt', '7');
-return view('pages.dashboard');     }
+        return view('pages.dashboard');     
+    }
 }

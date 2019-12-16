@@ -28,7 +28,7 @@
       </h1>
       <ol class="breadcrumb">
         <li><i class="fa fa-dashboard"></i> <a href="{{route('dashboard')}}">Dashboard</a></li>
-        <li class="active">Category</li>
+        <li class="active">Themes</li>
       </ol>
     </section>
 

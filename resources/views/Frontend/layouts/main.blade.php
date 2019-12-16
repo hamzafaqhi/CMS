@@ -104,9 +104,7 @@ echo '<link rel="stylesheet" type="text/css" href="'.$style.'">';
 		</div> -->
 		<!-- End Search Popup -->
         <!-- Start Slider area -->
-<<<<<<< HEAD
        
-=======
         <div class="banner slider-area brown__nav slider--15 slide__activation slide__arrow01 owl-carousel owl-theme">
         	<!-- Start Single Slide -->
 	      
@@ -124,7 +122,6 @@ echo '<link rel="stylesheet" type="text/css" href="'.$style.'">';
             </div>
             <!-- End Single Slide -->
         </div>
->>>>>>> cf489f2f1eab820149410203f5ff38370176286e
         <!-- End Slider area -->
 		<!-- Start BEst Seller Area -->
         @yield('content')
@@ -140,13 +137,10 @@ echo '<link rel="stylesheet" type="text/css" href="'.$style.'">';
 						<div class="col-lg-12">
 							<div class="footer__widget footer__menu">
 								<div class="ft__logo">
-<<<<<<< HEAD
 									<a href="{{route('homepage')}}">
 										<img src="{{asset('/boighor/images/logo/3.png')}}" alt="logo">
-=======
 									<a href="index.html">
 										<img src="http://localhost:8000/boighor/images/logo/3.png" alt="logo">
->>>>>>> cf489f2f1eab820149410203f5ff38370176286e
 									</a>
 									<p class="foot_for_home">There are many variations of passages of Lorem Ipsum available, but the majority have suffered duskam alteration variations of passages</p>
 								</div>
