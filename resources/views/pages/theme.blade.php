@@ -47,23 +47,23 @@
   <tr>
     <td>
 <img src="boighor/images/themes/1.png" width="150" height="250">
-      <a href="http://localhost:8000/dashboard/1" target="_blank"><i class="fa fa-circle-o"></i> THEME 1</a></td>
+      <a href="{{route('theem',['id' => 1])}}" target="_blank"><i class="fa fa-circle-o"></i> THEME 1</a></td>
    <td><img src="boighor/images/themes/2.png" width="150" height="250">
-    <a href="http://localhost:8000/dashboard/2" target="_blank"><i class="fa fa-circle-o"></i> THEME 2</a></td>
+    <a href="{{route('theem',['id' => 2])}}" target="_blank"><i class="fa fa-circle-o"></i> THEME 2</a></td>
     <td><img src="boighor/images/themes/3.png" width="150" height="250">
-      <a href="http://localhost:8000/dashboard/3" target="_blank"><i class="fa fa-circle-o"></i> THEME 3</a></td>
+      <a href="{{route('theem',['id' => 3])}}" target="_blank"><i class="fa fa-circle-o"></i> THEME 3</a></td>
   </tr>
 
  <tr>
     <td><img src="boighor/images/themes/4.png" width="150" height="250">
-      <a href="http://localhost:8000/dashboard/4" target="_blank"><i class="fa fa-circle-o"></i> THEME 4</a></td>
+      <a href="{{route('theem',['id' => 4])}}" target="_blank"><i class="fa fa-circle-o"></i> THEME 4</a></td>
    <td><img src="boighor/images/themes/5.png" width="150" height="250">
-    <a href="http://localhost:8000/dashboard/5" target="_blank"><i class="fa fa-circle-o"></i> THEME 5</a></td><td><img src="boighor/images/themes/6.png" width="150" height="250">
-      <a href="http://localhost:8000/dashboard/6" target="_blank"><i class="fa fa-circle-o"></i> THEME 6</a></td>
+    <a href="{{route('theem',['id' => 5])}}" target="_blank"><i class="fa fa-circle-o"></i> THEME 5</a></td><td><img src="boighor/images/themes/6.png" width="150" height="250">
+      <a href="{{route('theem',['id' => 6])}}" target="_blank"><i class="fa fa-circle-o"></i> THEME 6</a></td>
   </tr>
 <tr>
     <td><img src="boighor/images/themes/7.png" width="150" height="250">
-      <a href="http://localhost:8000/dashboard/7" target="_blank"><i class="fa fa-circle-o"></i> THEME 7</a></td>
+      <a href="{{route('theem',['id' => 7])}}" target="_blank"><i class="fa fa-circle-o"></i> THEME 7</a></td>
    
   </tr>
 
