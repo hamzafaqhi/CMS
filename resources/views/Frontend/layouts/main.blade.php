@@ -105,23 +105,7 @@ echo '<link rel="stylesheet" type="text/css" href="'.$style.'">';
 		<!-- End Search Popup -->
         <!-- Start Slider area -->
        
-        <div class="banner slider-area brown__nav slider--15 slide__activation slide__arrow01 owl-carousel owl-theme">
-        	<!-- Start Single Slide -->
-	      
-	            
-           
-            <div class="slide animation__style10 bg-image--ts1 fullscreen align__center--left">
-	            
-            </div>
-            <!-- End Single Slide -->
-        	<!-- Start Single Slide -->
-	        <div class="slide animation__style10 bg-image--ts2 fullscreen align__center--left">
-            </div>
-
-             <div class="slide animation__style10 bg-image--ts3 fullscreen align__center--left">
-            </div>
-            <!-- End Single Slide -->
-        </div>
+     
         <!-- End Slider area -->
 		<!-- Start BEst Seller Area -->
         @yield('content')
