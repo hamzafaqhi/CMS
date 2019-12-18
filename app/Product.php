@@ -3,6 +3,8 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Order;
+use App\Cart;
 
 class Product extends Model
 {
@@ -63,5 +65,13 @@ class Product extends Model
     {
         $products = Product::where('stock_status',1)->orderBy('id','ASC')->take(10)->get();
         return $products;
+    }
+
+    public static function getUpsellProducts()
+    {
+        $cart_id = Order::where('status','processing')->orWhere('status','delivered')->pluck('cart_id');
+        $cart_products_id = Cart::whereIn('session_id',$cart_id)->pluck('product_id');
+        $upsell = Product::whereIn('id',$cart_products_id)->get();
+        return $upsell;
     }
 }

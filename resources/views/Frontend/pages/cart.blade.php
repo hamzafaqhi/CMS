@@ -26,6 +26,7 @@
             <div id="need" class="alert alert-danger " style="display:none" role="alert">
                 You need to add more product in order to avail this voucher!
             </div>
+            <br>
                 <div class="row">
                     <div class="col-md-12 col-sm-12 ol-lg-12">
                         <form action="#">               

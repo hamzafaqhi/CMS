@@ -18,9 +18,10 @@ class WishListController extends Controller
      */
     public function index()
     {
-        $session_wish = Session::get('session_wish');
-        $wishlist = WishList::where('session_id',$session_wish)->get();
-        return view('Frontend.pages.wishlist',compact('wishlist'));
+            $wishlist = WishList::where('email',Auth::user()->email)->get();
+            
+            return view('Frontend.pages.wishlist',compact('wishlist'));
+       
     }
 
     /**
@@ -102,7 +103,7 @@ class WishListController extends Controller
      */
     public function destroyWish(Request $request)
     {
-        $wishlist = Wishlist::where('session_id',$request->session)->where('product_id',$request->id)->delete();
+        $wishlist = Wishlist::where('email',Auth::user()->email)->where('product_id',$request->id)->delete();
         return 'true';
     }
 }

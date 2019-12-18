@@ -50,7 +50,7 @@ class BannerController extends Controller
                 // $request->file('image')->storeAs('public/images', $imageNameToStore);
                 $image_path =  storage_path('app/public/banners/'.$imageNameToStore);
                 $img = Image::make($image)
-                ->resize(1920,950)
+                ->resize(1500,600)
                 ->save($image_path);
                 $ban->image = $imageNameToStore;
     

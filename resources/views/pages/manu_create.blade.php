@@ -48,13 +48,15 @@
                 <h3 class="box-title">Image</h3>
               </div>
               <div class="box-body pad">
-                <input type="file" class="form-control" name="image" id="image" style="line-height: 18px; border: 1px solid #dddddd; padding: 10px;"/>
-                @if ($errors->has('image'))
-                <span class="help-block">
-                <strong style="color:red">{{ $errors->first('image') }}</strong>
-                </span> 
-                @endif                     
-              </div>
+                        <div class="form-group">
+                            <input type="file" id="profileImage" name="image" class="form-control" />
+                        </div>  
+                        @if ($errors->has('image'))
+                            <span class="help-block">
+                                <strong style="color:red">{{ $errors->first('image') }}</strong>
+                            </span> 
+                        @endif                     
+                    </div>
         </div> 
           
             

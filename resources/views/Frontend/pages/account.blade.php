@@ -63,25 +63,15 @@
 							@csrf
 								<div class="account__form">
                                     <div class="input__box">
-                                            <label>First Name <span>*</span></label>
-                                            <input type="text" name="first_name" value="{{$user->first_name}}" required>
-                                            @if ($errors->has('first_name'))
+                                            <label>Name <span>*</span></label>
+                                            <input type="text" name="name" value="{{$user->name}}" required>
+                                            @if ($errors->has('name'))
                                             <span class="help-block">
-                                            <strong style="color:red">{{ $errors->first('first_name') }}</strong>
+                                            <strong style="color:red">{{ $errors->first('name') }}</strong>
                                             </span> 
                                             @endif   
                                     </div>
-
                                     <input type="hidden" name="user_id" value="{{$user->id}}">
-									<div class="input__box">
-										<label>Last Name <span>*</span></label>
-										<input type="text" name="last_name" value="{{$user->last_name}}" required>
-										@if ($errors->has('last_name'))
-										<span class="help-block">
-										<strong style="color:red">{{ $errors->first('last_name') }}</strong>
-										</span> 
-										@endif
-									</div>
 									<div class="input__box">
 										<label>Phone <span>*</span></label>
 										<input type="tel" name="phone" maxlength="11" value="{{$user->phone}}"  required>

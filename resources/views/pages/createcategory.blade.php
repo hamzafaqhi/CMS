@@ -153,22 +153,21 @@
             <span class="checkmark"></span>
             </label>
 </div>
-<div class="box">
+        <div class="box">
             <div class="box-header">
               <h3 class="box-title">Add Parent:</h3>
             </div>
             <div class="box-body pad">
                 
-                <select name="parent_id"class="form-control select2">
+                <select name="parent_id" class="form-control select2">
                   <option selected="selected"><option>
                     
                   @foreach($category as $c)
                   <option  value="{{ ($c->id) }}">{{$c->name}}</option>
                   @endforeach
                 </select>
-              </div>
-          
-</div>
+              </div>         
+          </div>
                 
             <button type="submit" class="btn btn-primary">Save</button>
           <a id="can-button" title="Cancel" class="btn btn-default" href="{{route('dashboard')}}">Cancel</a> 

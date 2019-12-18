@@ -249,6 +249,7 @@ $(document).ready(function()
    success:function(data)
    {
     setTimeout(function(){
+      $('#remove_button').text('Delete');
      $('#remove_modal').modal('hide');
      $('#cat_table').DataTable().ajax.reload();
     }, 2000);

@@ -56,22 +56,13 @@
 							@csrf
 								<div class="account__form">
 								<div class="input__box">
-										<label>First Name <span>*</span></label>
-										<input type="text" name="first_name" required>
-										@if ($errors->has('first_name'))
+										<label>Name <span>*</span></label>
+										<input type="text" name="name" required>
+										@if ($errors->has('name'))
 										<span class="help-block">
-										<strong style="color:red">{{ $errors->first('first_name') }}</strong>
+										<strong style="color:red">{{ $errors->first('name') }}</strong>
 										</span> 
 										@endif   
-									</div>
-									<div class="input__box">
-										<label>Last Name <span>*</span></label>
-										<input type="text" name="last_name" required>
-										@if ($errors->has('last_name'))
-										<span class="help-block">
-										<strong style="color:red">{{ $errors->first('last_name') }}</strong>
-										</span> 
-										@endif
 									</div>
 									<div class="input__box">
 										<label>Email address <span>*</span></label>

@@ -14,7 +14,7 @@
                         <div class="wishlist-content">
                             <form action="#">
                                 <div class="wishlist-table wnro__table table-responsive">
-                                @if(count($wishlist))
+                                @if(!empty($wishlist))
                                     <table>
                                         <thead>
                                             <tr>

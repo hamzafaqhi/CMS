@@ -27,7 +27,7 @@ class CreateOrdersTable extends Migration
             $table->string('country');
             $table->integer('user_id');
             $table->integer('post_code');
-            $table->integer('phone');
+            $table->string('phone');
             $table->string('email');
             $table->integer('total_price');
             $table->timestamps();

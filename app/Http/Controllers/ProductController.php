@@ -48,7 +48,7 @@ class ProductController extends Controller
     {
         $man = Manufacture::all();
         $tag = Tag::all();
-        $cat = Category::where(['parent_id'=> 0])->get();
+        $cat = Category::where(['parent_id'=> null])->get();
         $products = Product::get();
         $categories_d = "<option value=''></option>";
             foreach($cat as $c)
@@ -58,7 +58,7 @@ class ProductController extends Controller
                 $category = Category::where(['parent_id'=>$c->id])->get();
                 foreach($category as $sub_c)
                 {
-                    $categories_d .= "<option  value='".$sub_c->id."'>&nbsp;--&nbsp;".$sub_c->name."</option>";
+                    $categories_d .= "<option  value='".$sub_c->id."'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;".$sub_c->name."</option>";
                 }
             }
         
@@ -108,12 +108,13 @@ class ProductController extends Controller
             {   
                 $related_product = new Product_Related();
                 $related_product->product_id = $product->id;
-                for ($i = 1; $i < count(request()->related_product); $i++) {
+                for ($i = 0; $i < count(request()->related_product); $i++) {
                     $answers[] = [
                         'product_id' => $product->id,
                         'related_product_id' => request()->related_product[$i],
                     ];
                 }
+                
                 $related_product->insert($answers);
             }
             if(request()->exists('image') )
@@ -133,9 +134,14 @@ class ProductController extends Controller
                     {
                         
                         $name = $files->getClientOriginalName().'_'.time().'.'.$files->extension();
-                        $files->move(storage_path().'/app/public/products/', $name);  
+                        $files->move(storage_path().'/app/public/products/', $name);
                         $data[] = $name;
-                        print_r($data);
+
+                        // $request->file('image')->storeAs('public/images', $imageNameToStore);
+                        // $image_path =  storage_path('app/public/products/largeimage'.$name);
+                        // $img = Image::make($files)
+                        // ->resize(500,500)
+                        // ->save($image_path);
                     }
                     $product_image->product_id = $product->id;
                     $product_image->image_path = implode(',',$data);
@@ -183,7 +189,7 @@ class ProductController extends Controller
         $man = Manufacture::all();
         $tag = Tag::all();
         $products = Product::get();
-        $cat = Category::where(['parent_id'=> 0])->get();
+        $cat = Category::where(['parent_id'=> null])->get();
         $categories_d = "<option value=''></option>";
             foreach($cat as $c)
             {
@@ -192,7 +198,7 @@ class ProductController extends Controller
                 $category = Category::where(['parent_id'=>$c->id])->get();
                 foreach($category as $sub_c)
                 {
-                    $categories_d .= "<option  value='".$sub_c->id."'>&nbsp;--&nbsp;".$sub_c->name."</option>";
+                    $categories_d .= "<option  value='".$sub_c->id."'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;".$sub_c->name."</option>";
                 }
             }
             $data = Product::findOrFail($id);
@@ -248,6 +254,7 @@ class ProductController extends Controller
                         'related_product_id' => request()->related_product[$i],
                     ];
                 }
+               
                 $related_product->insert($answers);
             }
             if(request()->exists('image') )

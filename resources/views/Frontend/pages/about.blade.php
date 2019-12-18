@@ -4,6 +4,13 @@
 <!-- Start About Area -->
         <div class="page-about about_area bg--white section-padding--lg">
         	<div class="container">
+			<div class="row">
+        			<div class="col-lg-12">
+        				<div class="section__title--3 text-center pb--30">
+        					<!-- <h1>About Us</h1> -->
+        				</div>
+        			</div>
+        		</div>
 				<div class="row">
         			<div class="col-lg-12">
         				<div class="section__title--3 text-center pb--30">
@@ -85,7 +92,7 @@
         			<div class="col-lg-4 col-md-4 col-sm-6 col-12">
         				<div class="wn__team">
         					<div class="thumb">
-        						<img src="images/about/team/1.jpg" alt="Team images">
+        						<img src="{{asset('boighor/images/about/team/1.jpg')}}" alt="Team images">
         					</div>
         					<div class="content text-center">
         						<h4>JOHN SMITH</h4>
@@ -105,7 +112,7 @@
         			<div class="col-lg-4 col-md-4 col-sm-6 col-12">
         				<div class="wn__team">
         					<div class="thumb">
-        						<img src="images/about/team/2.jpg" alt="Team images">
+        						<img src="{{asset('boighor/images/about/team/2.jpg')}}" alt="Team images">
         					</div>
         					<div class="content text-center">
         						<h4>ALICE KIM</h4>
@@ -125,7 +132,7 @@
         			<div class="col-lg-4 col-md-4 col-sm-6 col-12">
         				<div class="wn__team">
         					<div class="thumb">
-        						<img src="images/about/team/3.jpg" alt="Team images">
+        						<img src="{{asset('boighor/images/about/team/3.jpg')}}" alt="Team images">
         					</div>
         					<div class="content text-center">
         						<h4>VICTORIA DOE</h4>

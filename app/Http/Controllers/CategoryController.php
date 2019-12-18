@@ -42,16 +42,11 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        $category = Category::where('parent_id',0)->get();
+        $category = Category::where('parent_id',null)->get();
+       
         return view('pages.createcategory',compact('category'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {  
         $category = new Category();
@@ -74,8 +69,9 @@ class CategoryController extends Controller
             }
             if($request->has('parent_id'))
             {
-                $category->parent_id= $request->parent_id;
+                $category->parent_id = $request->parent_id;
             }
+            
             $category->save();
             return back()->with('success','Category created successfully');
         }

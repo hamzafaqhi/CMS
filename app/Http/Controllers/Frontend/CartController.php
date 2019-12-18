@@ -33,6 +33,7 @@ class CartController extends Controller
     public function showProduct($id)
     {
         $product = Product::where('id',$id)->first();
+        dd($product);
         return($product); 
     }
 
@@ -135,7 +136,6 @@ class CartController extends Controller
                 $total_amount = $total_price - $amount;
                 if($total_amount > 200)
                 {
-                    dd($amount);
                     Session::put('voucher_amount',$amount);
                     Session::put('total_amount',$total_amount);
                     return response()->json(array("success" => "Voucher is applied"));

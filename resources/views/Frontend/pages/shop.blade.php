@@ -17,7 +17,29 @@
 }
 </style>
 @endsection
-@section('content')		<!-- Start Shop Page -->
+@section('content')
+<div class="slider-area brown__nav slider--15 slide__activation slide__arrow01 owl-carousel owl-theme">
+			<!-- Start Single Slide -->
+		@if(!empty($banner))
+			@foreach($banner as $b)
+	        <div class="slide animation__style10 bg-image--1 fullscreen align__center--left">
+	            <img src="/storage/banners/{{$b->image}}" alt="">
+			</div>
+			@endforeach
+		
+		@else
+
+			<div class="slide animation__style10 bg-image--1 fullscreen align__center--left">
+	            
+			</div>
+		@endif
+            <!-- End Single Slide -->
+        	<!-- Start Single Slide -->
+	        <!-- <div class="slide animation__style10 bg-image--7 fullscreen align__center--left">
+            </div> -->
+            <!-- End Single Slide -->
+</div>
+<!-- Start Shop Page -->
         <div class="page-shop-sidebar left--sidebar bg--white section-padding--lg">
 			<div class="alert alert-success" style="display:none">
 				<strong>Success!</strong>Product added to cart
@@ -118,7 +140,8 @@
         						        </form>
         						    </div>
         						</div>
-        					</aside>
+							</aside>
+							
         					<aside class="wedget__categories poroduct--tag">
         						<h3 class="wedget__title">Product Tags</h3>
         						<ul>
@@ -126,7 +149,20 @@
         							<li><a href="{{route('search_cat', ['id' => 0, '$tag' => $t->id ])}}">{{$t->name}}</a></li>
 									@endforeach
         						</ul>
-        					</aside>
+							</aside>
+							@if(!empty($voucher))
+							<aside class="wedget__categories sidebar--banner">
+								<img src="{{asset('boighor/images/others/banner_left.jpg')}}" alt="banner images">
+								<div class="text">
+									<h2>use code</h2>
+									@if($voucher->amount_type == "fixed")
+									<h6>{{$voucher->name}} <br> <strong>and save {{$voucher->amount}}</strong></h6>
+									@else
+									<h6>{{$voucher->name}}<br> <strong>save up to {{$voucher->amount}}%</strong>off</h6>
+									@endif
+								</div>
+							</aside>
+							@endif
         				</div>
         			</div>
         			<div class="col-lg-9 col-12 order-1 order-lg-2">
@@ -139,8 +175,6 @@
 			                        </div>
 			                        <p>Showing {{($products->currentPage()-1)* $products->perPage()+1}}–{{ $products->total()}} of {{$products->total()}} results</p>
 			                        <div class="orderby__wrapper">
-										<span>Search</span>
-										<input type="text" class="shot__byselect">
 			                        </div>
 		                        </div>
         					</div>
@@ -151,11 +185,24 @@
 
 							<div class="row">
 								@foreach($products as $p)
+								
+								@php 
+						
+								if(count($p->image_products) > 0)
+								{
+									$images = explode(',' , $p->image_products[0]->image_path)[0];
+								
+								}
+								else
+								{
+									$images = "";
+								}
+								@endphp
 	        						<!-- Start Single Product -->
 		        					<div class="product product__style--3 col-lg-4 col-md-4 col-sm-6 col-12">
 			        					<div class="product__thumb">
-											<a class="first__img" href="{{ URL('/single/product/'.$p->id )}}"><img src="images/books/1.jpg" alt="product image"></a>
-											<a class="second__img animation1" href="{{ URL('/single/product/'.$p->id )}}"><img src="images/books/2.jpg" alt="product image"></a>
+											<a class="first__img" href="{{ URL('/single/product/'.$p->id )}}"><img src="/storage/products/{{$images}}" alt="product image"></a>
+											<a class="second__img animation1" href="{{ URL('/single/product/'.$p->id )}}"><img src="/storage/products/{{$images}}" alt="product image"></a>
 											<div class="hot__box">
 												<span class="hot-label">BEST SELLER</span>
 											</div>
@@ -210,8 +257,8 @@
 								</section>
 							
 							@endif
-	        					<ul class="wn__pagination">
-	        						{{ $products->render('pagination::bootstrap-4') }}
+	        					<ul style="text-align:center;">
+								{{ $products->links( "pagination::bootstrap-4") }}
 	        					</ul>
 							</div>
         				</div>
