@@ -23,7 +23,9 @@ Route::get('/', function () {
 
 Route::group(['middleware' => ['auth', 'checkrole']], function () {
 Route::get('/dashboard','DashboardController@index')->name('dashboard');
-Route::get('/setting','DashboardController@setting')->name('setting');
+Route::get('/setting','SettingsController@index')->name('setting');
+Route::get('/edit/settings/{id}','SettingsController@edit')->name('settings.edit');
+Route::post('update/setting','SettingsController@update')->name('setting-update');
 
 Route::get('/order','OrderController@index')->name('order');
 Route::get('/returns','OrderController@returns')->name('returns');

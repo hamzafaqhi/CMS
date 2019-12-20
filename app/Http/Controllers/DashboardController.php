@@ -26,9 +26,6 @@ class DashboardController extends Controller
         return view('pages.category');
     }
 
-    public function setting(){
-        return view ('pages.setting');
-    }
     /**
      * Store a newly created resource in storage.
      *

@@ -17,8 +17,9 @@ class CheckRole
      */
     public function handle($request, Closure $next)
     {
-        $role = Role::where('id',auth::user()->role_id)->first();
-        if ($role->name == 'admin')
+       $user = Auth::user()->role_id;
+
+        if ($user == 1)
         {
             return $next($request);
         }
