@@ -74,3 +74,5 @@ Route::get('/wishlist','Frontend\PagesController@wishlist')->name('wishlistpage'
 Route::get('/contact','Frontend\PagesController@contact')->name('contactuspage');
 Route::get('/about','Frontend\PagesController@about')->name('aboutuspage'); 
 Route::get('/my-account','Frontend\PagesController@account')->name('myaccountpage'); 
+Route::get('/checkouts','Frontend\CheckoutController@index')->name('checkout.page');
+Route::post('/charge-payment','Frontend\CheckoutController@chargepayment')->name('charge-payment');
