@@ -2,10 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Order;
+use App\Product;
 use Illuminate\Http\Request;
+use Artisan;
+use App\User;
 
 class DashboardController extends Controller
 {
+    private $maintenance;
     /**
      * Display a listing of the resource.
      *
@@ -13,7 +18,11 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        return view('pages.dashboard');
+        $user = User::where('role_id',2)->count();
+        $order = Order::where('status','processing')->count();
+        $returns = Order::where('status','returned')->count();
+        $products = Product::count();
+        return view('pages.dashboard',compact('user','order','returns','products'));
     }
 
     /**
@@ -71,6 +80,38 @@ class DashboardController extends Controller
         //
     }
 
+    public function maintenance()
+    {
+        $main = env("Maintenance");
+        return view('pages.maintenance.index',compact('main'));
+    }
+
+    public function maintenanceOn()
+    {
+        Artisan::call('down');
+        $path = base_path('.env');
+        if (file_exists($path)) {
+          file_put_contents($path, str_replace(
+            // 'APP_KEY='.$this->laravel['config']['app.key'], 'APP_KEY='.$key, file_get_contents($path)
+            'Maintenance=false', 'Maintenance=true',file_get_contents($path)
+          ));
+        }
+        return 'true';
+    }
+    
+    public function maintenanceOff()
+    {
+        Artisan::call('up');
+        $path = base_path('.env');
+
+        if (file_exists($path)) {
+          file_put_contents($path, str_replace(
+            // 'APP_KEY='.$this->laravel['config']['app.key'], 'APP_KEY='.$key, file_get_contents($path)
+            'Maintenance=true', 'Maintenance=false',file_get_contents($path)
+          ));
+        }
+        return 'true';
+    }
     /**
      * Remove the specified resource from storage.
      *

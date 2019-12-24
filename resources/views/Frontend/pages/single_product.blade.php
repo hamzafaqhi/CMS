@@ -131,19 +131,20 @@ h1 { font-size: 1.5em; margin: 10px; }
         						<div class="col-lg-6 col-12">
         							<div class="product__info__main">
 										<h1>{{$products->name}}</h1>
+										@if(isset($review))
         								<div class="product-reviews-summary d-flex">
         									<ul class="rating-summary d-flex">
-    											<li><i class="zmdi zmdi-star-outline"></i></li>
-    											<li><i class="zmdi zmdi-star-outline"></i></li>
-    											<li><i class="zmdi zmdi-star-outline"></i></li>
-    											<li class="off"><i class="zmdi zmdi-star-outline"></i></li>
-    											<li class="off"><i class="zmdi zmdi-star-outline"></i></li>
+												@for($i = 0; $i<$review; $i++)
+    											<li ><i class="zmdi zmdi-star-outline"></i></li>
+    											@endfor
         									</ul>
-        								</div>
+										</div>
+										@endif
         								<div class="price-box">
         									<span>{{$products->price}}</span>
         								</div>
 										<div class="product__overview">
+											
         									{!! $products->description !!}
         								</div>
         								<div class="box-tocart d-flex">

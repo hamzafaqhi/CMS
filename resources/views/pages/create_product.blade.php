@@ -4,14 +4,6 @@
 <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.7/css/fileinput.css" rel="stylesheet" media="all" type="text/css" />
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" media="all" type="text/css" />
-<<<<<<< HEAD
-<style>
-.dropzone {
-  border-radius: 5px;
-  max-width: 1200px;
-  margin-left: auto;
-  margin-right: auto;
-=======
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css">
 <style>
 
@@ -25,7 +17,6 @@
 #preview_img img {
   width: 100px;
   padding: 5px;
->>>>>>> 9cb4c75140d727c3c7eeea6bbdc2c2eae7b8858f
 }
 /*start of radio button style*/
 .container {
@@ -229,11 +220,7 @@ button:hover {
           </div>
       @endif
 <div class="box">     
-<<<<<<< HEAD
-      <form method="POST" id="regForm" autocomplete="off"  action="{{ action ('ProductController@store') }}">
-=======
       <form method="POST" id="regForm" autocomplete="off"  action="{{ action ('ProductController@store') }}"  enctype="multipart/form-data">
->>>>>>> 9cb4c75140d727c3c7eeea6bbdc2c2eae7b8858f
       @csrf
   <!-- One "tab" for each step in the form: -->
   <div class="tab">
@@ -280,15 +267,8 @@ button:hover {
               <h3 class="box-title">Quantity</h3>
             </div>
             <div class="box-body pad">
-<<<<<<< HEAD
-<<<<<<< HEAD
-                <input type="number" class="form-control" name="quantity" id="quantity" oninput="this.className = ''" style="line-height: 18px; border: 1px solid #dddddd; padding: 10px;" min="0"/>
-=======
-                <input type="number" class="form-control" name="quantity" id="quantity" oninput="this.className = ''" style="line-height: 18px; border: 1px solid #dddddd; padding: 10px;"/>
->>>>>>> 9cb4c75140d727c3c7eeea6bbdc2c2eae7b8858f
-=======
                 <input type="number" class="form-control" name="quantity" id="quantity" min="0" oninput="this.className = ''" style="line-height: 18px; border: 1px solid #dddddd; padding: 10px;"/>
->>>>>>> 722d8442342a4303c5bc9cfb87d2210641b3b256
+
                 @if ($errors->has('quantity'))
                 <span class="help-block">
                 <strong style="color:red">{{ $errors->first('quantity') }}</strong>
@@ -302,10 +282,6 @@ button:hover {
             </div>
             <div class="box-body pad">
                   <select name="stock_status" id="stock_status" class="form-control">
-<<<<<<< HEAD
-                    <option name="stock_status" id="stock_status" value="0">Choose...</option>
-=======
->>>>>>> 9cb4c75140d727c3c7eeea6bbdc2c2eae7b8858f
                     <option name="stock_status" id="stock_status" value="1">In Stock</option>
                     <option id="stock_status" name="stock_status" value="0">Out of Stock</option>
                   </select>      
@@ -352,11 +328,7 @@ button:hover {
             <label  style="margin-left:15px;" class="container radioLeft ">Top
             <input type="radio"  name="sort_order" onclick="test(this)" id="radioBtn" value ="1">
             <span class="checkmark"></span>
-<<<<<<< HEAD
-            </label>
-=======
             </label>    
->>>>>>> 9cb4c75140d727c3c7eeea6bbdc2c2eae7b8858f
   </div>   
   <div class="tab">
 
@@ -377,13 +349,8 @@ button:hover {
               <h3 class="box-title">Height:</h3>
             </div>
             <div class="box-body pad">
-<<<<<<< HEAD
-            <input type="number" class="form-control" name="height" id="height" oninput="this.className = ''" style="line-height: 18px; border: 1px solid #dddddd; padding: 10px;"/>
-              @if ($errors->has('height'))
-=======
             <input type="number" class="form-control" name="width" id="width" oninput="this.className = ''" style="line-height: 18px; border: 1px solid #dddddd; padding: 10px;"/>
               @if ($errors->has('width'))
->>>>>>> 9cb4c75140d727c3c7eeea6bbdc2c2eae7b8858f
               <span class="help-block">
               <strong style="color:red">{{ $errors->first('height') }}</strong>
               </span> 
@@ -394,20 +361,12 @@ button:hover {
               <h3 class="box-title">Weight:</h3>
             </div>
             <div class="box-body pad">
-<<<<<<< HEAD
-              <input type="number" class="form-control" name="weight" id="weight" oninput="this.className = ''" style="line-height: 18px; border: 1px solid #dddddd; padding: 10px;"/>
-                @if ($errors->has('weight'))
-                <span class="help-block">
-                  <strong style="color:red">{{ $errors->first('weight') }}</strong>
-                </span> 
-=======
             <input type="number" class="form-control" name="height" id="height" oninput="this.className = ''" style="line-height: 18px; border: 1px solid #dddddd; padding: 10px;"/>
               @if ($errors->has('height'))
               <span class="help-block">
               <strong style="color:red">{{ $errors->first('height') }}</strong>
               </span> 
             
->>>>>>> 9cb4c75140d727c3c7eeea6bbdc2c2eae7b8858f
               @endif
             </div>
 
@@ -429,19 +388,13 @@ button:hover {
                <h3 class="box-title">Meta Title:</h3>
             </div>
             <div class="box-body pad">
-<<<<<<< HEAD
-            <input type="text" class="form-control" name="meta_title" id="meta_title" oninput="this.className = ''" style="line-height: 18px; border: 1px solid #dddddd; padding: 10px;"/>
-=======
             <input type="text" class="form-control" name="meta_title" id="meta" oninput="this.className = ''" style="line-height: 18px; border: 1px solid #dddddd; padding: 10px;"/>
->>>>>>> 9cb4c75140d727c3c7eeea6bbdc2c2eae7b8858f
               @if ($errors->has('meta_title'))
               <span class="help-block">
               <strong style="color:red">{{ $errors->first('meta_title') }}</strong>
               </span> 
             
               @endif
-<<<<<<< HEAD
-=======
             </div>
             <div class="box-header">
               <h3 class="box-title">Related Products:</h3>
@@ -453,7 +406,6 @@ button:hover {
                       <option  value="{{ $p->id }}">{{$p->name}}</option>
                       @endforeach
                   </select>
->>>>>>> 9cb4c75140d727c3c7eeea6bbdc2c2eae7b8858f
             </div>
 
             <div class="box-header">
@@ -466,28 +418,13 @@ button:hover {
             <div class="row" id="preview_img">
               
             </div>
-<<<<<<< HEAD
-=======
             <br>
             
->>>>>>> 9cb4c75140d727c3c7eeea6bbdc2c2eae7b8858f
   </div>
-<<<<<<< HEAD
-    <div style="overflow:auto;">
-      <div style="float:right;">
-        <button type="button" id="prevBtn" class="btn btn-default" onclick="nextPrev(-1)" style="/* margin-right: 0px; *//* display: inline; */">Previous</button>
-        <button type="button" id="nextBtn" class="btn btn-block btn-primary" onclick="nextPrev(1)" style="margin-right:10px;width: 80px;">Next</button>
-      </div>
-    </div>
-    <input type="hidden" name="img1" id="input1" value="">
-            <input type="hidden" name="img2" id="input2" value="">
-            <input type="hidden" name="img3" id="input3" value="">
-=======
   <div style="float:right;margin-right:1.5rem" class="row">
       <button type="button" id="prevBtn" class="btn btn-default" onclick="nextPrev(-1)" style="margin-right: 10px;">Previous</button>
       <button type="button" id="nextBtn" class="btn btn-primary" onclick="nextPrev(1)" style="margin-right:10px">Next</button>
   </div>
->>>>>>> 722d8442342a4303c5bc9cfb87d2210641b3b256
     <!-- Circles which indicates the steps of the form: -->
     <div style="text-align:center;margin-top:40px;">
       <span class="step"></span>
@@ -508,40 +445,6 @@ button:hover {
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.7/themes/fa/theme.js" type="text/javascript"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/esm/popper.min.js" type="text/javascript"></script>
 <script>
-<<<<<<< HEAD
-
-$('#file-1').fileinput({
-  theme:'fa',
-  uploadUrl:"/product/image-upload",
-  deleteUrl:"/product/image-delete",
-  uploadExtraData:function () {
-    return{
-      _token:$("input[name='_token']").val()
-    };
-  },
-  allowedFileExtensions:['jpg','png','gif'],
-  overwriteInitial:false,
-  maxFileSize:2000,
-  maxFileNum:3,
-   slugCallback:function (filename) {
-    return filename.replace('(','_').replace(']','_');
-  }
-});
-
-$('#file-1').on('fileuploaded', function(event, data, previewId, index) {
-    var input1 = $("#input1").val(),
-        input2 = $("#input2").val(),
-        input3 = $("#input3").val();
-
-    if(!input1) {
-     $("#input1").val(data.response);
-    } 
-    else if (!input2){
-      $("#input2").val(data.response);
-    }
-    else if(!input3){
-      $("#input3").val(data.response);
-=======
 $('select').selectpicker();
 
 $('#profileImage').on('change', function(){ //on file input change
@@ -565,7 +468,6 @@ $('#profileImage').on('change', function(){ //on file input change
          
     }else{
         alert("Your browser doesn't support File API!"); //if File API is absent
->>>>>>> 9cb4c75140d727c3c7eeea6bbdc2c2eae7b8858f
     }
  });
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Frontend;
 
+use App\Banner;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Session;
@@ -26,9 +27,18 @@ class CheckoutController extends Controller
     {   
         $user_id = Auth::user()->id;
         $user = User::where('id',$user_id)->first();
+        $banner = Banner::where('status',1)->latest()->get();
         $session_id = Session::get('session_id');
-        $cart_items = Cart::getCart($session_id);
-        return view('Frontend.pages.checkout',compact('cart_items','user'));
+        if(isset($session_id))
+        {
+            $cart_items = Cart::getCart($session_id);
+        }
+        else
+        {
+            $cart_items = [];
+        }
+            return view('Frontend.pages.checkout',compact('cart_items','user','banner'));
+        
     }
 
     /**

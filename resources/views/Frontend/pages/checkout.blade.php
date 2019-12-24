@@ -10,7 +10,28 @@
 }
 </style>
 @stop
-@section('content')	
+@section('content')
+<div class="slider-area brown__nav slider--15 slide__activation slide__arrow01 owl-carousel owl-theme">
+			<!-- Start Single Slide -->
+		@if(!empty($banner))
+			@foreach($banner as $b)
+	        <div class="slide animation__style10 bg-image--1 fullscreen align__center--left">
+	            <img src="/storage/banners/{{$b->image}}" alt="">
+			</div>
+			@endforeach
+		
+		@else
+
+			<div class="slide animation__style10 bg-image--1 fullscreen align__center--left">
+	            
+			</div>
+		@endif
+            <!-- End Single Slide -->
+        	<!-- Start Single Slide -->
+	        <!-- <div class="slide animation__style10 bg-image--7 fullscreen align__center--left">
+            </div> -->
+            <!-- End Single Slide -->
+</div>
         <!-- Start Checkout Area -->
         <section class="wn__checkout__area section-padding--lg bg__white">
         	<div class="container">
@@ -110,7 +131,7 @@
 										<label>Email address <span>*</span></label>
 										<input type="email" name="email" value="{{$user->email}}" required>
 									</div>
-									<input type="hidden" name="cart_id" value="{{$cart_items[0]->session_id}}">
+									<input type="hidden" name="cart_id" value="{{!empty($cart_items[0]->session_id) ? $cart_items[0]->session_id : '' }}">
 								</div>
         					</div>
         					<!-- <div class="create__account">

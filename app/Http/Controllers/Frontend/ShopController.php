@@ -11,6 +11,7 @@ use App\Tag;
 use App\Voucher;
 use Carbon\Carbon;
 use App\Banner;
+use App\Review;
 
 class ShopController extends Controller
 {
@@ -76,6 +77,7 @@ class ShopController extends Controller
 
     public function singleProduct($id)
     {
+        $review = Review::getRating($id);
         $banner = Banner::where('status',1)->latest()->get();
         $products = Product::with('image_products')->where('id',$id)->first();
         $category = Category::find($products->category_id);
@@ -84,7 +86,7 @@ class ShopController extends Controller
         $related_products_id = product_related::where('product_id',$id)->pluck('related_product_id');
         $related_products = Product::whereIn('id',$related_products_id)->get();
         $upsell = Product::getUpsellProducts();
-        return view('Frontend.pages.single_product',compact('products','related_products','category','banner','voucher'));
+        return view('Frontend.pages.single_product',compact('products','related_products','category','banner','voucher','review'));
     }
     /**
      * Show the form for creating a new resource.

@@ -21,7 +21,7 @@ Route::get('/', function () {
 });
 
 
-Route::group(['middleware' => ['auth', 'checkrole']], function () {
+Route::group([ 'prefix' => 'admin','middleware' => ['auth', 'checkrole']], function () {
 Route::get('/dashboard','DashboardController@index')->name('dashboard');
 Route::get('/setting','SettingsController@index')->name('setting');
 Route::get('/edit/settings/{id}','SettingsController@edit')->name('settings.edit');
@@ -104,6 +104,10 @@ Route::post('/user/activate','UserController@activateUser')->name('activate');
 
 
 Route::get('/logout','Auth\LoginController@logout')->name('logout');
+
+Route::get('/maintenance','DashboardController@maintenance')->name('maintenance');
+Route::get('/maintenance/on','DashboardController@maintenanceOn')->name('maintenance-on');
+Route::get('/maintenance/off','DashboardController@maintenanceOff')->name('maintenance-off');
 
 });
 

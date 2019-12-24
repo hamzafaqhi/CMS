@@ -206,7 +206,7 @@
           </a>
           <ul class="treeview-menu">
             <li><a href="{{route('setting')}}"><i class="fa fa-circle-o"></i> Settings</a></li>
-            <li><a href=""><i class="fa fa-circle-o"></i> Maintenance</a></li>
+            <li><a href="{{route('maintenance')}}"><i class="fa fa-circle-o"></i> Maintenance</a></li>
           </ul>
         </li>
          
