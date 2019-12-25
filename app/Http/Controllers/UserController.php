@@ -97,37 +97,24 @@ class UserController extends Controller
      */
     public function update(Request $request)
     {
+        
             $user_id = Auth::user()->id;
-            $user = User::find($user_id);
-            $validation_rules = [
-                'first_name' => 'required| string |max:255',
-                'last_name' => 'required| string |max:255',
-                'address' => 'required| string |max:255',
-                'city' => 'required| string |max:255',
-                'country' => 'required| string |max:255',
-                'phone' => 'required|string|max:11|regex:/^[0-9]+$/',
-                'province' => 'required| string |max:255',
-                'email' => 'required|string|max:255|unique:users,email,'.$user_id,              
-                // 'old_password' => 'required',
-                // 'password' => 'required|string|min:8',
-                // 'confirm_password' => 'required|string|min:8|same:new_password'
-            ];
-            if($request->has('passsword'))
-            {
+            $validation_rules = [ 
+            'name' => 'required| string |max:255',
+            'address' => 'required| string |max:255',
+            'city' => 'required| string |max:255',
+            'country' => 'required| string |max:255',
+            'phone' => 'required|string|max:11|regex:/^[0-9]+$/',
+            'province' => 'required| string |max:255',
+            'email' => 'required|string|max:255|unique:users,email,'.$user_id, ];
+           
+            if($request->has('passsword')){
                 $validation_rules['old_password'] = 'required|string|min:8';
                 $validation_rules['password'] = 'required|string|min:8';
-                $validation_rule['confirm_password'] ='required|string|min:8|same:password';
-            }
-            $validator= Validator::make($request->all(), $validation_rules);
-            $validator->validate();
-            $user->name = $request->name;
-            $user->address = $request->address;
-            $user->city = $request->city;
-            $user->country = $request->country;
-            $user->province = $request->province;
-            $user->phone = $request->phone;
-            $user->email = $request->email;
-               
+                $validation_rules['confirm_password'] ='required|string|min:8|same:password';
+            }    
+            Validator::make($request->all(), $validation_rules)->validate(); 
+            $user = User::where('id',$user_id)->update(['name'=>$request->name,'email'=>$request->email,'city'=>$request->city,'address'=>$request->address,'country'=>$request->country,'province'=>$request->province,'phone'=>$request->phone]);
             if($request->has('old_password'))
             {
                 $old_pass = $request->old_password;
@@ -135,19 +122,15 @@ class UserController extends Controller
                 $pass = $user->password;
                 if(Hash::check($old_pass,$pass))
                 {
-                    $user->password = Hash::make($request->password);
+                    $password = Hash::make($request->password);
+                    $user->update(['password'=>$password]);
                 }
                 else
                 {
                     return Redirect::back()->with('failure','Incorrect Old Password');
                 }
             }
-            else
-            {
-                return Redirect::back()->withErrors($validator);
-            }
-           
-            
+            return Redirect::back()->with('success','User edited successfully');            
           
     }
 

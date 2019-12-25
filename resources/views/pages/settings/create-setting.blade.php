@@ -366,7 +366,11 @@ span.round-tab:hover {
                           </label>
                           <div id="online_pay" style="display: none">
                             <h5 class="box-title">Stripe Key: </h5>
-                            <input type="text" class="form-control" name="stripe" id="stripe"  style="line-height: 18px; border: 1px solid #dddddd; padding: 10px;"/>
+                            <input type="text" class="form-control" name="stripe" id="stripe" value="{{ env('STRIPE_KEY') }}" style="line-height: 18px; border: 1px solid #dddddd; padding: 10px;"/>
+                          </div>
+                          <div id="online_sec" style="display: none">
+                            <h5 class="box-title">Stripe Secret: </h5>
+                            <input type="text" class="form-control" name="stripe_secret" id="stripe" value="{{ env('STRIPE_SECRET') }}"  style="line-height: 18px; border: 1px solid #dddddd; padding: 10px;"/>
                           </div>
                         </div>
                         
@@ -510,6 +514,7 @@ span.round-tab:hover {
 
     $('#online').on('ifToggled', function(){
       $('#online_pay').toggle();
+      $('#online_sec').toggle();
     });
 
     

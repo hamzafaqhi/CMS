@@ -208,7 +208,7 @@
 							<div class="product__content content--center">
 								<h4><a href="{{ URL('/single/product/'.$l->id )}}">{{$l->name}}</a></h4>
 								<ul class="prize d-flex">
-									<li>{{$l->price}}</li>
+									<li>{{$setting->currency}}{{$l->price}}</li>
 									<!-- <li class="old_prize">$35.00</li> -->
 								</ul>
 								
@@ -321,7 +321,7 @@
 										<div class="product__content content--center content--center">
 											<h4 id="name"><a href="{{ URL('/single/product/'.$p->id )}}">{{$p->name}}</a></h4>
 											<ul class="prize d-flex">
-												<li>${{$p->price}}</li>
+												<li>{{$setting->currency}}{{$p->price}}</li>
 												<!-- <li class="old_prize">$35.00</li> -->
 											</ul>
 											<div class="action">
@@ -421,7 +421,7 @@
 		                            </div> -->
 		                            <div class="price-box-3">
 		                                <div class="s-price-box">
-		                                    <span class="new-price">$17.20</span>
+		                                    <span class="new-price">{{$setting->currency}}17.20</span>
 		                                </div>
 		                            </div>
 		                            <div class="quick-desc">

@@ -68,8 +68,8 @@
         					<h3>Buy Book</h3>
         					<h2>Different Knowledge</h2>
         					<p class="mt--20 mb--20">Claritas est etiam processus dynamicus, qui sequitur mutationem consuetudium lectorum. Mirum est notare quam littera gothica, quam nunc putamus parum claram, anteposuerit litterarum formas humanitatis per seacula quarta decima et quinta decima. Eodem modo typi, qui nunc nobis videntur parum clari, fiant sollemnes in futurum.</p>
-        					<strong>London Address</strong>
-        					<p>34 Parer Place via Musk Avenue Kelvin Grove, QLD, 4059</p>
+        					<strong>Address</strong>
+        					<p>{{$setting->address}}</p>
         				</div>
         			</div>
         		</div>

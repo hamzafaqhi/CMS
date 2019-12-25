@@ -9,8 +9,8 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
 	<!-- Favicons -->
-	<link rel="shortcut icon" href="{{ asset('boighor/images/favicon.ico')}}">
-	<link rel="apple-touch-icon" href="{{ asset('boighor/images/icon.png')}}">
+	<link rel="shortcut icon" href="/storage/icon/{{$setting->icon}}">
+	<link rel="apple-touch-icon" href="/storage/icon/{{$setting->icon}}">
 
 	<!-- Google font (font-family: 'Roboto', sans-serif; Popp    ins ; Satisfy) -->
 	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet"> 
@@ -48,7 +48,7 @@
 							<div class="footer__widget footer__menu">
 								<div class="ft__logo">
 									<a href="{{route('homepage')}}">
-										<img src="{{asset('/boighor/images/logo/3.png')}}" alt="logo">
+										<img src="/storage/logo/{{$setting->logo}}" alt="logo">
 									</a>
 									<p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered duskam alteration variations of passages</p>
 								</div>

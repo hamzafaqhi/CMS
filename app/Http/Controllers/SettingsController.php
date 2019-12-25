@@ -96,6 +96,14 @@ class SettingsController extends Controller
             'city' => 'required',
             'currency' => 'required',
         ];
+        if(request()->has('mailhost'))
+        {
+            $validation_rules['mailhost'] = 'required';
+            $validation_rules['mailport'] = 'required';
+            $validation_rules['username'] = 'required';
+            $validation_rules['password'] = 'required';
+            $validation_rules['mailengine'] = 'required';
+        }
         if(!request()->logo_path){
             $validation_rules['logo'] = 'mimes:jpeg,jpg,png,gif|required|max:10000';
         }
@@ -108,7 +116,8 @@ class SettingsController extends Controller
         if(request()->has('online')){
             $validation_rules['stripe'] = 'required';
         }
-        Validator::make(request()->all(), $validation_rules)->validate(); 
+        Validator::make(request()->all(), $validation_rules)->validate();
+     
         $settings = Setting::updateSetting(request());
         return back()->with('success','Settings updated successfully');
     }

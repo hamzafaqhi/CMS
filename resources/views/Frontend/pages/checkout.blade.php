@@ -231,31 +231,31 @@
 							@endif
         					<ul class="shipping__method">
 								@if(Session::has('total_amount'))
-								<li>Cart Subtotal <span>${{ Session::get('total_amount')}}</span></li>
+								<li>Cart Subtotal <span>{{$setting->currency}}{{ Session::get('total_amount')}}</span></li>
 								@else
-								<li>Cart Subtotal <span>${{ Session::get('total_price')}}</span></li>
+								<li>Cart Subtotal <span>{{$setting->currency}}{{ Session::get('total_price')}}</span></li>
 								@endif
+								@if($setting->cod == 1)
         						<li>Shipping 
         							<ul>
         								<li>
-        									<label>Flat Rate: $48.00</label>
+        									<label>{{$setting->currency}}{{$setting->deliveryfee}}</label>
         								</li>
-        								<li>
-        									<label>Flat Rate: $48.00</label>
-        								</li>
+        								
         							</ul>
         						</li>
+								@endif
         					</ul>
         					<ul class="total__amount">
 								@if(Session::has('total_amount'))
-								<li>Order Total <span>${{ Session::get('total_amount')}}</span></li>
+								<li>Order Total <span>{{$setting->currency}}{{ Session::get('total_amount')}}</span></li>
 								@else
-								<li>Order Total <span>${{ Session::get('total_price')}}</span></li>
+								<li>Order Total <span>{{$setting->currency}}{{ Session::get('total_price')}}</span></li>
 								@endif
         					</ul>
         				</div>
 					    <div id="accordion" class="checkout_accordion mt--30" role="tablist">
-
+						@if($setting->cod == 1)
 						    <div class="payment">
 						        <div class="che__header" role="tab" id="headingThree">
 						          	<a class="collapsed checkout__title" data-toggle="collapse" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
@@ -267,10 +267,12 @@
 									  <input type="radio" onclick="test(this)" id="radioBtn" name="payment_type" value="cod" >&nbsp; Pay with cash upon delivery.</div>
 						        </div>
 						    </div>
+						@endif
+						@if($setting->online_payment == 1)
 						    <div class="payment">
 						        <div class="che__header" role="tab" id="headingFour">
 						          	<a class="collapsed checkout__title" data-toggle="collapse" href="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-							            <span>PayPal <img src="images/icons/payment.png" alt="payment images"> </span>
+							            <span>Online Payment <img src="images/icons/payment.png" alt="payment images"> </span>
 						          	</a>
 						        </div>
 						        <div id="collapseFour" class="collapse" role="tabpanel" aria-labelledby="headingFour" data-parent="#accordion">
@@ -278,6 +280,7 @@
 									  
 						        </div>
 							</div>
+						@endif
 					    </div>
 					</div>
 				</div>

@@ -4,7 +4,7 @@
 					<div class="col-md-6 col-sm-6 col-6 col-lg-2">
 						<div class="logo">
 							<a href="{{route('homepage')}}">
-								<img src="{{ asset('boighor/images/logo/logo.png')}}" alt="logo images">
+								<img src="/storage/logo/{{$setting->logo}}" alt="logo images">
 							</a>
 						</div>
 					</div>
@@ -111,7 +111,7 @@
 											</strong>
 											<div class="switcher-options">
 												<div class="switcher-currency-trigger">
-													<span class="currency-trigger">{{ config('app.name') }}</span>
+													<span class="currency-trigger">{{ $setting->store_name }}</span>
 												</div>
 												<div class="switcher-currency-trigger">
 													<span class="currency-trigger"><a href="{{route('dashboard')}}">Dashboard</a></span>

@@ -141,7 +141,7 @@ h1 { font-size: 1.5em; margin: 10px; }
 										</div>
 										@endif
         								<div class="price-box">
-        									<span>{{$products->price}}</span>
+        									<span>{{$setting->currency}}  {{$products->price}}</span>
         								</div>
 										<div class="product__overview">
 											
@@ -277,7 +277,7 @@ h1 { font-size: 1.5em; margin: 10px; }
 										<div class="product__content content--center">
 											<h4><a href="{{ URL('/single/product/'.$r->id )}}">{{$r->name}}</a></h4>
 											<ul class="prize d-flex">
-												<li>{{$r->price}}</li>
+												<li>{{$setting->currency}}{{$r->price}}</li>
 												<!-- <li class="old_prize">{{$r->price}}</li> -->
 											</ul>
 											<div class="action">
@@ -326,7 +326,7 @@ h1 { font-size: 1.5em; margin: 10px; }
 										<div class="product__content content--center">
 											<h4><a href="{{ URL('/single/product/'.$r->id )}}">{{$u->name}}</a></h4>
 											<ul class="prize d-flex">
-												<li>${{$u->price}}</li>
+												<li>{{$setting->currency}}{{$u->price}}</li>
 												
 											</ul>
 											<div class="action">

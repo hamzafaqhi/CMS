@@ -5,6 +5,11 @@
 
 @stop
 @section('content')
+@if ($message = Session::get('success'))
+            <div class="alert alert-success alert-dismissible"><i class="fa fa-check-circle"> </i>{{$message}}.
+                <button type="button" class="close" data-dismiss="alert">×</button>	
+            </div>
+@endif
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
       <!-- Content Header (Page header) -->

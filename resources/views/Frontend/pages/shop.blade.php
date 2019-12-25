@@ -210,7 +210,7 @@
 										<div class="product__content content--center">
 											<h4><a href="single-product.html">{{$p->name}}</a></h4>
 											<ul class="prize d-flex">
-												<li>$ {{$p->price}}</li>
+												<li>{{$setting->currency}} {{$p->price}}</li>
 												<li class="old_prize">$ {{$p->price}}</li>
 											</ul>
 											<div class="action">
