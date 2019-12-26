@@ -366,12 +366,11 @@
 		<!-- Start BEst Seller Area -->
 		<!-- Start Recent Post Area -->
 		<section class="best-seel-area pt--80 pb--60">
-<<<<<<< HEAD
+
 		</section>
-			<div class="container">
-=======
+
 			<div class="container" >
->>>>>>> cf489f2f1eab820149410203f5ff38370176286e
+
 				<div class="row">
 					<div class="col-lg-12">
 						<div class="section__title text-center pb--50">
