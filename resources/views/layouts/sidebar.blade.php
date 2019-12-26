@@ -1,3 +1,4 @@
+
 <aside class="main-sidebar">
     <!-- sidebar: style can be found in sidebar.less -->
     <section class="sidebar">
@@ -78,8 +79,24 @@
                   </ul>
             </li>
             <li><a href=""><i class="fa fa-circle-o"></i> Theme</a></li>
+            <li><a href=""><i class="fa fa-circle-o"></i> Design</a></li>
+         
+
           </ul>
         </li>
+
+  <li class="treeview">
+          <a href="{{route('theme.index')}}">
+        <span class="fa fa-files-o" >  Themes</span>
+            <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+            </span>
+<ul class="treeview-menu">
+            <li class="active"><a href="{{route('theme.index')}}"><i class="fa fa-circle-o"></i>All themes</a></li>
+      
+         
+        </ul>
+              </li>
         <li class="treeview">
           <a href="#">
             <i class="fa fa-shopping-cart fw"></i>

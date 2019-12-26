@@ -23,10 +23,55 @@
 	<link rel="stylesheet" href="{{ asset('boighor/style.css') }}">
 	
 	
+	<!-- themes Stylesheets -->
 
-	<!-- Cusom css -->
+
+<?php // $contents = File::get(storage_path('app/file.txt'));
+       
+$stylesheet = File::get(storage_path('app/file.txt'));
+
+
+switch($stylesheet) {
+    case '1':
+        $style = './boighor/1.css';
+        break;
+    case '2':
+        $style = './boighor/2.css';
+        break;
+         case '3':
+        $style = './boighor/3.css';
+        break;
+         case '4':
+        $style = './boighor/4.css';
+        break;
+         case '5':
+        $style = './boighor/5.css';
+        break;
+         case '6':
+        $style = './boighor/6.css';
+        break; 
+         case '7':
+        $style = './boighor/7.css';
+        break; 
+    default:
+          $style = './boighor/1.css';
+        break;
+}
+echo '<link rel="stylesheet" type="text/css" href="'.$style.'">';  
+
+ ?>
+	
+	
+	<!-- <link rel="stylesheet" href="{{ asset('boighor/3.css') }}"> -->
+	 <!-- <link rel="stylesheet" href="{{ asset('boighor/4.css') }}">    -->
+	<!-- <link rel="stylesheet" href="{{ asset('boighor/5.css') }}">  -->
+	<!-- <link rel="stylesheet" href="{{ asset('boighor/6.css') }}">  -->
+	<!-- <link rel="stylesheet" href="{{ asset('boighor/7.css') }}"> -->
+
+
+	<!-- Cusom css 
    <link rel="stylesheet" href="{{ asset('boighor/css/custom.css') }}">
-	<!------ Include the above in your HEAD tag ---------->
+	---- Include the above in your HEAD tag ---------->
 
     <script src="{{ asset('boighor/js/vendor/modernizr-3.5.0.min.js') }}"></script>
     @yield('stylesheets')
@@ -37,20 +82,28 @@
 	<div class="wrapper" id="wrapper">
 		<!-- Header -->
 	@include('Frontend.layouts.navbar')
-		
         @yield('content')
 		
-		<footer id="wn__footer" class="footer__area bg__cat--8 brown--color">
-			<div class="footer-static-top">
+
+		<!-- Best Sale Area Area -->
+		<!-- Footer Area -->
+		<footer id="wn__footer" class="footer__area bg__cat--8 brown--color ">
+			<div class="footer-static-top  ">
+
 				<div class="container">
 					<div class="row">
 						<div class="col-lg-12">
 							<div class="footer__widget footer__menu">
 								<div class="ft__logo">
 									<a href="{{route('homepage')}}">
+
 										<img src="/storage/logo/{{$setting->logo}}" alt="logo">
+
+									
+							
+
 									</a>
-									<p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered duskam alteration variations of passages</p>
+									<p class="foot_for_home">There are many variations of passages of Lorem Ipsum available, but the majority have suffered duskam alteration variations of passages</p>
 								</div>
 								<div class="footer__content">
 									

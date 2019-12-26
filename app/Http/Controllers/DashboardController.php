@@ -7,6 +7,11 @@ use App\Product;
 use Illuminate\Http\Request;
 use Artisan;
 use App\User;
+use DB;
+use File;
+use App\Http\Requests;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
 
 class DashboardController extends Controller
 {
@@ -16,6 +21,7 @@ class DashboardController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
     public function index()
     {
         $user = User::where('role_id',2)->count();
@@ -23,6 +29,12 @@ class DashboardController extends Controller
         $returns = Order::where('status','returned')->count();
         $products = Product::count();
         return view('pages.dashboard',compact('user','order','returns','products'));
+    }
+
+
+  public function invoice()
+    {
+        return view('pages.invoice');
     }
 
     /**
