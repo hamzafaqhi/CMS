@@ -83,6 +83,7 @@ class SettingsController extends Controller
      */
     public function update()
     {   
+        
         $validation_rules = [
             'store_name' => 'required',
             'store_owner' => 'required',
@@ -96,7 +97,7 @@ class SettingsController extends Controller
             'city' => 'required',
             'currency' => 'required',
         ];
-        if(request()->has('mailhost'))
+        if(!request()->has('mailsetting'))
         {
             $validation_rules['mailhost'] = 'required';
             $validation_rules['mailport'] = 'required';

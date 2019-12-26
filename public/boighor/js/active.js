@@ -361,18 +361,19 @@
 /*=============  Slider Activation  ==============*/
     $('.slide__activation').owlCarousel({
         loop:true,
-        margin: 0,
+        margin: 20,
         nav:true,
-        autoplay: false,
-        autoplayTimeout: 10000,
-        items:1,
+        autoplay: true,
+        autoplayTimeout:  7000,
+        items:3,
         navText: ['<i class="zmdi zmdi-chevron-left"></i>', '<i class="zmdi zmdi-chevron-right"></i>' ],
         dots: false,
         lazyLoad: true,
         responsive:{
         0:{
           items:1
-        },
+        }, 
+       
         1920:{
           items:1
         }
@@ -497,15 +498,15 @@
 	$('.center').slick({
 	  centerMode: true,
 	  centerPadding: '0px',
-	  slidesToShow: 7,
+	  slidesToShow: 4,
 	  responsive: [
 		 {
 		  breakpoint: 1366,
 		  settings: {
-			slidesToShow: 3,
-			slidesToScroll: 3,
+			slidesToShow: 5,
+			slidesToScroll: 5,
 			infinite: true,
-			dots: false
+			dots: true
 		  }
 		},
 		{
@@ -537,7 +538,7 @@
 		{
 		  breakpoint: 480,
 		  settings: {
-			arrows: false,
+			arrows: true,
 			centerMode: true,
 			slidesToShow: 1
 		  }

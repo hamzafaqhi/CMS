@@ -10,10 +10,10 @@
 |
 */
 
+// Route::get('/dashboard','StudViewControlle@index');
 
 
-
- 
+//  Route::get('view-records','StudViewControlle@index');
 
 Auth::routes();
 Route::group(['middleware' => 'adminlogin'], function () {
@@ -35,6 +35,25 @@ Route::get('/cancel','OrderController@cancel')->name('cancel');
 Route::get('/order/{id}/invoice','OrderController@invoice')->name('order.invoice');
 Route::get('/redirect/view/{status}','OrderController@redirectView')->name('view-redirect');
 
+Route::get('/dashboard/{id}',function($id){
+echo "                                                                                                           YOU HAVE SELECTED THEME  ".$id.". PLEASE REFRESH YOUR WEBSITE TO SEE THE CHANGES!!";
+if($id=='1'){        Storage::disk('local')->put('file.txt', '1');}
+elseif($id=='2') {        Storage::disk('local')->put('file.txt', '2');}
+
+elseif($id=='3') {        Storage::disk('local')->put('file.txt', '3');}
+elseif($id=='4') {        Storage::disk('local')->put('file.txt', '4');}
+elseif($id=='5') {        Storage::disk('local')->put('file.txt', '5');}
+elseif($id=='6') {        Storage::disk('local')->put('file.txt', '6');}
+elseif($id=='7') {        Storage::disk('local')->put('file.txt', '7');}
+
+})->name('theem');
+
+Route::get('/dashboard','DashboardController@index')->name('dashboard');
+//controller path
+Route::get('/theme','themeController@index')->name('theme.index');
+
+
+Route::get('/invoice','DashboardController@invoice')->name('invoice');
 //Category
 Route::get('/category','CategoryController@index')->name('category.index');
 Route::post('/category/add','CategoryController@store');

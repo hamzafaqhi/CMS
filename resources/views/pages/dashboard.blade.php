@@ -240,6 +240,10 @@
                 </button>
                 <button type="button" class="btn btn-success btn-sm" data-widget="remove"><i class="fa fa-times"></i>
                 </button>
+
+
+
+
               </div>
               <!-- /. tools -->
             </div>
@@ -248,6 +252,9 @@
               <!--The calendar -->
               <div id="calendar" style="width: 100%"></div>
             </div>
+
+     
+
             <!-- /.box-body -->
             <div class="box-footer text-black">
               <div class="row">
@@ -297,7 +304,8 @@
         </section>
         <!-- right col -->
       </div>
-      <!-- /.row (main row) -->
+  
+    
 
     </section>
     <!-- /.content -->

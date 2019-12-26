@@ -36,6 +36,9 @@ class PagesController extends Controller
         $cat = Category::getCategory();
         $man = Manufacture::getManufacturers(); 
         return view('Frontend.pages.homepage',compact('latest','products','cat','man','banner'));
+        // $latest = Product::getLatestProduct();
+        // $products = Product::getProduct();
+
     }
 
     public function showProduct($id)

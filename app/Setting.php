@@ -9,6 +9,7 @@ class Setting extends Model
 {
     public static function updateSetting($request)
     {
+        $path = base_path('.env');
         file_put_contents($path, str_replace(
             // 'APP_KEY='.$this->laravel['config']['app.key'], 'APP_KEY='.$key, file_get_contents($path)
             'FRONT_MAIL_DRIVER=', 'FRONT_MAIL_DRIVER=',file_get_contents($path)
@@ -40,6 +41,7 @@ class Setting extends Model
         $setting->currency=$request->currency;
         if(!empty($request->logo) )
         {
+            
             $image = $request->logo;
             $image_name = $request->logo->getClientOriginalName();  
             $file_name = pathinfo($image_name, PATHINFO_FILENAME);
@@ -98,6 +100,7 @@ class Setting extends Model
 
             if($request->has('mailengine'))
             {
+                $path = base_path('.env');
                 file_put_contents($path, str_replace(
                     // 'APP_KEY='.$this->laravel['config']['app.key'], 'APP_KEY='.$key, file_get_contents($path)
                     'FRONT_MAIL_DRIVER=', 'FRONT_MAIL_DRIVER='.$request->mailengine.'',file_get_contents($path)
