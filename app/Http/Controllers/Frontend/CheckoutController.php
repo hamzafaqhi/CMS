@@ -188,6 +188,17 @@ class CheckoutController extends Controller
         //
     }
 
+    public function chargepayment(Request $request)
+    {
+        \Stripe\Stripe::setApiKey('sk_test_OgrqKvwRnYA8U2MYB4KyJFdD00l75IU5FW');
+        $token = $_POST['stripeToken'];
+        $charge = \Stripe\Charge::create([
+            'amount' => 999,
+            'currency' => 'usd',
+            'description' => 'Example charge',
+            'source' => $token,
+        ]);
+    }
     /**
      * Remove the specified resource from storage.
      *

@@ -170,6 +170,7 @@ Route::group(['middleware' => 'user'], function () {
     Route::post('/create-order','Frontend\CheckoutController@store')->name('create-order'); 
     Route::get('/order/{id}/cancel','Frontend\CheckoutController@cancelOrder')->name('cancel-order');
     Route::get('/order/{id}/return','Frontend\CheckoutController@returnOrder')->name('return-order');
+    Route::post('/charge-payment','Frontend\CheckoutController@chargepayment')->name('charge-payment');
 
 });
 
