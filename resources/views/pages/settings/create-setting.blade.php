@@ -384,7 +384,8 @@ span.round-tab:hover {
                         <h3 class="box-title">Mail Engine: </h3>
                       </div>
                         <div class="box-body pad">
-                          <input type="text" class="form-control" name="mailengine" id="mailengine"  style="line-height: 18px; border: 1px solid #dddddd; padding: 10px;"/>
+                          <input type="hidden" id="mailsetting" name="mailsetting">
+                          <input type="text" class="form-control mail" name="mailengine" id="mailengine"  style="line-height: 18px; border: 1px solid #dddddd; padding: 10px;"/>
                           @if ($errors->has('mailengine'))
                           <span class="help-block">
                           <strong style="color:red">{{ $errors->first('mailengine') }}</strong>
@@ -395,7 +396,7 @@ span.round-tab:hover {
                         <h3 class="box-title">Mail Host: </h3>
                       </div>
                         <div class="box-body pad">
-                          <input type="text" class="form-control" name="mailhost" id="mailhost"  style="line-height: 18px; border: 1px solid #dddddd; padding: 10px;"/>
+                          <input type="text" class="form-control mail" name="mailhost" id="mailhost"  style="line-height: 18px; border: 1px solid #dddddd; padding: 10px;"/>
                           @if ($errors->has('mailhost'))
                           <span class="help-block">
                           <strong style="color:red">{{ $errors->first('mailhost') }}</strong>
@@ -406,7 +407,7 @@ span.round-tab:hover {
                         <h3 class="box-title">Mail Port: </h3>
                       </div>
                         <div class="box-body pad">
-                          <input type="text" class="form-control" name="mailport" id="mailport"  style="line-height: 18px; border: 1px solid #dddddd; padding: 10px;"/>
+                          <input type="text" class="form-control mail" name="mailport" id="mailport"  style="line-height: 18px; border: 1px solid #dddddd; padding: 10px;"/>
                           @if ($errors->has('mailport'))
                           <span class="help-block">
                           <strong style="color:red">{{ $errors->first('mailport') }}</strong>
@@ -417,7 +418,7 @@ span.round-tab:hover {
                         <h3 class="box-title">Username: </h3>
                       </div>
                         <div class="box-body pad">
-                          <input type="text" class="form-control" name="username" id="username"  style="line-height: 18px; border: 1px solid #dddddd; padding: 10px;"/>
+                          <input type="text" class="form-control mail" name="username" id="username"  style="line-height: 18px; border: 1px solid #dddddd; padding: 10px;"/>
                           @if ($errors->has('username'))
                           <span class="help-block">
                           <strong style="color:red">{{ $errors->first('username') }}</strong>
@@ -428,7 +429,7 @@ span.round-tab:hover {
                         <h3 class="box-title">Password: </h3>
                       </div>
                         <div class="box-body pad">
-                          <input type="password" class="form-control" name="password" id="password"  style="line-height: 18px; border: 1px solid #dddddd; padding: 10px;"/>
+                          <input type="password" class="form-control mail" name="password" id="password"  style="line-height: 18px; border: 1px solid #dddddd; padding: 10px;"/>
                           @if ($errors->has('password'))
                           <span class="help-block">
                           <strong style="color:red">{{ $errors->first('password') }}</strong>
@@ -492,6 +493,11 @@ span.round-tab:hover {
 <script src="{{ asset('AdminLTE/plugins/iCheck/icheck.min.js') }}"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js"></script>
 <script>
+
+  $('.mail').change(function()
+  {
+    $('#mailsetting').remove();
+  })
   $('.reservation').timepicker({ 
     timeFormat: 'h:mm p',
     interval: 60,

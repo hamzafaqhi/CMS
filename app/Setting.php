@@ -9,6 +9,9 @@ class Setting extends Model
 {
     public static function updateSetting($request)
     {
+        
+        $path = base_path('.env');
+
         file_put_contents($path, str_replace(
             // 'APP_KEY='.$this->laravel['config']['app.key'], 'APP_KEY='.$key, file_get_contents($path)
             'FRONT_MAIL_DRIVER=', 'FRONT_MAIL_DRIVER=',file_get_contents($path)
@@ -24,6 +27,14 @@ class Setting extends Model
         ));
         file_put_contents($path, str_replace(
             'FRONT_MAIL_PASSWORD=', 'FRONT_MAIL_PASSWORD=',file_get_contents($path)
+        ));
+
+        file_put_contents($path, str_replace(
+            // 'APP_KEY='.$this->laravel['config']['app.key'], 'APP_KEY='.$key, file_get_contents($path)
+            'STRIPE_KEY=', 'STRIPE_KEY=',file_get_contents($path)
+        ));
+        file_put_contents($path, str_replace(
+            'STRIPE_SECRET=', 'STRIPE_SECRET=',file_get_contents($path)
         ));
 
         $setting = Setting::where('id',$request->id)->first();
@@ -48,7 +59,7 @@ class Setting extends Model
             // $request->file('image')->storeAs('public/images', $imageNameToStore);
             $image_path =  storage_path('app/public/logo/'.$imageNameToStore);
             $img = Image::make($image)
-            ->resize(304,384)
+            ->resize(147,66)
             ->save($image_path);
             $setting->logo=$imageNameToStore;
         }
@@ -62,7 +73,7 @@ class Setting extends Model
             // $request->file('image')->storeAs('public/images', $imageNameToStore);
             $image_path =  storage_path('app/public/icon/'.$imageNameToStore);
             $img = Image::make($image)
-            ->resize(304,384)
+            ->resize(16,16)
             ->save($image_path);
             $setting->icon=$imageNameToStore;
         }
@@ -73,19 +84,14 @@ class Setting extends Model
         }
         if($request->has('online'))
         {
-            $path = base_path('.env');
+            
             $setting->online_payment = '1';
-            file_put_contents($path, str_replace(
-                // 'APP_KEY='.$this->laravel['config']['app.key'], 'APP_KEY='.$key, file_get_contents($path)
-                'STRIPE_KEY=', 'STRIPE_KEY=',file_get_contents($path)
-            ));
-            file_put_contents($path, str_replace(
-                'STRIPE_SECRET=', 'STRIPE_SECRET=',file_get_contents($path)
-            ));
+           
 
 
             if($request->has('stripe'))
             {
+                $path = base_path('.env');
                 file_put_contents($path, str_replace(
                     // 'APP_KEY='.$this->laravel['config']['app.key'], 'APP_KEY='.$key, file_get_contents($path)
                     'STRIPE_KEY=', 'STRIPE_KEY='.$request->stripe.'',file_get_contents($path)
@@ -98,6 +104,7 @@ class Setting extends Model
 
             if($request->has('mailengine'))
             {
+                $path = base_path('.env');
                 file_put_contents($path, str_replace(
                     // 'APP_KEY='.$this->laravel['config']['app.key'], 'APP_KEY='.$key, file_get_contents($path)
                     'FRONT_MAIL_DRIVER=', 'FRONT_MAIL_DRIVER='.$request->mailengine.'',file_get_contents($path)
