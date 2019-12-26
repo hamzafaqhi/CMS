@@ -3,14 +3,10 @@
 				<div class="row">
 					<div class="col-md-6 col-sm-6 col-6 col-lg-2">
 						<div class="logo">
-<<<<<<< HEAD
 							<a href="{{route('homepage')}}">
 								<img src="/storage/logo/{{$setting->logo}}" alt="logo images">
 							</a>
-=======
-							<a href="index.html"  >
-								<img src="{{ asset('boighor/images/logo/logo.png')}}" alt="logo images">
->>>>>>> cf489f2f1eab820149410203f5ff38370176286e
+						
 						</div>
 					</div>
 					<div class="col-lg-8 d-none d-lg-block" >
